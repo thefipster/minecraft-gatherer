@@ -11,18 +11,14 @@ namespace TheFipster.Minecraft.Gatherer.Services
         private const string LogStart = @"Environment: authHost='https://authserver.mojang.com', accountsHost='https://api.mojang.com', sessionHost='https://sessionserver.mojang.com', name='PROD'";
 
         private readonly LogArchiveHandler archiveHandler;
-        private readonly LineInterpreter lineInterpreter;
 
-        public LogInterpreter(LogArchiveHandler archiveHandler, LineInterpreter lineInterpreter)
+        public LogInterpreter(LogArchiveHandler archiveHandler)
         {
             this.archiveHandler = archiveHandler;
-            this.lineInterpreter = lineInterpreter;
         }
 
-        public IEnumerable<LogSession> Split(string logArchivePath)
+        public IEnumerable<LogArchive> Split(string logArchivePath)
         {
-            var file = new FileInfo(logArchivePath);
-            var date = readDateFromFile(file.Name);
             var log = archiveHandler.Read(logArchivePath);
             var splits = findSplits(log);
 
@@ -32,38 +28,34 @@ namespace TheFipster.Minecraft.Gatherer.Services
             var skipped = 0;
             foreach (var split in splits)
             {
-                var lines = log.Skip(skipped).Take(split - skipped);
+                var take = split - skipped;
+                if (take == 0) 
+                    take = 1;
+
+                var lines = log.Lines.Skip(skipped).Take(take);
                 skipped = split;
 
-                lineInterpreter.Read(lines.First(), date);
-
-                yield return new LogSession
+                yield return new LogArchive
                 {
-                    OriginalArchive = logArchivePath
+                    Date = log.Date,
+                    Lines = lines,
+                    Name = log.Name,
+                    Path = logArchivePath
                 };
             }
         }
 
-        private DateTime readDateFromFile(string logArchivePath)
+        private IEnumerable<int> findSplits(LogArchive log)
         {
-            var year = int.Parse(logArchivePath.Substring(0, 4));
-            var month = int.Parse(logArchivePath.Substring(5, 2));
-            var day = int.Parse(logArchivePath.Substring(8, 2));
+            var lineCounter = -1;
 
-            return new DateTime(year, month, day);
-        }
-
-        private IEnumerable<int> findSplits(IEnumerable<string> lines)
-        {
-            int lineCounter = -1;
-            int lastSplit = 0;
-            foreach (var line in lines)
+            foreach (var line in log.Lines)
             {
                 lineCounter++;
 
                 if (line.Contains(LogStart))
                 {
-                    if (lineCounter == lastSplit)
+                    if (lineCounter == 0)
                         continue;
 
                     yield return lineCounter;

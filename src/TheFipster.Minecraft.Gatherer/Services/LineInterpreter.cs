@@ -9,27 +9,65 @@ namespace TheFipster.Minecraft.Gatherer.Services
 {
     public class LineInterpreter
     {
-        public LogLine Read(string line, DateTime date)
+        private DateTime logDate;
+
+        public LogSession Read(LogArchive log)
         {
-            guardRead(new[] { line });
+            logDate = log.Date;
+            var logLines = new List<LogLine>();
+            var templines = new List<string>();
+
+            foreach (var line in log.Lines)
+            {
+                if (IsNewLine(line))
+                {
+                    if (templines.Any())
+                    { 
+                        var parsedLine = readLine(templines);
+                        logLines.Add(parsedLine);
+                        templines.Clear();
+                    }
+
+                    templines.Add(line);
+                }
+            }
+
+            var lastLine = readLine(templines);
+            logLines.Add(lastLine);
+
+            return new LogSession
+            {
+                Lines = logLines,
+                OriginalArchive = log.Path,
+                Start = logLines.Min(x => x.Timestamp),
+                End = logLines.Max(x => x.Timestamp)
+            };
+        }
+
+        private LogLine readLine(IEnumerable<string> lines)
+        {
+            guardRead(lines);
+
+            var lineHead = lines.First();
+            var tail = lines.Count() > 1 ? string.Join(Environment.NewLine, lines.Skip(1)) : string.Empty;
 
             var regEx = new Regex(@"\[(.*?)\]");
-            var matches = regEx.Matches(line);
+            var matches = regEx.Matches(lineHead);
 
             var time = matches.Skip(0).First().Value;
             var threadAndLevel = matches.Skip(1).First().Value;
 
             time = sanitizeBraces(time);
             var timespan = TimeSpan.Parse(time);
-            var timestamp = date.Add(timespan);
+            var timestamp = logDate.Add(timespan);
 
             threadAndLevel = sanitizeBraces(threadAndLevel);
             var splitIndex = threadAndLevel.LastIndexOf("/");
             var thread = threadAndLevel.Substring(0, splitIndex);
             var level = threadAndLevel.Substring(splitIndex + 1);
 
-            var messageIndex = line.IndexOf("]: ");
-            var message = line.Substring(messageIndex + 3);
+            var messageIndex = lineHead.IndexOf("]: ");
+            var message = string.Concat(lineHead.Substring(messageIndex + 3), tail);
 
             return new LogLine
             {
