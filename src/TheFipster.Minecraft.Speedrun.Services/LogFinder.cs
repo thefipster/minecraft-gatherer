@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
@@ -13,7 +14,6 @@ namespace TheFipster.Minecraft.Speedrun.Services
         public LogFinder(IConfigService config)
         {
             _config = config;
-
         }
 
         public IEnumerable<string> Find(DateTime date)
@@ -21,14 +21,14 @@ namespace TheFipster.Minecraft.Speedrun.Services
             var archives = getArchives(date);
             var latest = getLatest(date);
 
-            var contents = archives.Select(x => readArchive(x));
+            var content = archives.Select(x => decompress(x)).ToList();
 
-            // extract and read archives
-            // parse log entries to get times
-            // extract correct portion of logs for this world
-            // date is the beginning of the speedrun, check the logs for that time to get the start, the end needs to be found based on the log start and message comparison.
+            if (latest == null || latest.LastAccessTimeUtc.Date != date.Date)
+                return content.SelectMany(x => x);
 
-            return contents.First();
+            var latestContent = File.ReadAllLines(latest.FullName);
+            content.Add(latestContent);
+            return content.SelectMany(x => x);
         }
 
         private List<FileInfo> getArchives(DateTime date)
@@ -65,25 +65,24 @@ namespace TheFipster.Minecraft.Speedrun.Services
             return new DateTime(year, month, day);
         }
 
-        private IEnumerable<string> readArchive(FileInfo archive)
+        private IEnumerable<string> decompress(FileInfo archive)
         {
-            var contentFile = decompress(archive);
-            var content = File.ReadAllLines(contentFile);
-            File.Delete(contentFile);
-
-            return content;
+            using (var archiveStream = archive.OpenRead())
+            using (var memoryStream = new MemoryStream())
+            using (var decompressionStream = new GZipStream(archiveStream, CompressionMode.Decompress))
+            {
+                decompressionStream.CopyTo(memoryStream);
+                var buffer = new byte[memoryStream.Length];
+                memoryStream.Position = 0;
+                memoryStream.Read(buffer, 0, buffer.Length);
+                return getLines(buffer);
+            }
         }
 
-        private string decompress(FileInfo archive)
+        private IEnumerable<string> getLines(byte[] buffer)
         {
-            var contentFile = Path.Combine(_config.TempLocation.FullName, $"{Guid.NewGuid()}.tmp");
-
-            using (var archiveStream = archive.OpenRead())
-            using (var contentStream = File.Create(contentFile))
-            using (var decompressionStream = new GZipStream(archiveStream, CompressionMode.Decompress))
-                decompressionStream.CopyTo(contentStream);
-
-            return contentFile;
+            var logs = Encoding.UTF8.GetString(buffer);
+            return logs.Split('\n');
         }
     }
 }

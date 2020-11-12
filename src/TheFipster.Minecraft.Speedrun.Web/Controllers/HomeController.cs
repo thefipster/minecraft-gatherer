@@ -11,12 +11,14 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IWorldFinder _worldFinder;
         private readonly ILogFinder _logFinder;
+        private readonly ILogParser _logParser;
 
-        public HomeController(ILogger<HomeController> logger, IWorldFinder worldFinder, ILogFinder logFinder)
+        public HomeController(ILogger<HomeController> logger, IWorldFinder worldFinder, ILogFinder logFinder, ILogParser logParser)
         {
             _logger = logger;
             _worldFinder = worldFinder;
             _logFinder = logFinder;
+            _logParser = logParser;
         }
 
         public IActionResult Index()
@@ -29,7 +31,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 
             foreach (var world in worlds)
             {
-                _logFinder.Find(world.CreatedOn);
+                var logs = _logFinder.Find(world.CreatedOn);
+                var parsedLogs = _logParser.Read(logs, world.CreatedOn);
             }
 
             return View(viewmodel);
