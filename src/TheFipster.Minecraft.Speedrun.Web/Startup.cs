@@ -24,6 +24,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
             services.AddTransient<IWorldFinder, WorldFinder>();
             services.AddTransient<ILogFinder, LogFinder>();
             services.AddTransient<ILogParser, LogParser>();
+            services.AddTransient<IPlayerStore, PlayerConfigStore>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

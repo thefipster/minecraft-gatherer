@@ -9,12 +9,14 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IWorldFinder _worldFinder;
         private readonly ILogFinder _logFinder;
         private readonly ILogParser _logParser;
+        private readonly IPlayerStore _playerStore;
 
-        public WorldController(IWorldFinder worldFinder, ILogFinder logFinder, ILogParser logParser)
+        public WorldController(IWorldFinder worldFinder, ILogFinder logFinder, ILogParser logParser, IPlayerStore playerStore)
         {
             _worldFinder = worldFinder;
             _logFinder = logFinder;
             _logParser = logParser;
+            _playerStore = playerStore;
         }
 
         public IActionResult Index()
