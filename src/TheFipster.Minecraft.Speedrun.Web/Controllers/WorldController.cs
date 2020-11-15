@@ -1,21 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 using TheFipster.Minecraft.Speedrun.Services;
 using TheFipster.Minecraft.Speedrun.Web.Models;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
-    public class HomeController : Controller
+    public class WorldController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IWorldFinder _worldFinder;
         private readonly ILogFinder _logFinder;
         private readonly ILogParser _logParser;
 
-        public HomeController(ILogger<HomeController> logger, IWorldFinder worldFinder, ILogFinder logFinder, ILogParser logParser)
+        public WorldController(IWorldFinder worldFinder, ILogFinder logFinder, ILogParser logParser)
         {
-            _logger = logger;
             _worldFinder = worldFinder;
             _logFinder = logFinder;
             _logParser = logParser;
@@ -24,7 +20,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         public IActionResult Index()
         {
             var worlds = _worldFinder.Find();
-            var viewmodel = new WorldIndexViewModel
+            var viewmodel = new WorldIndexViewModel()
             {
                 Worlds = worlds
             };
@@ -38,15 +34,11 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             return View(viewmodel);
         }
 
-        public IActionResult Privacy()
+        [HttpGet("{timestamp:int}")]
+        public IActionResult Detail(int timestamp)
         {
             return View();
-        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

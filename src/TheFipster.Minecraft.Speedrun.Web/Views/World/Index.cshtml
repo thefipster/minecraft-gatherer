@@ -1,0 +1,11 @@
+﻿@model WorldIndexViewModel
+@{
+    ViewData["Title"] = "Worlds";
+}
+
+<h1>Worlds</h1>
+
+@foreach (var world in Model.Worlds)
+{
+    <div><a asp-controller="world" asp-action="detail" asp-route-timestamp="1234">@world.CreatedOn</a></div>
+}
