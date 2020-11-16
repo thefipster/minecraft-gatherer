@@ -9,7 +9,7 @@ using TheFipster.Minecraft.Speedrun.Web.Models;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
-    public class WorldController : Controller
+    public class ImportController : Controller
     {
         private readonly IWorldFinder _worldFinder;
         private readonly IWorldLoader _worldLoader;
@@ -17,9 +17,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly ILogParser _logParser;
         private readonly ILogTrimmer _logTrimmer;
         private readonly IPlayerStore _playerStore;
-        private readonly ILogger<WorldController> _logger;
+        private readonly ILogger<ImportController> _logger;
 
-        public WorldController(IWorldFinder worldFinder, IWorldLoader worldLoader, ILogFinder logFinder, ILogParser logParser, ILogTrimmer logTrimmer, IPlayerStore playerStore, ILogger<WorldController> logger)
+        public ImportController(IWorldFinder worldFinder, IWorldLoader worldLoader, ILogFinder logFinder, ILogParser logParser, ILogTrimmer logTrimmer, IPlayerStore playerStore, ILogger<ImportController> logger)
         {
             _worldFinder = worldFinder;
             _worldLoader = worldLoader;
@@ -32,14 +32,15 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 
         public IActionResult Index()
         {
-            var worlds = new List<WorldInfo>();
+            var runs = new List<RunInfo>();
             var candidates = _worldFinder.Find();
             foreach (var candiate in candidates)
             {
                 try
                 {
-                    var world = _worldLoader.Load(candiate);
-                    worlds.Add(world);
+                    var run = new RunInfo();
+                    run.World = _worldLoader.Load(candiate);
+                    runs.Add(run);
                 }
                 catch (Exception ex)
                 {
@@ -47,18 +48,18 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
                 }
             }
 
-            foreach (var world in worlds)
+            foreach (var run in runs)
             {
-                var logs = _logFinder.Find(world.CreatedOn).ToList();
-                var parsedLogs = _logParser.Read(logs, world.CreatedOn).ToList();
-                var trimmedLog = _logTrimmer.Trim(parsedLogs, world).ToList();
+                var logs = _logFinder.Find(run.World.CreatedOn).ToList();
+                var parsedLogs = _logParser.Read(logs, run.World.CreatedOn).ToList();
+                var trimmedLog = _logTrimmer.Trim(parsedLogs, run.World).ToList();
 
-                world.Logs = trimmedLog;
+                run.Logs = trimmedLog;
             }
 
             var viewmodel = new WorldIndexViewModel
             {
-                Worlds = worlds
+                Runs = runs
             };
 
             return View(viewmodel);

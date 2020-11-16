@@ -7,9 +7,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
     {
         public WorldIndexViewModel()
         {
-            Worlds = new List<WorldInfo>();
+            Runs = new List<RunInfo>();
         }
 
-        public IEnumerable<WorldInfo> Worlds { get; set; }
+        public IEnumerable<RunInfo> Runs { get; set; }
     }
 }

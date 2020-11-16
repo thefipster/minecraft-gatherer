@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Web;
 using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
@@ -16,6 +17,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             {
                 Path = worldFolder.FullName,
                 Name = worldFolder.Name,
+                NameUrlEncoded = HttpUtility.UrlEncode(worldFolder.Name),
                 CreatedOn = timestamp,
                 WrittenOn = worldFolder.LastWriteTime,
                 WrittenUtcOn = worldFolder.LastWriteTimeUtc,

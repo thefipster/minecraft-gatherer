@@ -1,0 +1,28 @@
+﻿@model WorldIndexViewModel
+@{
+    ViewData["Title"] = "Worlds";
+}
+
+<h1>Worlds</h1>
+
+@foreach (var run in Model.Runs)
+{
+    <div class="run-box">
+        <h2>
+            @run.World.CreatedOn.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss")
+        </h2>
+        <div class="collapse-header">
+            <a class="btn btn-light" data-toggle="collapse" href="#@run.World.NameUrlEncoded" role="button" aria-expanded="false" aria-controls="@run.World.NameUrlEncoded">Logs (@run.Logs.Count())</a>
+        </div>
+        <div class="collapse" id="@run.World.NameUrlEncoded">
+            <div class="card card-body log-box">
+                <ul class="log-list">
+                    @foreach (var line in run.Logs)
+                    {
+                        <li>@line.Timestamp.ToString("HH:mm:ss") - @line.Message</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+}

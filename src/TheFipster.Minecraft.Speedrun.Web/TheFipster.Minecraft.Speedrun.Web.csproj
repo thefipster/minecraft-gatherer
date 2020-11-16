@@ -13,6 +13,10 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Services\TheFipster.Minecraft.Speedrun.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\players\" />
+  </ItemGroup>
+
 
 
 </Project>
