@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.IO;
 using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public interface IWorldFinder
+    public interface IWorldLoader
     {
-        IEnumerable<WorldInfo> Find();
+        WorldInfo Load(DirectoryInfo worldFolder);
     }
 }
