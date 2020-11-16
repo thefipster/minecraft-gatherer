@@ -7,5 +7,16 @@
 
 @foreach (var world in Model.Worlds)
 {
-    <div><a asp-controller="world" asp-action="detail" asp-route-timestamp="1234">@world.CreatedOn</a> (@world.Logs.Count() | @(world.Logs.Max(x => x.Timestamp) - world.Logs.Min(x => x.Timestamp)))</div>
+    <div>
+        <h2>
+            @world.CreatedOn.ToString("dd.MM.yyyy hh:mm:ss")
+            <small>
+                <a asp-controller="world" asp-action="detail" asp-route-timestamp="@world.Name">Details</a>
+            </small>
+        </h2>
+        @foreach (var line in world.Logs)
+        {
+            <span>@line.Message</span><br />
+        }
+    </div>
 }
