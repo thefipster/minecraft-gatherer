@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -46,10 +47,16 @@ namespace TheFipster.Minecraft.Speedrun.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            app.UsePathBase("/speedrun");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -69,10 +76,23 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
             _container.Register<IWorldLoader, WorldLoader>(Lifestyle.Transient);
             _container.RegisterDecorator<IWorldLoader, WorldLoadVerifier>(Lifestyle.Transient);
+            _container.RegisterDecorator<IWorldLoader, WorldDimensionLoader>(Lifestyle.Transient);
 
             _container.Register<ILogFinder, LogFinder>(Lifestyle.Transient);
             _container.Register<ILogParser, LogParser>(Lifestyle.Transient);
             _container.Register<ILogTrimmer, LogTrimmer>(Lifestyle.Transient);
+            _container.Register<ILogAnalyzer, LogAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILogAnalyzer, LogLineAnalyzer>(Lifestyle.Transient);
+
+            _container.Register<ILineAnalyzer, LineAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LineAdvancementAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LineSetTimeAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LinePlayerJoinAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LinePlayerLeaveAnalyzer>(Lifestyle.Transient);
+
+            _container.Register<IEventPlayerExtractor, EventPlayerExtractor>(Lifestyle.Transient);
+            _container.Register<IEventSplitExtractor, EventSplitExtractor>(Lifestyle.Transient);
+
         }
     }
 }

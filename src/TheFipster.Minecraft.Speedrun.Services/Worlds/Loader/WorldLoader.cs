@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Web;
 using TheFipster.Minecraft.Speedrun.Domain;
+using TheFipster.Minecraft.Speedrun.Services.Extensions;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
@@ -10,7 +10,6 @@ namespace TheFipster.Minecraft.Speedrun.Services
     {
         public WorldInfo Load(DirectoryInfo worldFolder)
         {
-            var size = getSize(worldFolder);
             var timestamp = getTimestamp(worldFolder);
 
             return new WorldInfo
@@ -21,23 +20,16 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 CreatedOn = timestamp,
                 WrittenOn = worldFolder.LastWriteTime,
                 WrittenUtcOn = worldFolder.LastWriteTimeUtc,
-                SizeInBytes = size
+                SizeInBytes = worldFolder.GetSize()
             };
         }
 
-        private static long getSize(DirectoryInfo worldFolder)
-        {
-            return worldFolder
-                .EnumerateFiles("*", SearchOption.AllDirectories)
-                .Sum(file => file.Length);
-        }
-
-        private static DateTime getTimestamp(DirectoryInfo worldFolder)
+        private DateTime getTimestamp(DirectoryInfo worldFolder)
         {
             var splits = worldFolder.Name.Split('-');
             var unixEpoch = int.Parse(splits[1]);
-            var createdDate = DateTimeOffset.FromUnixTimeSeconds(unixEpoch);
-            return createdDate.DateTime;
+            var timestamp = DateTimeOffset.FromUnixTimeSeconds(unixEpoch);
+            return timestamp.DateTime;
         }
     }
 }

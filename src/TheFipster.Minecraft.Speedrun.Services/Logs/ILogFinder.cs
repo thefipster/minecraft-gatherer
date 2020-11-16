@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public class WorldDimensionLoader
+    public interface ILogFinder
     {
+        IEnumerable<string> Find(DateTime date);
     }
 }

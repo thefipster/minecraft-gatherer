@@ -16,17 +16,33 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly ILogFinder _logFinder;
         private readonly ILogParser _logParser;
         private readonly ILogTrimmer _logTrimmer;
+        private readonly ILogAnalyzer _logAnalyzer;
         private readonly IPlayerStore _playerStore;
+        private readonly IEventSplitExtractor _splitExtractor;
+        private readonly IEventPlayerExtractor _playerExtractor;
         private readonly ILogger<ImportController> _logger;
 
-        public ImportController(IWorldFinder worldFinder, IWorldLoader worldLoader, ILogFinder logFinder, ILogParser logParser, ILogTrimmer logTrimmer, IPlayerStore playerStore, ILogger<ImportController> logger)
+        public ImportController(
+            IPlayerStore playerStore,
+            IWorldFinder worldFinder,
+            IWorldLoader worldLoader,
+            ILogFinder logFinder,
+            ILogParser logParser,
+            ILogTrimmer logTrimmer,
+            ILogAnalyzer logAnalyzer,
+            IEventSplitExtractor splitExtractor,
+            IEventPlayerExtractor playerExtractor,
+            ILogger<ImportController> logger)
         {
             _worldFinder = worldFinder;
             _worldLoader = worldLoader;
             _logFinder = logFinder;
             _logParser = logParser;
             _logTrimmer = logTrimmer;
+            _logAnalyzer = logAnalyzer;
             _playerStore = playerStore;
+            _splitExtractor = splitExtractor;
+            _playerExtractor = playerExtractor;
             _logger = logger;
         }
 
@@ -50,11 +66,19 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 
             foreach (var run in runs)
             {
-                var logs = _logFinder.Find(run.World.CreatedOn).ToList();
-                var parsedLogs = _logParser.Read(logs, run.World.CreatedOn).ToList();
+                var allLogs = _logFinder.Find(run.World.CreatedOn).ToList();
+                var parsedLogs = _logParser.Read(allLogs, run.World.CreatedOn).ToList();
                 var trimmedLog = _logTrimmer.Trim(parsedLogs, run.World).ToList();
 
-                run.Logs = trimmedLog;
+                var logs = new ServerLog(trimmedLog);
+                logs = _logAnalyzer.Analyze(logs);
+                run.Logs = logs;
+
+                var players = _playerExtractor.Extract(run.Logs.Events);
+                run.Players = players;
+
+                var splits = _splitExtractor.Extract(run.Logs.Events);
+                run.Splits = splits;
             }
 
             var viewmodel = new WorldIndexViewModel

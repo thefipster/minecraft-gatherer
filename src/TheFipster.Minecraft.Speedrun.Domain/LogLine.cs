@@ -8,5 +8,6 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public string Thread { get; set; }
         public string Level { get; set; }
         public string Message { get; set; }
+        public string Raw { get; set; }
     }
 }
