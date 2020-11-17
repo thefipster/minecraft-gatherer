@@ -5,6 +5,6 @@ namespace TheFipster.Minecraft.Speedrun.Modules
 {
     public interface IImportModule
     {
-        IEnumerable<RunInfo> Import();
+        IEnumerable<RunInfo> Import(bool overwrite = false);
     }
 }
