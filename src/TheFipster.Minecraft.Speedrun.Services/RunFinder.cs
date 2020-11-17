@@ -13,12 +13,24 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _runStore = runStore;
         }
 
-        public IEnumerable<RunInfo> GetAll() => _runStore.Get().ToList();
+        public IEnumerable<RunInfo> GetAll() => _runStore
+            .Get();
 
-        public RunInfo GetByName(string worldName) => _runStore.Get(worldName);
+        public RunInfo GetByName(string worldName) => _runStore
+            .Get(worldName);
 
-        public IEnumerable<RunInfo> GetFinished() => _runStore.Get().Where(x => x.Validity.IsValid && x.Outcome.IsFinished).ToList();
+        public IEnumerable<RunInfo> GetFinished() => _runStore
+            .Get()
+            .Where(x => x.Validity.IsValid && x.Outcome.IsFinished);
 
-        public IEnumerable<RunInfo> GetValid() => _runStore.Get().Where(x => x.Validity.IsValid).ToList();
+        public IEnumerable<RunInfo> GetStarted() => _runStore
+            .Get()
+            .Where(x =>
+                x.Validity.IsValid
+                && x.Logs.Events.Any(y => y.Type == LogEventTypes.SetTime));
+
+        public IEnumerable<RunInfo> GetValid() => _runStore
+            .Get()
+            .Where(x => x.Validity.IsValid);
     }
 }
