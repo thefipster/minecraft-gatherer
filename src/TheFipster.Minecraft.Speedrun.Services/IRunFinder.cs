@@ -10,6 +10,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
         IEnumerable<RunInfo> GetFinished();
 
         IEnumerable<RunInfo> GetValid();
+        IEnumerable<RunInfo> GetStarted();
         RunInfo GetByName(string worldName);
     }
 }

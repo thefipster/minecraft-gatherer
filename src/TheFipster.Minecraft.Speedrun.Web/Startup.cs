@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using TheFipster.Minecraft.Speedrun.Modules;
 using TheFipster.Minecraft.Speedrun.Services;
+using TheFipster.Minecraft.Speedrun.Web.Enhancer;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
@@ -68,6 +69,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
             _container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
 
+            _container.Register<IFirstToAdvancementEnhancer, FirstToAdvancementEnhancer>(Lifestyle.Transient);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

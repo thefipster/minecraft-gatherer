@@ -1,4 +1,21 @@
-﻿.run-box {
+﻿html {
+    overflow-y: scroll;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0;
+}
+
+h3 {
+    font-size: 1.1rem;
+}
+
+.run-box {
     margin: 10px;
     padding: 10px;
     border: 1px solid #333;
@@ -9,7 +26,7 @@
     list-style-type: none;
 }
 
-.row {
+.row, .card, .list-group {
     margin-bottom: 20px;
 }
 
@@ -17,3 +34,13 @@
     height: 24px;
     width: 24px;
 }
+
+a, a:visited {
+    color: #adb5bd;
+    font-weight: 600;
+}
+
+    a:hover, a:active {
+        color: #3498db;
+        font-weight: 600;
+    }
