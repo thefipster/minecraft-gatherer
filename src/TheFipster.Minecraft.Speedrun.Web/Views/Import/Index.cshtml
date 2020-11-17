@@ -1,123 +1,114 @@
 ﻿@model WorldIndexViewModel
 @{
-    ViewData["Title"] = "Worlds";
+    ViewData["Title"] = "Synchronize";
+    int count = Model.Runs.Count();
 }
 
-<h1>Import</h1>
+<div class="row">
+    <div class="col">
+        <h1>Synchronize Worlds</h1>
+    </div>
+</div>
 
-@if (Model.Runs.Count() == 0)
-{
-    <div class="row">
+<div class="row">
+    @if (Model.Runs.Count() == 0)
+    {
         <div class="col">
-            <p>Looks like there was nothing new...</p>
-            <a asp-controller="Run" asp-action="Index" class="btn btn-primary">Maybe look at some runs instead?</a>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Same old</h5>
+                    <p class="card-text">Looks like there was nothing new...</p>
+                    <a asp-controller="Run" asp-action="Index" class="btn btn-primary">Look at some runs?</a>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Force?</h5>
+                <p class="card-text">Do you want me to recheck everything that I can?</p>
+                <a asp-controller="Import" asp-action="Force" class="btn btn-primary">Sync with Force!</a>
+            </div>
         </div>
     </div>
-}
+</div>
 
 @if (Model.Runs.Count() != 0)
 {
     <div class="row">
         <div class="col">
-            <p>If found @Model.Runs.Count() new worlds.</p>
+            <p>Look what I've found... @Model.Runs.Count() new worlds.</p>
         </div>
     </div>
-}
 
-@foreach (var run in Model.Runs.OrderByDescending(x => x.World.CreatedOn))
-{
-    <div class="run-box">
-        <h2>
-            @run.World.CreatedOn.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss")
-        </h2>
-        <ul>
-            <li>Restart Command: @run.World.CreatedOn.ToString("dd.MM.yyyy HH:mm:ss")</li>
-            <li>Last Write: @run.World.WrittenOn.ToString("dd.MM.yyyy HH:mm:ss")</li>
-            <li>Last Write UTC: @run.World.WrittenUtcOn.ToString("dd.MM.yyyy HH:mm:ss")</li>
-        </ul>
-        <div class="collapse-box">
-            <div class="collapse-header">
-                <a class="btn btn-light" data-toggle="collapse" href="#@run.World.NameUrlEncoded-splits" role="button" aria-expanded="false" aria-controls="@run.World.NameUrlEncoded-splits">Splits (@run.Splits.Count())</a>
-            </div>
-            <div class="collapse" id="@run.World.NameUrlEncoded-splits">
-                <div class="card card-body">
-                    <ul class="split-list">
-                        @foreach (var split in run.Splits.OrderBy(x => x.Timestamp))
-                        {
-                            <li>@split.Timestamp.ToString() - @split.Type</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="collapse-box">
-            <div class="collapse-header">
-                <a class="btn btn-light" data-toggle="collapse" href="#@run.World.NameUrlEncoded-players" role="button" aria-expanded="false" aria-controls="@run.World.NameUrlEncoded-players">Players (@run.Players.Count())</a>
-            </div>
-            <div class="collapse" id="@run.World.NameUrlEncoded-players">
-                <div class="card card-body">
-                    <ul class="player-list">
-                        @foreach (var player in run.Players.OrderBy(x => x.Name))
-                        {
-                            <li>
-                                <img src="~/img/players/@($"{player.Id}.png")" />
-                                <span>@player.Name</span>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="collapse-box">
-            <div class="collapse-header">
-                <a class="btn btn-light" data-toggle="collapse" href="#@run.World.NameUrlEncoded-dims" role="button" aria-expanded="false" aria-controls="@run.World.NameUrlEncoded-dims">Dimensions (@run.World.Dimensions.Count())</a>
-            </div>
-            <div class="collapse" id="@run.World.NameUrlEncoded-dims">
-                <div class="card card-body">
-                    <ul class="dim-list">
-                        @foreach (var dimension in run.World.Dimensions)
-                        {
-                            <li>@dimension.Name - @(dimension.Size / 1024 / 1024) MB</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="collapse-box">
-            <div class="collapse-header">
-                <a class="btn btn-light" data-toggle="collapse" href="#@run.World.NameUrlEncoded-events" role="button" aria-expanded="false" aria-controls="@run.World.NameUrlEncoded-events">Events (@run.Logs.Events.Count())</a>
-            </div>
-            <div class="collapse" id="@run.World.NameUrlEncoded-events">
-                <div class="card card-body">
-                    <ul class="dim-list">
-                        @foreach (var e in run.Logs.Events.OrderBy(x => x.Timestamp))
-                        {
-                            <li>
-                                @e.Timestamp.ToString("dd.MM.yyyy HH:mm:ss") - @e.Type - @e.Data
-                                @if (e.Player != null)
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover">
+                <tbody>
+                    @foreach (var run in Model.Runs.OrderByDescending(x => x.World.CreatedOn))
+                    {
+                        <tr>
+                            <td>
+                                <strong>@($"{count}.")</strong>
+                            </td>
+                            <td>
+                                <a asp-controller="Run" asp-action="Index" asp-route-worldName="@run.World.Name">
+                                    @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+                                </a>
+                            </td>
+                            <td>
+                                <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().ToString("s")"></time>
+                            </td>
+                            <td>
+                                @foreach (var player in run.Players.OrderBy(x => x.Name))
                                 {
-                                    <span>(@e.Player.Name)</span>
+                                    <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
                                 }
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="collapse-box">
-            <div class="collapse-header">
-                <a class="btn btn-light" data-toggle="collapse" href="#@run.World.NameUrlEncoded-logs" role="button" aria-expanded="false" aria-controls="@run.World.NameUrlEncoded-logs">Logs (@run.Logs.Lines.Count())</a>
-            </div>
-            <div class="collapse" id="@run.World.NameUrlEncoded-logs">
-                <div class="card card-body">
-                    <ul class="log-list">
-                        @foreach (var line in run.Logs.Lines)
-                        {
-                            <li>@line.Timestamp.ToString("dd.MM.yyyy HH:mm:ss") - @line.Message</li>
-                        }
-                    </ul>
-                </div>
-            </div>
+                            </td>
+                            <td>
+                                @if (run.Validity.IsValid)
+                                {
+                                    @switch (run.Outcome.State)
+                                    {
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
+                                            {
+                                                <span class="badge badge-success">@run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
+                                            {
+                                                <span class="badge badge-secondary">@run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                                            {
+                                                <span class="badge badge-primary">@run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
+                                            {
+                                                <span class="badge badge-warning">@run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
+                                            {
+                                                <span class="badge badge-light">@run.Outcome.State</span>
+                                                break;
+                                            }
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Invalid</span>
+                                }
+                            </td>
+                        </tr>
+                        count--;
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 }

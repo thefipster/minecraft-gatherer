@@ -54,14 +54,14 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             _logger = logger;
         }
 
-        public IEnumerable<RunInfo> Import()
+        public IEnumerable<RunInfo> Import(bool overwrite = false)
         {
             var runs = new List<RunInfo>();
             var candidates = _worldFinder.Find();
 
             foreach (var candiate in candidates)
             {
-                if (runExistInStore(candiate))
+                if (!overwrite && runExistInStore(candiate))
                 {
                     _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it was already imported.");
                     continue;
@@ -87,7 +87,11 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 run.Outcome = _outcomeChecker.Check(run);
 
                 _logger.LogDebug($"Adding world {run.Id} to the store.");
-                _runStore.Add(run);
+
+                if (overwrite)
+                    _runStore.Update(run);
+                else
+                    _runStore.Add(run);
             }
 
             return runs;
