@@ -2,8 +2,28 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Try to <a asp-action="index" asp-controller="import">synchronize worlds</a>.</p>
+<div class="jumbotron">
+    <h1 class="display-4">Hello christian speedrunner!</h1>
+    <hr class="my-4">
 </div>
 
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Just show me the runs</h5>
+                <p class="card-text">Well not all the runs... but at least those I was able to analyse.</p>
+                <a asp-controller="Run" asp-action="Index" class="btn btn-primary">Go there</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Synchronize world folders</h5>
+                <p class="card-text">Check if there are unknown worlds left in the depths of the minecraft realms.</p>
+                <a asp-controller="Import" asp-action="Index" class="btn btn-primary">Sync</a>
+            </div>
+        </div>
+    </div>
+</div>

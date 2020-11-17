@@ -7,5 +7,6 @@ namespace TheFipster.Minecraft.Speedrun.Services
         DirectoryInfo ServerLocation { get; }
         DirectoryInfo LogLocation { get; }
         DirectoryInfo TempLocation { get; }
+        DirectoryInfo DataLocation { get; }
     }
 }

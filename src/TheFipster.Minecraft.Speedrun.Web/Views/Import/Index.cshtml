@@ -3,7 +3,26 @@
     ViewData["Title"] = "Worlds";
 }
 
-<h1>Worlds</h1>
+<h1>Import</h1>
+
+@if (Model.Runs.Count() == 0)
+{
+    <div class="row">
+        <div class="col">
+            <p>Looks like there was nothing new...</p>
+            <a asp-controller="Run" asp-action="Index" class="btn btn-primary">Maybe look at some runs instead?</a>
+        </div>
+    </div>
+}
+
+@if (Model.Runs.Count() != 0)
+{
+    <div class="row">
+        <div class="col">
+            <p>If found @Model.Runs.Count() new worlds.</p>
+        </div>
+    </div>
+}
 
 @foreach (var run in Model.Runs.OrderByDescending(x => x.World.CreatedOn))
 {

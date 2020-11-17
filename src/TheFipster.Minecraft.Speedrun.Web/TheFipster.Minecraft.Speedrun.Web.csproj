@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Modules\TheFipster.Minecraft.Speedrun.Modules.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Services\TheFipster.Minecraft.Speedrun.Services.csproj" />
   </ItemGroup>
 

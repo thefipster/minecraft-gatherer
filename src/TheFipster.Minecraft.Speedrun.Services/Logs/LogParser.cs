@@ -31,8 +31,11 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 }
             }
 
-            var lastLine = readLine(templines);
-            logLines.Add(lastLine);
+            if (templines.Any())
+            {
+                var lastLine = readLine(templines);
+                logLines.Add(lastLine);
+            }
 
             return logLines;
         }
@@ -50,14 +53,21 @@ namespace TheFipster.Minecraft.Speedrun.Services
             var time = matches.Skip(0).First().Value;
             var threadAndLevel = matches.Skip(1).First().Value;
 
+            var timestamp = DateTime.MinValue;
             time = sanitizeBraces(time);
-            var timespan = TimeSpan.Parse(time);
-            var timestamp = logDate.Add(timespan);
+            if (TimeSpan.TryParse(time, out var timespan))
+                timestamp = logDate.Add(timespan);
+
 
             threadAndLevel = sanitizeBraces(threadAndLevel);
             var splitIndex = threadAndLevel.LastIndexOf("/");
-            var thread = threadAndLevel.Substring(0, splitIndex);
-            var level = threadAndLevel.Substring(splitIndex + 1);
+            var thread = string.Empty;
+            var level = string.Empty;
+            if (splitIndex != -1)
+            {
+                thread = threadAndLevel.Substring(0, splitIndex);
+                level = threadAndLevel.Substring(splitIndex + 1);
+            }
 
             var messageIndex = lineHead.IndexOf("]: ");
             var message = string.Concat(lineHead.Substring(messageIndex + 3), tail);

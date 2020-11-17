@@ -29,9 +29,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         private IEnumerable<LogLine> trimStart(IEnumerable<LogLine> lines, WorldInfo world)
         {
-            var timeAdjust = world.WrittenOn - world.WrittenUtcOn;
-            var logBegin = world.CreatedOn + timeAdjust + gracePeriod;
-
+            var logBegin = world.CreatedOn.ToLocalTime() + gracePeriod;
             return lines.Where(line => line.Timestamp > logBegin);
         }
 

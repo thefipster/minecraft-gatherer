@@ -8,3 +8,12 @@
     list-style: none;
     list-style-type: none;
 }
+
+.row {
+    margin-bottom: 20px;
+}
+
+.avatar-small {
+    height: 24px;
+    width: 24px;
+}
