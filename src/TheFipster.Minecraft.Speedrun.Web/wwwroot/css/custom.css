@@ -1,0 +1,19 @@
+﻿.run-box {
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #333;
+}
+
+.log-list {
+    list-style: none;
+    list-style-type: none;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+
+.avatar-small {
+    height: 24px;
+    width: 24px;
+}

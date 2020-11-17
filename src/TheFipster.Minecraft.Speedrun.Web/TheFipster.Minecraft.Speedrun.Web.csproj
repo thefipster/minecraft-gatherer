@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Modules\TheFipster.Minecraft.Speedrun.Modules.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Services\TheFipster.Minecraft.Speedrun.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\img\players\" />
+  </ItemGroup>
+
+
+
+</Project>
