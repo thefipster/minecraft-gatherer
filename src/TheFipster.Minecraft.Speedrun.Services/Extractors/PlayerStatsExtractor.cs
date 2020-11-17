@@ -52,7 +52,9 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
             foreach (var entry in raw)
             {
-                var newKey = entry.Key.Replace("minecraft:", string.Empty);
+                var newKey = entry.Key.Replace("minecraft:", string.Empty).Replace("-", " ").Replace("_", string.Empty);
+                var newFirstChar = newKey.Substring(0, 1).ToUpper();
+                newKey = newFirstChar + newKey.Substring(1);
                 clean.Add(newKey, entry.Value);
             }
 

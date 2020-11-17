@@ -21,6 +21,12 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 result.Reasons.Add("The server generated no dimensions.");
             }
 
+            if (!run.Logs.Events.Any(x => x.Type == LogEventTypes.SetTime))
+            {
+                result.IsValid = false;
+                result.Reasons.Add("There was no SetTime event.");
+            }
+
             return result;
         }
     }

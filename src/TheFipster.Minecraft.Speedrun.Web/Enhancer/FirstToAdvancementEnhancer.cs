@@ -10,7 +10,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Enhancer
         public IEnumerable<FirstEvent> Enhance(RunInfo run)
         {
             var firstEverything = new List<FirstEvent>();
-
             var advancements = run.Logs.Events.Where(x => x.Type == LogEventTypes.Advancement).Select(x => x.Data).Distinct();
 
             foreach (var advancement in advancements)
