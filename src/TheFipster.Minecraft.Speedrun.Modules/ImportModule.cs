@@ -109,16 +109,16 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 {
                     _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
 
-                    if (run.Validity.IsValid)
-                    {
-                        var validRuns = _runStore.CountValids() + _config.InitialRunIndex;
-                        run.Index = validRuns + 1;
-                    }
-
                     if (overwrite)
+                    {
                         _runStore.Update(run);
+                    }
                     else
+                    {
+                        var currentIndex = _runStore.Count();
+                        run.Index = currentIndex + 1;
                         _runStore.Add(run);
+                    }
                 }
             }
 

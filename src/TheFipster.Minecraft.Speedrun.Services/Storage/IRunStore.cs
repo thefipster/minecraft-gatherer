@@ -19,6 +19,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
         void Update(RunInfo run);
 
         int CountValids();
+        int Count();
 
     }
 }

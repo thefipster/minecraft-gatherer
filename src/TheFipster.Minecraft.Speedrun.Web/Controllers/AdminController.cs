@@ -23,19 +23,11 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         public IActionResult ReindexRuns()
         {
             var allRuns = _runStore.Get();
-            var counter = 1;
+            var counter = 1 + _config.InitialRunIndex;
             foreach (var run in allRuns.OrderBy(x => x.World.CreatedOn))
             {
-                if (run.Validity.IsValid)
-                {
-                    run.Index = counter;
-                    counter++;
-                }
-                else
-                {
-                    run.Index = 0;
-                }
-
+                run.Index = counter;
+                counter++;
                 _runStore.Update(run);
             }
 
