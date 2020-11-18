@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+
+<div class="jumbotron text-center">
+
+    <img class="rounded greetings-mob" height="150" width="150" src="/speedrun/img/blocks/crafting_table.png" />
+    <h1 class="display-4">Crafting area</h1>
+    <p class="lead">Here you can perform actions thats can break the system if you don't know what you are doing.</p>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Some Action</h5>
+                <p class="card-text">I do stuff and this is what happens.</p>
+                <a asp-controller="Admin" asp-action="SomeAction" class="btn btn-primary">Perform the Action</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -39,7 +39,7 @@
 {
     <div class="row">
         <div class="col">
-            <p>Look what I've found... @Model.Runs.Count() new worlds.</p>
+            <p>Look what I've found... @Model.Runs.Count() new worlds of which @Model.Runs.Count(x => x.Validity.IsValid) are valid... yay.</p>
         </div>
     </div>
 

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TheFipster.Minecraft.Speedrun.Domain;
 using TheFipster.Minecraft.Speedrun.Services;
 
@@ -102,7 +103,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
 
         private ServerLog gatherLogs(WorldInfo world)
         {
-            var allLogs = _logFinder.Find(world.CreatedOn);
+            var allLogs = _logFinder.Find(world.CreatedOn).ToList();
             var parsedLogs = _logParser.Read(allLogs, world.CreatedOn);
             var trimmedLog = _logTrimmer.Trim(parsedLogs, world);
 
