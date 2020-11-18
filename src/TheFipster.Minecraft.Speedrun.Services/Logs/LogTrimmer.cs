@@ -21,16 +21,28 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         public IEnumerable<LogLine> Trim(IEnumerable<LogLine> lines, WorldInfo world)
         {
-            lines = trimStart(lines, world);
-            lines = trimEnd(lines, world);
+            var matches = lines.Where(x => x.Message.Contains(world.Name));
+            var start = matches.Where(x => x.Message.ToLower().Contains("preparing level"));
+            var end = matches.Where(x => x.Message.ToLower().Contains("threadedanvilchunkstorage"));
 
-            return lines;
+            if (start.Any() && end.Any())
+            {
+                var startTime = start.Min(x => x.Timestamp);
+                var endTime = end.Max(x => x.Timestamp);
+
+                return lines.Where(x => x.Timestamp >= startTime && x.Timestamp <= endTime);
+            }
+
+            throw new Exception("There are no logs for this run.");
         }
 
         private IEnumerable<LogLine> trimStart(IEnumerable<LogLine> lines, WorldInfo world)
         {
-            var logBegin = world.CreatedOn.ToLocalTime() + gracePeriod;
-            return lines.Where(line => line.Timestamp > logBegin);
+            var matches = lines.Where(x => x.Message.Contains(world.Name));
+
+
+
+            return Enumerable.Empty<LogLine>();
         }
 
         private IEnumerable<LogLine> trimEnd(IEnumerable<LogLine> lines, WorldInfo world)

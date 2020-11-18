@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.IO;
 
 namespace TheFipster.Minecraft.Speedrun.Services
@@ -8,6 +9,8 @@ namespace TheFipster.Minecraft.Speedrun.Services
         private const string MinecraftLocationKey = "MinecraftLocation";
         private const string TempLocationKey = "TempLocation";
         private const string DataLocationKey = "DataLocation";
+        private const string LogLocationKey = "LogLocation";
+        private const string InitialRunIndexKey = "InitialRunIndex";
 
         private readonly IConfiguration _config;
 
@@ -16,25 +19,36 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _config = config;
 
             ServerLocation = checkExistance(MinecraftLocationKey);
-            LogLocation = setLogDir(ServerLocation);
+            LogLocation = checkExistance(LogLocationKey);
             TempLocation = ensureExistance(TempLocationKey);
             DataLocation = ensureExistance(DataLocationKey);
+            InitialRunIndex = ensureInt(InitialRunIndexKey);
+
+        }
+
+        private int ensureInt(string configKey)
+        {
+            if (int.TryParse(_config[configKey], out var runIndex))
+                return runIndex;
+
+            throw new Exception($"AppSetting {configKey} was not a valid integer.");
         }
 
         public DirectoryInfo ServerLocation { get; }
         public DirectoryInfo LogLocation { get; }
         public DirectoryInfo TempLocation { get; }
         public DirectoryInfo DataLocation { get; }
+        public int InitialRunIndex { get; }
 
         private DirectoryInfo checkExistance(string configKey)
         {
-            var serverRoot = _config[MinecraftLocationKey];
-            var workdir = new DirectoryInfo(serverRoot);
+            var path = _config[configKey];
+            var dir = new DirectoryInfo(path);
 
-            if (!workdir.Exists)
+            if (!dir.Exists)
                 throw new DirectoryNotFoundException($"{configKey} directory doesn't exist.");
 
-            return workdir;
+            return dir;
         }
 
         private DirectoryInfo ensureExistance(string configKey)
@@ -46,12 +60,6 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 directory.Create();
 
             return directory;
-        }
-
-        private DirectoryInfo setLogDir(DirectoryInfo serverLocation)
-        {
-            var path = Path.Combine(serverLocation.FullName, "logs");
-            return new DirectoryInfo(path);
         }
     }
 }
