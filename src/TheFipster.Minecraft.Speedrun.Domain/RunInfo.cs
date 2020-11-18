@@ -10,6 +10,7 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         }
 
         public string Id { get; set; }
+        public int Index { get; set; }
         public WorldInfo World { get; set; }
         public List<Player> Players { get; set; }
         public ServerLog Logs { get; set; }

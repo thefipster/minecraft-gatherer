@@ -10,6 +10,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
 {
     public class ImportModule : IImportModule
     {
+        private readonly IConfigService _config;
         private readonly IWorldFinder _worldFinder;
         private readonly IWorldLoader _worldLoader;
         private readonly ILogFinder _logFinder;
@@ -25,6 +26,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private readonly ILogger<ImportModule> _logger;
 
         public ImportModule(
+            IConfigService config,
             IPlayerStore playerStore,
             IWorldFinder worldFinder,
             IWorldLoader worldLoader,
@@ -40,6 +42,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             IRunStore runStore,
             ILogger<ImportModule> logger)
         {
+            _config = config;
             _worldFinder = worldFinder;
             _worldLoader = worldLoader;
             _logFinder = logFinder;
@@ -75,24 +78,48 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 }
             }
 
-            foreach (var run in runs)
+            foreach (var run in runs.OrderBy(x => x.World.CreatedOn))
             {
-                _logger.LogDebug($"Enhancing information for world {run.Id}.");
+                _logger.LogDebug($"Run Load: Enhancing information for world {run.Id}.");
 
-                run.Logs = gatherLogs(run.World);
-                run.Logs = _logAnalyzer.Analyze(run.Logs);
-                run.Players = _playerExtractor.Extract(run.Logs.Events);
-                run.Splits = _splitExtractor.Extract(run.Logs.Events);
-                run.Stats = _statsExtractor.Extract(run.World.Name);
-                run.Validity = _validityChecker.Check(run);
-                run.Outcome = _outcomeChecker.Check(run);
+                try
+                {
+                    run.Logs = gatherLogs(run.World);
 
-                _logger.LogDebug($"Adding world {run.Id} to the store.");
+                    if (run.Logs != null)
+                    {
 
-                if (overwrite)
-                    _runStore.Update(run);
-                else
-                    _runStore.Add(run);
+                        run.Logs = _logAnalyzer.Analyze(run.Logs);
+                        run.Players = _playerExtractor.Extract(run.Logs.Events);
+                        run.Splits = _splitExtractor.Extract(run.Logs.Events);
+                        run.Stats = _statsExtractor.Extract(run.World.Name);
+                        run.Validity = _validityChecker.Check(run);
+                        run.Outcome = _outcomeChecker.Check(run);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex, $"Run Load: Enhancement for {run.Id} failed.");
+
+                    run.Outcome = new OutcomeResult(Outcomes.Error);
+                    run.Validity = new ValidityResult(ex.Message);
+                }
+                finally
+                {
+                    _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
+
+                    if (run.Validity.IsValid)
+                    {
+                        var validRuns = _runStore.CountValids() + _config.InitialRunIndex;
+                        run.Index = validRuns + 1;
+                    }
+
+                    if (overwrite)
+                        _runStore.Update(run);
+                    else
+                        _runStore.Add(run);
+                }
             }
 
             return runs;
@@ -105,9 +132,10 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         {
             var allLogs = _logFinder.Find(world.CreatedOn).ToList();
             var parsedLogs = _logParser.Read(allLogs, world.CreatedOn);
+            var orderedLogs = parsedLogs.OrderBy(x => x.Timestamp);
             var trimmedLog = _logTrimmer.Trim(parsedLogs, world);
-
             return new ServerLog(trimmedLog);
+
         }
 
         private bool tryLoadWorldFolder(DirectoryInfo candiate, out RunInfo run)

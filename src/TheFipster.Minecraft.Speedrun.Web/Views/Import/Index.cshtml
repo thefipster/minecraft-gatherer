@@ -4,10 +4,11 @@
     int count = Model.Runs.Count();
 }
 
-<div class="row">
-    <div class="col">
-        <h1>Synchronize Worlds</h1>
-    </div>
+<div class="jumbotron text-center">
+
+    <img class="rounded greetings-mob" height="150" width="150" src="/speedrun/img/blocks/chest.png" />
+    <h1 class="display-4">Storage Sync</h1>
+    <p class="lead">Lets take a look into the server chest and see what worlds we can discover.</p>
 </div>
 
 <div class="row">
@@ -28,7 +29,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Force?</h5>
-                <p class="card-text">Do you want me to recheck everything that I can?</p>
+                <p class="card-text">Do you want me to recheck everything that I can? This probably messes up the run index. Go to <a asp-controller="Admin" asp-action="Index">operations</a> afterwards to fix this.</p>
                 <a asp-controller="Import" asp-action="Force" class="btn btn-primary">Sync with Force!</a>
             </div>
         </div>

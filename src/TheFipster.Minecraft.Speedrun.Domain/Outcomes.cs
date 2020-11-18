@@ -6,6 +6,7 @@
         ResetSpawn,
         ResetNether,
         ResetStronghold,
-        ResetEnd
+        ResetEnd,
+        Error
     }
 }
