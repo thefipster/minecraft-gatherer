@@ -5,7 +5,16 @@
 
 <div class="row">
     <div class="col">
-        <h1>Run @Model.Run.World.CreatedOn.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss")</h1>
+        <h1>
+            Run
+            @(Model.Run.Index != 0 ? $"#{Model.Run.Index}" : string.Empty)
+            <small>
+                played on
+                @Model.Run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy")
+                at
+                @Model.Run.World.CreatedOn.ToLocalTime().ToString("HH:mm")
+            </small>
+        </h1>
     </div>
 </div>
 
@@ -68,6 +77,17 @@
                                     break;
                                 }
                         }
+                    </li>
+                    @if (Model.Run.Index != 0)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>Index</span>
+                            <span class="badge badge-primary">@Model.Run.Index</span>
+                        </li>
+                    }
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>World</span>
+                        <span class="badge badge-primary">@Model.Run.World.Name</span>
                     </li>
                 </ul>
             </div>
@@ -193,5 +213,78 @@
                 </div>
             </div>
         }
+    </div>
+}
+
+@if (Model.Run.Logs != null)
+{
+
+
+    <div class="row">
+        <div class="col">
+            <div class="card border-secondary">
+                <div class="card-header"><h2>Debug</h2></div>
+                <div class="card-body">
+
+
+
+
+                    @if (Model.Run.Logs.Events != null)
+                    {
+                        <h3>Events</h3>
+                        <table class="table table-hover">
+                            <tbody>
+                                @foreach (var e in Model.Run.Logs.Events.OrderBy(x => x.Timestamp))
+                                {
+                                    <tr>
+                                        <td>
+                                            @(e.Timestamp.ToLocalTime().ToString("HH:mm:ss"))
+                                        </td>
+                                        <td>
+                                            @e.Type
+                                        </td>
+                                        <td>
+                                            @e.Data
+                                        </td>
+                                        <td>
+                                            @if (e.Player != null)
+                                            {
+                                                <img class="avatar-small" src="@($"/speedrun/img/players/{e.Player.Id}.png")" />
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                    @if (Model.Run.Logs.Lines != null)
+                    {
+                        <h3>Logs</h3>
+                        <table class="table table-hover">
+                            <tbody>
+                                @foreach (var line in Model.Run.Logs.Lines.OrderBy(x => x.Timestamp))
+                                {
+                                    <tr>
+                                        <td>
+                                            @(line.Timestamp.ToLocalTime().ToString("HH:mm:ss"))
+                                        </td>
+                                        <td>
+                                            @line.Level
+                                        </td>
+                                        <td>
+                                            @line.Thread
+                                        </td>
+                                        <td>
+                                            @line.Message
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
     </div>
 }
