@@ -180,14 +180,16 @@
                         @foreach (var advancement in Model.FirstAdvancement.OrderBy(x => x.Time))
                         {
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                @if (Model.BaseTime.HasValue)
-                                {
-                                    <span>@(advancement.Time - Model.BaseTime)</span>
-                                }
-                                else
-                                {
-                                    <span>@advancement.Time.ToString("HH:mm:ss")</span>
-                                }
+                                <span>
+                                    @if (Model.Run.Timings.StartedOn.HasValue)
+                                    {
+                                        @(advancement.Time - Model.Run.Timings.StartedOn.Value)
+                                    }
+                                    else
+                                    {
+                                        @advancement.Time.ToString("HH:mm:ss")
+                                    }
+                                </span>
                                 <span>@advancement.Name</span>
                                 <img class="avatar-small" src="@($"/speedrun/img/players/{advancement.Player.Id}.png")" />
                             </li>
@@ -246,9 +248,9 @@
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <span>
-                                            @if (Model.BaseTime.HasValue)
+                                            @if (Model.Run.Timings.StartedOn.HasValue)
                                             {
-                                                @(gameEvent.Timestamp - Model.BaseTime)
+                                                @(gameEvent.Timestamp - Model.Run.Timings.StartedOn.Value)
                                             }
                                             else
                                             {
