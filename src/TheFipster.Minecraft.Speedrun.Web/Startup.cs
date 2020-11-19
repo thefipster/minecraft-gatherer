@@ -67,6 +67,8 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.Register<IValidityChecker, ValidityChecker>(Lifestyle.Transient);
             _container.Register<IOutcomeChecker, OutcomeChecker>(Lifestyle.Transient);
 
+            _container.Register<IServerPropertiesReader, ServerPropertiesReader>(Lifestyle.Transient);
+
             _container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
 
             _container.Register<IFirstToAdvancementEnhancer, FirstToAdvancementEnhancer>(Lifestyle.Transient);

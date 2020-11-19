@@ -29,10 +29,12 @@
                 {
                     <tr>
                         <td>
-                            <strong>@($"#{run.Index}")</strong>
+                            <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
+                                <strong>@($"#{run.Index}")</strong>
+                            </a>
                         </td>
                         <td>
-                            <a asp-controller="Run" asp-action="Index" asp-route-worldName="@run.World.Name">
+                            <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
                                 @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
                             </a>
                         </td>

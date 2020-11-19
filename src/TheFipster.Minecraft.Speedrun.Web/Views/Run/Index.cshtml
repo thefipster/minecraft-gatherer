@@ -18,102 +18,128 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col">
-        <div class="card border-secondary">
-            <div class="card-header"><h2>Info</h2></div>
-            <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Validity</span>
-                        @if (Model.Run.Validity.IsValid)
-                        {
-                            <span class="badge badge-success">Seems so</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">Oh no</span>
-                        }
-                    </li>
-                    @foreach (var reason in Model.Run.Validity.Reasons)
-                    {
-                        <li class="list-group-item">
-                            @reason
-                        </li>
-                    }
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Outcome</span>
-                        @switch (Model.Run.Outcome.State)
-                        {
-                            case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                                {
-                                    <span class="badge badge-success">@Model.Run.Outcome.State</span>
-                                    break;
-                                }
-                            case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                                {
-                                    <span class="badge badge-secondary">@Model.Run.Outcome.State</span>
-                                    break;
-                                }
-                            case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                                {
-                                    <span class="badge badge-primaryl">@Model.Run.Outcome.State</span>
-                                    break;
-                                }
-                            case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                                {
-                                    <span class="badge badge-warning">@Model.Run.Outcome.State</span>
-                                    break;
-                                }
-                            case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                                {
-                                    <span class="badge badge-light">@Model.Run.Outcome.State</span>
-                                    break;
-                                }
-                            case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
-                                {
-                                    <span class="badge badge-danger">@Model.Run.Outcome.State</span>
-                                    break;
-                                }
-                        }
-                    </li>
-                    @if (Model.Run.Index != 0)
-                    {
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Index</span>
-                            <span class="badge badge-primary">@Model.Run.Index</span>
-                        </li>
-                    }
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>World</span>
-                        <span class="badge badge-primary">@Model.Run.World.Name</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    @if (Model.Run.Splits != null)
-    {
-        <div class="col">
-            <div class="card border-secondary">
-                <div class="card-header"><h2>Splits</h2></div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        @foreach (var split in Model.Run.Splits.OrderBy(x => x.Timestamp))
-                        {
+        <div class="row">
+            <div class="col">
+                <div class="card border-secondary">
+                    <div class="card-header">
+                        <h2>Info</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>@split.Timestamp</span>
-                                <span>@split.Type</span>
+                                <span>Validity</span>
+                                @if (Model.Run.Validity.IsValid)
+                                {
+                                    <span class="badge badge-primary">Looks good</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-danger">Oh no</span>
+                                }
                             </li>
-                        }
-                    </ul>
+                            @foreach (var reason in Model.Run.Validity.Reasons)
+                            {
+                                <li class="list-group-item">
+                                    @reason
+                                </li>
+                            }
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Outcome</span>
+                                @switch (Model.Run.Outcome.State)
+                                {
+                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
+                                        {
+                                            <span class="badge badge-success">@Model.Run.Outcome.State</span>
+                                            break;
+                                        }
+                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
+                                        {
+                                            <span class="badge badge-secondary">@Model.Run.Outcome.State</span>
+                                            break;
+                                        }
+                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                                        {
+                                            <span class="badge badge-primaryl">@Model.Run.Outcome.State</span>
+                                            break;
+                                        }
+                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
+                                        {
+                                            <span class="badge badge-warning">@Model.Run.Outcome.State</span>
+                                            break;
+                                        }
+                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
+                                        {
+                                            <span class="badge badge-light">@Model.Run.Outcome.State</span>
+                                            break;
+                                        }
+                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
+                                        {
+                                            <span class="badge badge-danger">@Model.Run.Outcome.State</span>
+                                            break;
+                                        }
+                                }
+                            </li>
+                            @if (Model.Run.Index != 0)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Index</span>
+                                    <span class="badge badge-primary">@Model.Run.Index</span>
+                                </li>
+                            }
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>World</span>
+                                <span class="badge badge-primary">@Model.Run.World.Name</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    }
-
+        @if (Model.Run.Splits != null)
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="card border-secondary">
+                        <div class="card-header"><h2>Splits</h2></div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                @foreach (var split in Model.Run.Splits.OrderBy(x => x.Timestamp))
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>@split.Timestamp</span>
+                                        <span>@split.Type</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Run.World.Dimensions != null && Model.Run.World.Dimensions.Any())
+        {
+            <div class="row">
+                <div class="col">
+                    <div class="card border-secondary">
+                        <div class="card-header"><h2>Dimensions</h2></div>
+                        <div class="card-body">
+                            <ul class="list-group">
+                                @foreach (var dimension in Model.Run.World.Dimensions.OrderBy(x => x.Name))
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>@dimension.Name</span>
+                                        <span>@Math.Round(dimension.Size / 1024.0 / 1024.0, 1) MB</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
     @if (Model.FirstAdvancement.Any())
     {
         <div class="col">
@@ -127,26 +153,6 @@
                                 <span>@(advancement.Time - Model.BaseTime)</span>
                                 <span>@advancement.Name</span>
                                 <img class="avatar-small" src="@($"/speedrun/img/players/{advancement.Player.Id}.png")" />
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-    }
-
-    @if (Model.Run.World.Dimensions != null && Model.Run.World.Dimensions.Any())
-    {
-        <div class="col">
-            <div class="card border-secondary">
-                <div class="card-header"><h2>Dimensions</h2></div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        @foreach (var dimension in Model.Run.World.Dimensions.OrderBy(x => x.Name))
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>@dimension.Name</span>
-                                <span>@Math.Round(dimension.Size / 1024.0 / 1024.0, 1) MB</span>
                             </li>
                         }
                     </ul>
@@ -240,8 +246,6 @@
 
 @if (Model.Run.Logs != null)
 {
-
-
     <div class="row">
         <div class="col">
             <div class="card border-secondary">

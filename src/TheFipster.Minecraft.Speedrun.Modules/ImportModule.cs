@@ -11,6 +11,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
     public class ImportModule : IImportModule
     {
         private readonly IConfigService _config;
+        private readonly IServerPropertiesReader _serverPropertiesReader;
         private readonly IWorldFinder _worldFinder;
         private readonly IWorldLoader _worldLoader;
         private readonly ILogFinder _logFinder;
@@ -27,6 +28,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
 
         public ImportModule(
             IConfigService config,
+            IServerPropertiesReader serverPropertiesReader,
             IPlayerStore playerStore,
             IWorldFinder worldFinder,
             IWorldLoader worldLoader,
@@ -43,6 +45,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             ILogger<ImportModule> logger)
         {
             _config = config;
+            _serverPropertiesReader = serverPropertiesReader;
             _worldFinder = worldFinder;
             _worldLoader = worldLoader;
             _logFinder = logFinder;
@@ -62,9 +65,25 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         {
             var runs = new List<RunInfo>();
             var candidates = _worldFinder.Find();
+            var activeWorld = string.Empty;
+
+            try
+            {
+                activeWorld = _serverPropertiesReader.Read().LevelName;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Import: Can't read server properties, active world is not filtered.");
+            }
 
             foreach (var candiate in candidates)
             {
+                if (candiate.Name == activeWorld)
+                {
+                    _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it is currently active.");
+                    continue;
+                }
+
                 if (!overwrite && runExistInStore(candiate))
                 {
                     _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it was already imported.");

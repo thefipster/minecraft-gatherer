@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Same old</h5>
                     <p class="card-text">Looks like there was nothing new...</p>
-                    <a asp-controller="Run" asp-action="Index" class="btn btn-primary">Look at some runs?</a>
+                    <a asp-controller="Runs" asp-action="Index" class="btn btn-primary">Look at some runs?</a>
                 </div>
             </div>
         </div>
@@ -55,7 +55,7 @@
                                 <strong>@($"{count}.")</strong>
                             </td>
                             <td>
-                                <a asp-controller="Run" asp-action="Index" asp-route-worldName="@run.World.Name">
+                                <a asp-controller="Run" asp-action="Index" asp-route-worldName="@run.Index">
                                     @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
                                 </a>
                             </td>

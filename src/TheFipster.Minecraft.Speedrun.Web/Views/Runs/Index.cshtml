@@ -27,31 +27,35 @@
             <tbody>
                 @foreach (var run in Model.Runs.OrderBy(x => x.Outcome.Time))
                 {
-                    <tr>
-                        <td>
+                <tr>
+                    <td>
+                        <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
                             <strong>@($"{count}.")</strong>
-                        </td>
-                        <td>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
                             <strong>@($"#{run.Index}")</strong>
-                        </td>
-                        <td>
-                            <a asp-controller="Run" asp-action="Index" asp-route-worldName="@run.World.Name">
-                                @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
-                            </a>
-                        </td>
-                        <td>
-                            <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().ToString("s")"></time>
-                        </td>
-                        <td>
-                            @foreach (var player in run.Players.OrderBy(x => x.Name))
-                            {
-                                <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
-                            }
-                        </td>
-                        <td>
-                            <span class="badge badge-primary">@run.Outcome.Time</span>
-                        </td>
-                    </tr>
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
+                            @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+                        </a>
+                    </td>
+                    <td>
+                        <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().ToString("s")"></time>
+                    </td>
+                    <td>
+                        @foreach (var player in run.Players.OrderBy(x => x.Name))
+                        {
+                            <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
+                        }
+                    </td>
+                    <td>
+                        <span class="badge badge-primary">@run.Outcome.Time</span>
+                    </td>
+                </tr>
                     count++;
                 }
             </tbody>

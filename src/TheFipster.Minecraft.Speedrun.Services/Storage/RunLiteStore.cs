@@ -42,5 +42,8 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         public int Count()
             => _collection.Count();
+
+        public RunInfo Get(int index)
+            => _collection.FindOne(x => x.Index == index);
     }
 }
