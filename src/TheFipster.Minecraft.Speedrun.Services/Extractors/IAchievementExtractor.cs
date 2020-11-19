@@ -3,7 +3,7 @@ using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public interface IAchievementExtractor
+    public interface IAchievementEventExtractor
     {
         IEnumerable<GameEvent> Extract(WorldInfo world);
     }

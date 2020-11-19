@@ -8,7 +8,7 @@ using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public class AchievementExtractor : IAchievementExtractor
+    public class AchievementEventExtractor : IAchievementEventExtractor
     {
         private const string AchievementFolder = "advancements";
 
@@ -22,10 +22,10 @@ namespace TheFipster.Minecraft.Speedrun.Services
             { "in_stronghold", "Eye Spy" },
             { "fortress", "A Terrible Fortress" },
             { "has_blaze_rod", "Into Fire" },
-            { "has_blaze_powder", "Blaze Powder" },
-            { "has_bed", "Let's sleep" },
-            { "has_log", "Punched a tree" },
-            { "has_flint", "Got Flient" },
+            { "has_blaze_powder", "Got Blaze Powder" },
+            { "has_bed", "Got Bed" },
+            { "has_log", "Punched a Tree" },
+            { "has_flint", "Got Flint" },
             { "has_iron_ore", "Got Iron Ore" },
             { "has_gold_ingot", "Got Gold Ingot" },
             { "has_gravel", "Got Gravel" },
@@ -38,12 +38,10 @@ namespace TheFipster.Minecraft.Speedrun.Services
             { "adventure/kill_a_mob", "Monster Hunter" }
         };
 
-
-
-        private IConfigService _config;
+        private readonly IConfigService _config;
         private readonly IPlayerStore _playerStore;
 
-        public AchievementExtractor(IConfigService config, IPlayerStore playerStore)
+        public AchievementEventExtractor(IConfigService config, IPlayerStore playerStore)
         {
             _config = config;
             _playerStore = playerStore;
@@ -112,6 +110,5 @@ namespace TheFipster.Minecraft.Speedrun.Services
             var timestamp = DateTime.Parse(value);
             return timestamp;
         }
-
     }
 }

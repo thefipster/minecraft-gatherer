@@ -51,8 +51,8 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
             _container.Register<ILogParser, LogParser>(Lifestyle.Transient);
             _container.Register<ILogTrimmer, LogTrimmer>(Lifestyle.Transient);
-            _container.Register<ILogAnalyzer, LogAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILogAnalyzer, LogLineAnalyzer>(Lifestyle.Transient);
+            _container.Register<ILogEventExtractor, LogEventExtractor>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILogEventExtractor, LogLineAnalyzer>(Lifestyle.Transient);
 
             _container.Register<ILineAnalyzer, LineAnalyzer>(Lifestyle.Transient);
             _container.RegisterDecorator<ILineAnalyzer, LineAdvancementAnalyzer>(Lifestyle.Transient);
@@ -64,7 +64,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.Register<IStatsPlayerExtractor, StatsPlayerExtractor>(Lifestyle.Transient);
             _container.Register<IEventSplitExtractor, EventSplitExtractor>(Lifestyle.Transient);
             _container.Register<IStatsExtractor, StatsExtractor>(Lifestyle.Transient);
-            _container.Register<IAchievementExtractor, AchievementExtractor>(Lifestyle.Transient);
+            _container.Register<IAchievementEventExtractor, AchievementEventExtractor>(Lifestyle.Transient);
 
             _container.Register<IValidityChecker, ValidityChecker>(Lifestyle.Transient);
             _container.Register<IOutcomeChecker, OutcomeChecker>(Lifestyle.Transient);

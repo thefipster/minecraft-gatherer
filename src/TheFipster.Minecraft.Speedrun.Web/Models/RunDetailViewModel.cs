@@ -19,7 +19,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
         {
             get
             {
-                var startEvent = Run.Logs.Events.FirstOrDefault(x => x.Type == LogEventTypes.SetTime);
+                var startEvent = Run.Events.FirstOrDefault(x => x.Type == LogEventTypes.SetTime);
                 if (startEvent == null)
                     return null;
 

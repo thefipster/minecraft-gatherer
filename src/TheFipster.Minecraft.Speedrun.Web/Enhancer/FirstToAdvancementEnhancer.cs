@@ -13,12 +13,12 @@ namespace TheFipster.Minecraft.Speedrun.Web.Enhancer
                 return Enumerable.Empty<FirstEvent>();
 
             var firstEverything = new List<FirstEvent>();
-            var advancements = run.Logs.Events.Where(x => x.Type == LogEventTypes.Advancement).Select(x => x.Data).Distinct();
+            var advancements = run.Events.Where(x => x.Type == LogEventTypes.Advancement || x.Type == LogEventTypes.Achievement).Select(x => x.Data).Distinct();
 
             foreach (var advancement in advancements)
             {
-                var fastest = run.Logs.Events
-                    .Where(x => x.Type == LogEventTypes.Advancement
+                var fastest = run.Events
+                    .Where(x => (x.Type == LogEventTypes.Advancement || x.Type == LogEventTypes.Achievement)
                              && x.Data == advancement)
                     .OrderBy(x => x.Timestamp)
                     .First();

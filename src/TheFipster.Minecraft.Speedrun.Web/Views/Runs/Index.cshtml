@@ -40,11 +40,11 @@
                     </td>
                     <td>
                         <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
-                            @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+                            @run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
                         </a>
                     </td>
                     <td>
-                        <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().ToString("s")"></time>
+                        <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
                     </td>
                     <td>
                         @foreach (var player in run.Players.OrderBy(x => x.Name))

@@ -16,9 +16,9 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         private OutcomeResult outcomeFromEvents(RunInfo run)
         {
-            if (run.Logs.Events.Any(x => x.Type == LogEventTypes.Advancement && x.Data == "Free the End"))
+            if (run.Events.Any(x => x.Data == "Free the End"))
             {
-                var dragonKillTime = run.Logs.Events.First(x => x.Type == LogEventTypes.Advancement && x.Data == "Free the End").Timestamp;
+                var dragonKillTime = run.Events.Where(x => x.Data == "Free the End").Select(x => x.Timestamp).Min(x => x);
                 var worldCreationTime = run.World.CreatedOn.ToLocalTime();
                 var delta = dragonKillTime - worldCreationTime - TimeSpan.FromSeconds(15);
                 var outcome = new OutcomeResult(Outcomes.Finished);
@@ -26,13 +26,13 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 return outcome;
             }
 
-            if (run.Logs.Events.Any(x => x.Type == LogEventTypes.Advancement && x.Data == "The End?"))
+            if (run.Events.Any(x => x.Data == "The End?"))
                 return new OutcomeResult(Outcomes.ResetEnd);
 
-            if (run.Logs.Events.Any(x => x.Type == LogEventTypes.Advancement && x.Data == "Eye Spy"))
+            if (run.Events.Any(x => x.Data == "Eye Spy"))
                 return new OutcomeResult(Outcomes.ResetStronghold);
 
-            if (run.Logs.Events.Any(x => x.Type == LogEventTypes.Advancement && x.Data == "We Need to Go Deeper"))
+            if (run.Events.Any(x => x.Data == "We Need to Go Deeper"))
                 return new OutcomeResult(Outcomes.ResetNether);
 
             return new OutcomeResult(Outcomes.ResetSpawn);

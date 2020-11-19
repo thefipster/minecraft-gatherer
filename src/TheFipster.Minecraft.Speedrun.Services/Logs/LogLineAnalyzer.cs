@@ -1,28 +1,30 @@
-﻿using TheFipster.Minecraft.Speedrun.Domain;
+﻿using System.Collections.Generic;
+using System.Linq;
+using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public class LogLineAnalyzer : ILogAnalyzer
+    public class LogLineAnalyzer : ILogEventExtractor
     {
-        private readonly ILogAnalyzer _component;
+        private readonly ILogEventExtractor _component;
         private readonly ILineAnalyzer _lineAnalyzer;
 
-        public LogLineAnalyzer(ILogAnalyzer component, ILineAnalyzer lineAnalyzer)
+        public LogLineAnalyzer(ILogEventExtractor component, ILineAnalyzer lineAnalyzer)
         {
             _component = component;
             _lineAnalyzer = lineAnalyzer;
         }
-        public ServerLog Analyze(ServerLog log)
+        public IEnumerable<GameEvent> Extract(IEnumerable<LogLine> log)
         {
-            log = _component.Analyze(log);
+            var events = _component.Extract(log).ToList();
 
-            foreach (var line in log.Lines)
+            foreach (var line in log)
             {
-                var events = _lineAnalyzer.Analyze(line);
-                log.Events.AddRange(events);
+                var newEvents = _lineAnalyzer.Analyze(line);
+                events.AddRange(newEvents);
             }
 
-            return log;
+            return events;
         }
     }
 }
