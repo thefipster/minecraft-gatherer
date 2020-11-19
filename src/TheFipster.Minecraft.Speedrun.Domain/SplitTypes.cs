@@ -5,9 +5,10 @@
         Nether,
         Fortress,
         BlazeRod,
+        BlazePowder,
         Stronghold,
         TheEnd,
         DragonKilled,
-        ApproxFinish,
+        ApproxFinish
     }
 }

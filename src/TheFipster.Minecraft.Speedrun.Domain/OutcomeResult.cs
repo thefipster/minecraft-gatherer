@@ -20,5 +20,6 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public bool IsFinished { get; set; }
         public Outcomes State { get; set; }
         public TimeSpan Time { get; set; }
+        public TimeSpan PlayTime { get; set; }
     }
 }

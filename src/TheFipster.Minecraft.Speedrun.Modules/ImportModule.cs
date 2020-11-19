@@ -18,7 +18,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private readonly ILogParser _logParser;
         private readonly ILogTrimmer _logTrimmer;
         private readonly ILogEventExtractor _logEventExtractor;
-        private readonly IEventSplitExtractor _splitExtractor;
+        private readonly IEventTimingExtractor _splitExtractor;
         private readonly IEventPlayerExtractor _eventPlayerExtractor;
         private readonly IStatsPlayerExtractor _statsPlayerExtractor;
         private readonly IAchievementEventExtractor _achievementExtractor;
@@ -37,7 +37,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             ILogParser logParser,
             ILogTrimmer logTrimmer,
             ILogEventExtractor logEventExtractor,
-            IEventSplitExtractor splitExtractor,
+            IEventTimingExtractor splitExtractor,
             IEventPlayerExtractor eventPlayerExtractor,
             IStatsPlayerExtractor statsPlayerExtractor,
             IStatsExtractor statsExtractor,
@@ -123,8 +123,8 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                     run.Players = _statsPlayerExtractor.Extract(run.Stats);
                 }
 
+                run.Timings = _splitExtractor.Extract(run);
                 run.Outcome = _outcomeChecker.Check(run);
-                run.Splits = _splitExtractor.Extract(run.Events);
                 run.Validity = _validityChecker.Check(run);
 
                 _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");

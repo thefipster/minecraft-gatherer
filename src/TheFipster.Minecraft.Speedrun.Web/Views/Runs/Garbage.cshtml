@@ -15,7 +15,7 @@
         <div class="btn-group" role="group">
             <a class="btn btn-secondary" asp-controller="Runs" asp-action="Index">Finished</a>
             <a class="btn btn-secondary" asp-controller="Runs" asp-action="Started">All Started</a>
-            <a class="btn btn-secondary" asp-controller="Runs" asp-action="All">and resets</a>
+            <a class="btn btn-secondary" asp-controller="Runs" asp-action="All">and discards</a>
             <a class="btn btn-primary">and all else</a>
         </div>
     </div>
@@ -48,6 +48,41 @@
                             @foreach (var player in run.Players.OrderBy(x => x.Name))
                             {
                                 <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
+                            }
+                        </td>
+                        <td>
+                            @switch (run.Outcome.State)
+                            {
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
+                                    {
+                                        <span class="badge badge-success">@run.Outcome.State</span>
+                                        break;
+                                    }
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
+                                    {
+                                        <span class="badge badge-dark">@run.Outcome.State</span>
+                                        break;
+                                    }
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                                    {
+                                        <span class="badge badge-secondary">@run.Outcome.State</span>
+                                        break;
+                                    }
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSearch:
+                                    {
+                                        <span class="badge badge-primary">@run.Outcome.State</span>
+                                        break;
+                                    }
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
+                                    {
+                                        <span class="badge badge-danger">@run.Outcome.State</span>
+                                        break;
+                                    }
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
+                                    {
+                                        <span class="badge badge-light">@run.Outcome.State</span>
+                                        break;
+                                    }
                             }
                         </td>
                         <td>

@@ -7,7 +7,6 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public RunInfo()
         {
             Players = new List<Player>();
-            Splits = new List<Split>();
             Stats = new List<PlayerStats>();
             Events = new List<GameEvent>();
             Logs = new List<LogLine>();
@@ -18,8 +17,8 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public WorldInfo World { get; set; }
         public ValidityResult Validity { get; set; }
         public OutcomeResult Outcome { get; set; }
+        public Timings Timings { get; set; }
         public IEnumerable<Player> Players { get; set; }
-        public IEnumerable<Split> Splits { get; set; }
         public IEnumerable<PlayerStats> Stats { get; set; }
         public List<GameEvent> Events { get; set; }
         public IEnumerable<LogLine> Logs { get; set; }

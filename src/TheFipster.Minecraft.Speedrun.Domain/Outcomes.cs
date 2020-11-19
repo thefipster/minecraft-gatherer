@@ -7,6 +7,7 @@
         ResetNether,
         ResetStronghold,
         ResetEnd,
-        Error
+        Error,
+        ResetSearch
     }
 }
