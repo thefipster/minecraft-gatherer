@@ -16,6 +16,9 @@ namespace TheFipster.Minecraft.Speedrun.Services
         public IEnumerable<RunInfo> GetAll() => _runStore
             .Get();
 
+        public RunInfo GetByIndex(int index) => _runStore
+            .Get(index);
+
         public RunInfo GetByName(string worldName) => _runStore
             .Get(worldName);
 

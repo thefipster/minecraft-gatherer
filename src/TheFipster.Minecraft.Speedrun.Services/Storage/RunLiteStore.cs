@@ -39,5 +39,11 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         public int CountValids()
             => _collection.Count(x => x.Validity.IsValid);
+
+        public int Count()
+            => _collection.Count();
+
+        public RunInfo Get(int index)
+            => _collection.FindOne(x => x.Index == index);
     }
 }

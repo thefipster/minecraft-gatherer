@@ -16,9 +16,19 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             _advancementEnhancer = advancementEnhancer;
         }
 
-        public IActionResult Index(string worldName)
+        public IActionResult Name(string worldName)
         {
             var run = _runFinder.GetByName(worldName);
+            var viewmodel = new RunDetailViewModel(run);
+
+            viewmodel.FirstAdvancement = _advancementEnhancer.Enhance(run);
+
+            return View(viewmodel);
+        }
+
+        public IActionResult Index(int index)
+        {
+            var run = _runFinder.GetByIndex(index);
             var viewmodel = new RunDetailViewModel(run);
 
             viewmodel.FirstAdvancement = _advancementEnhancer.Enhance(run);
