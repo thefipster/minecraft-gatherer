@@ -73,7 +73,8 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
             _container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
 
-            _container.Register<IFirstToAdvancementEnhancer, FirstToAdvancementEnhancer>(Lifestyle.Transient);
+            _container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>(Lifestyle.Transient);
+            _container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>(Lifestyle.Transient);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -15,6 +15,14 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public static GameEvent CreateJoined(LogLine line) => CreateBasic(line, LogEventTypes.Join);
         public static GameEvent CreateLeft(LogLine line) => CreateBasic(line, LogEventTypes.Leave);
         public static GameEvent CreateSplit(LogLine line) => CreateBasic(line, LogEventTypes.Splits);
+
+        public static GameEvent CreateBasic(Player player, DateTime timestamp, string eventName) => new GameEvent
+        {
+            Data = eventName,
+            Player = player,
+            Timestamp = timestamp
+        };
+
         public static GameEvent CreateAchievement(Player player, DateTime timestamp, string data) => new GameEvent
         {
             Data = data,
@@ -23,14 +31,11 @@ namespace TheFipster.Minecraft.Speedrun.Domain
             Type = LogEventTypes.Achievement
         };
 
-        private static GameEvent CreateBasic(LogLine line, LogEventTypes type)
+        private static GameEvent CreateBasic(LogLine line, LogEventTypes type) => new GameEvent
         {
-            return new GameEvent
-            {
-                Line = line,
-                Timestamp = line.Timestamp,
-                Type = type
-            };
-        }
+            Line = line,
+            Timestamp = line.Timestamp,
+            Type = type
+        };
     }
 }

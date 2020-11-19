@@ -8,12 +8,17 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     public class RunController : Controller
     {
         private readonly IRunFinder _runFinder;
-        private readonly IFirstToAdvancementEnhancer _advancementEnhancer;
+        private readonly IQuickestEventEnhancer _quickestEventEnhancer;
+        private readonly IPlayerEventEnhancer _playerEventEnhancer;
 
-        public RunController(IRunFinder runFinder, IFirstToAdvancementEnhancer advancementEnhancer)
+        public RunController(
+            IRunFinder runFinder,
+            IQuickestEventEnhancer quickestEventEnhancer,
+            IPlayerEventEnhancer playerEventEnhancer)
         {
             _runFinder = runFinder;
-            _advancementEnhancer = advancementEnhancer;
+            _quickestEventEnhancer = quickestEventEnhancer;
+            _playerEventEnhancer = playerEventEnhancer;
         }
 
         public IActionResult Name(string worldName)
@@ -21,9 +26,10 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var run = _runFinder.GetByName(worldName);
             var viewmodel = new RunDetailViewModel(run);
 
-            viewmodel.FirstAdvancement = _advancementEnhancer.Enhance(run);
+            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run);
+            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run);
 
-            return View(viewmodel);
+            return View("Index", viewmodel);
         }
 
         public IActionResult Index(int index)
@@ -31,7 +37,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var run = _runFinder.GetByIndex(index);
             var viewmodel = new RunDetailViewModel(run);
 
-            viewmodel.FirstAdvancement = _advancementEnhancer.Enhance(run);
+            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run);
+            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run);
 
             return View(viewmodel);
         }

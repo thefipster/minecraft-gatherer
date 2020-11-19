@@ -4,7 +4,7 @@ using TheFipster.Minecraft.Speedrun.Web.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Enhancer
 {
-    public interface IFirstToAdvancementEnhancer
+    public interface IQuickestEventEnhancer
     {
         IEnumerable<FirstEvent> Enhance(RunInfo run);
 

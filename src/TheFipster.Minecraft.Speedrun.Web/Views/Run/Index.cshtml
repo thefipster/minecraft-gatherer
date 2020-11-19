@@ -208,46 +208,24 @@
                                 <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Dropped.Sum(x => x.Value)</span>
                             </li>
                         </ul>
-                        @if (Model.Run.Events.Any())
+                        @if (Model.PlayerEvents.ContainsKey(player.Id))
                         {
                             <h3>Advancements</h3>
                             <ul class="list-group">
-                                @foreach (var advancement in Model.Run.Events.Where(x => x.Player != null && x.Player.Id == player.Id && x.Type == TheFipster.Minecraft.Speedrun.Domain.LogEventTypes.Advancement).OrderBy(x => x.Timestamp))
+                                @foreach (var gameEvent in Model.PlayerEvents[player.Id].OrderBy(x => x.Timestamp))
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <span>
                                             @if (Model.BaseTime.HasValue)
                                             {
-                                                @(advancement.Timestamp - Model.BaseTime)
+                                                @(gameEvent.Timestamp - Model.BaseTime)
                                             }
                                             else
                                             {
-                                                @advancement.Timestamp.ToString("HH:mm:ss")
+                                                @gameEvent.Timestamp.ToString("HH:mm:ss")
                                             }
                                         </span>
-                                        <span>@advancement.Data</span>
-                                    </li>
-                                }
-                            </ul>
-                        }
-                        @if (Model.Run.Events.Any())
-                        {
-                            <h3>Achievements</h3>
-                            <ul class="list-group">
-                                @foreach (var advancement in Model.Run.Events.Where(x => x.Player != null && x.Player.Id == player.Id && x.Type == TheFipster.Minecraft.Speedrun.Domain.LogEventTypes.Achievement).OrderBy(x => x.Timestamp))
-                                {
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>
-                                            @if (Model.BaseTime.HasValue)
-                                            {
-                                                @(advancement.Timestamp - Model.BaseTime)
-                                            }
-                                            else
-                                            {
-                                                @advancement.Timestamp.ToString("HH:mm:ss")
-                                            }
-                                        </span>
-                                        <span>@advancement.Data</span>
+                                        <span>@gameEvent.Data</span>
                                     </li>
                                 }
                             </ul>
