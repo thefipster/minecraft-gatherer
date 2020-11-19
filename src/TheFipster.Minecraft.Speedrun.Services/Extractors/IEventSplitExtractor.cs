@@ -5,7 +5,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
 {
     public interface IEventSplitExtractor
     {
-        List<Split> Extract(IEnumerable<LogEvent> events);
+        List<Split> Extract(IEnumerable<GameEvent> events);
 
     }
 }

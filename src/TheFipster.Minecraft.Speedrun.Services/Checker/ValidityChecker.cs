@@ -21,10 +21,27 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 result.Reasons.Add("The server generated no dimensions.");
             }
 
-            if (!run.Logs.Events.Any(x => x.Type == LogEventTypes.SetTime) && run.Players.Count() > 1)
+            if ((run.Logs == null || !run.Logs.Events.Any(x => x.Type == LogEventTypes.SetTime)) && run.Players.Count() > 1)
             {
                 result.IsValid = false;
                 result.Reasons.Add("There was no SetTime event.");
+            }
+
+            if (!run.Splits.Any() && run.Players.Count() > 1)
+            {
+                result.IsValid = false;
+                result.Reasons.Add("Splits couldn't be determined.");
+            }
+
+            if (run.Outcome == null)
+            {
+                result.IsValid = false;
+                result.Reasons.Add("Run has no outcome.");
+            }
+
+            if (run.Logs == null)
+            {
+                result.Reasons.Add("Run has no logs.");
             }
 
             return result;

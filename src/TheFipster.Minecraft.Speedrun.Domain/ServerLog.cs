@@ -8,7 +8,7 @@ namespace TheFipster.Minecraft.Speedrun.Domain
     {
         public ServerLog()
         {
-            Events = new List<LogEvent>();
+            Events = new List<GameEvent>();
         }
 
         public ServerLog(IEnumerable<LogLine> lines)
@@ -18,7 +18,7 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         }
 
         public List<LogLine> Lines { get; set; }
-        public List<LogEvent> Events { get; set; }
+        public List<GameEvent> Events { get; set; }
         public DateTime AnalyzedOn { get; set; }
     }
 }

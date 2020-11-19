@@ -45,42 +45,45 @@
                                     @reason
                                 </li>
                             }
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Outcome</span>
-                                @switch (Model.Run.Outcome.State)
-                                {
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                                        {
-                                            <span class="badge badge-success">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                                        {
-                                            <span class="badge badge-secondary">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                                        {
-                                            <span class="badge badge-primaryl">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                                        {
-                                            <span class="badge badge-warning">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                                        {
-                                            <span class="badge badge-light">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
-                                        {
-                                            <span class="badge badge-danger">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                }
-                            </li>
+                            @if (Model.Run.Outcome != null)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Outcome</span>
+                                    @switch (Model.Run.Outcome.State)
+                                    {
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
+                                            {
+                                                <span class="badge badge-success">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
+                                            {
+                                                <span class="badge badge-secondary">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                                            {
+                                                <span class="badge badge-primaryl">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
+                                            {
+                                                <span class="badge badge-warning">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
+                                            {
+                                                <span class="badge badge-light">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
+                                            {
+                                                <span class="badge badge-danger">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                    }
+                                </li>
+                            }
                             @if (Model.Run.Index != 0)
                             {
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -97,7 +100,7 @@
                 </div>
             </div>
         </div>
-        @if (Model.Run.Splits != null)
+        @if (Model.Run.Splits.Any())
         {
             <div class="row">
                 <div class="col">
@@ -198,25 +201,28 @@
                                 <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Dropped.Sum(x => x.Value)</span>
                             </li>
                         </ul>
-                        <h3>Advancements</h3>
-                        <ul class="list-group">
-                            @foreach (var advancement in Model.Run.Logs.Events.Where(x => x.Player != null && x.Player.Id == player.Id && x.Type == TheFipster.Minecraft.Speedrun.Domain.LogEventTypes.Advancement).OrderBy(x => x.Timestamp))
-                            {
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>
-                                        @if (Model.BaseTime.HasValue)
-                                        {
-                                            @(advancement.Timestamp - Model.BaseTime)
-                                        }
-                                        else
-                                        {
-                                            @advancement.Timestamp
-                                        }
-                                    </span>
-                                    <span>@advancement.Data</span>
-                                </li>
-                            }
-                        </ul>
+                        @if (Model.Run.Logs != null)
+                        {
+                            <h3>Advancements</h3>
+                            <ul class="list-group">
+                                @foreach (var advancement in Model.Run.Logs.Events.Where(x => x.Player != null && x.Player.Id == player.Id && x.Type == TheFipster.Minecraft.Speedrun.Domain.LogEventTypes.Advancement).OrderBy(x => x.Timestamp))
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            @if (Model.BaseTime.HasValue)
+                                            {
+                                                @(advancement.Timestamp - Model.BaseTime)
+                                            }
+                                            else
+                                            {
+                                                @advancement.Timestamp
+                                            }
+                                        </span>
+                                        <span>@advancement.Data</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
                         <h3>Kills</h3>
                         <ul class="list-group">
                             @foreach (var kill in @Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.OrderByDescending(x => x.Value))

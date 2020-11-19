@@ -61,8 +61,10 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.RegisterDecorator<ILineAnalyzer, LinePlayerLeaveAnalyzer>(Lifestyle.Transient);
 
             _container.Register<IEventPlayerExtractor, EventPlayerExtractor>(Lifestyle.Transient);
+            _container.Register<IStatsPlayerExtractor, StatsPlayerExtractor>(Lifestyle.Transient);
             _container.Register<IEventSplitExtractor, EventSplitExtractor>(Lifestyle.Transient);
-            _container.Register<IPlayerStatsExtractor, PlayerStatsExtractor>(Lifestyle.Transient);
+            _container.Register<IStatsExtractor, StatsExtractor>(Lifestyle.Transient);
+            _container.Register<IAchievementExtractor, AchievementExtractor>(Lifestyle.Transient);
 
             _container.Register<IValidityChecker, ValidityChecker>(Lifestyle.Transient);
             _container.Register<IOutcomeChecker, OutcomeChecker>(Lifestyle.Transient);

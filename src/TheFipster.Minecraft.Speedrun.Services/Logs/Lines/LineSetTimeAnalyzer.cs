@@ -14,14 +14,14 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _playerStore = playerStore;
         }
 
-        public List<LogEvent> Analyze(LogLine line)
+        public List<GameEvent> Analyze(LogLine line)
         {
             var events = _component.Analyze(line);
 
             if (!line.Message.Contains("Set the time"))
                 return events;
 
-            var advancement = LogEvent.CreateSetTime(line);
+            var advancement = GameEvent.CreateSetTime(line);
 
             advancement.Player = findPlayer(line);
             if (advancement.Player == null)

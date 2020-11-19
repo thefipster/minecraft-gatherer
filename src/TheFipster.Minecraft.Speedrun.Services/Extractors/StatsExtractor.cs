@@ -6,11 +6,11 @@ using TheFipster.Minecraft.Speedrun.Domain.Stats;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public class PlayerStatsExtractor : IPlayerStatsExtractor
+    public class StatsExtractor : IStatsExtractor
     {
         private readonly IStatsFinder _statsFinder;
 
-        public PlayerStatsExtractor(IStatsFinder statsFinder)
+        public StatsExtractor(IStatsFinder statsFinder)
         {
             _statsFinder = statsFinder;
         }
@@ -24,7 +24,8 @@ namespace TheFipster.Minecraft.Speedrun.Services
             foreach (var file in files)
             {
                 var json = File.ReadAllText(file.FullName);
-                var cleanedStats = new PlayerStats(file.Name);
+                var playerId = file.Name.Replace(".json", string.Empty);
+                var cleanedStats = new PlayerStats(playerId);
                 var rawStat = JsonConvert.DeserializeObject<RawStats>(json);
 
                 cleanedStats.Broken = clean(rawStat.Categories.MinecraftBroken);
@@ -52,7 +53,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
             foreach (var entry in raw)
             {
-                var newKey = entry.Key.Replace("minecraft:", string.Empty).Replace("-", " ").Replace("_", string.Empty);
+                var newKey = entry.Key.Replace("minecraft:", string.Empty).Replace("-", " ").Replace("_", " ");
                 var newFirstChar = newKey.Substring(0, 1).ToUpper();
                 newKey = newFirstChar + newKey.Substring(1);
                 clean.Add(newKey, entry.Value);

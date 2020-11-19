@@ -9,7 +9,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
     {
         private DateTime _baseTime;
 
-        public List<Split> Extract(IEnumerable<LogEvent> events)
+        public List<Split> Extract(IEnumerable<GameEvent> events)
         {
             var splits = new List<Split>();
 
@@ -29,7 +29,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         }
 
-        private bool tryFindBaseTime(IEnumerable<LogEvent> events, out DateTime baseTime)
+        private bool tryFindBaseTime(IEnumerable<GameEvent> events, out DateTime baseTime)
         {
             var setTimeEvent = events.FirstOrDefault(x => x.Type == LogEventTypes.SetTime);
 
@@ -43,7 +43,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             return true;
         }
 
-        private void addNetherSplitIfFound(IEnumerable<LogEvent> events, List<Split> splits)
+        private void addNetherSplitIfFound(IEnumerable<GameEvent> events, List<Split> splits)
         {
             var netherEventss = events.Where(x => x.Type == LogEventTypes.Advancement && x.Data == "We Need to Go Deeper");
             if (!netherEventss.Any())
@@ -54,7 +54,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             splits.Add(split);
         }
 
-        private void addFortressSplitIfFound(IEnumerable<LogEvent> events, List<Split> splits)
+        private void addFortressSplitIfFound(IEnumerable<GameEvent> events, List<Split> splits)
         {
             var fortressEvents = events.Where(x => x.Type == LogEventTypes.Advancement && x.Data == "A Terrible Fortress");
             if (!fortressEvents.Any())
@@ -65,7 +65,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             splits.Add(split);
         }
 
-        private void addBlazeRodSplitIfFound(IEnumerable<LogEvent> events, List<Split> splits)
+        private void addBlazeRodSplitIfFound(IEnumerable<GameEvent> events, List<Split> splits)
         {
             var blazeRodEvents = events.Where(x => x.Type == LogEventTypes.Advancement && x.Data == "Into Fire");
             if (!blazeRodEvents.Any())
@@ -76,7 +76,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             splits.Add(split);
         }
 
-        private void addStrongholdSplitIfFound(IEnumerable<LogEvent> events, List<Split> splits)
+        private void addStrongholdSplitIfFound(IEnumerable<GameEvent> events, List<Split> splits)
         {
             var strongholdEvents = events.Where(x => x.Type == LogEventTypes.Advancement && x.Data == "Eye Spy");
             if (!strongholdEvents.Any())
@@ -87,7 +87,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             splits.Add(split);
         }
 
-        private void addTheEndSplitIfFound(IEnumerable<LogEvent> events, List<Split> splits)
+        private void addTheEndSplitIfFound(IEnumerable<GameEvent> events, List<Split> splits)
         {
             var theEndEvents = events.Where(x => x.Type == LogEventTypes.Advancement && x.Data == "The End?");
             if (!theEndEvents.Any())
@@ -98,7 +98,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             splits.Add(split);
         }
 
-        private void addFinishSplitsIfFound(IEnumerable<LogEvent> events, List<Split> splits)
+        private void addFinishSplitsIfFound(IEnumerable<GameEvent> events, List<Split> splits)
         {
             var finishEvents = events.Where(x => x.Type == LogEventTypes.Advancement && x.Data == "Free the End");
             if (!finishEvents.Any())

@@ -19,8 +19,10 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private readonly ILogTrimmer _logTrimmer;
         private readonly ILogAnalyzer _logAnalyzer;
         private readonly IEventSplitExtractor _splitExtractor;
-        private readonly IEventPlayerExtractor _playerExtractor;
-        private readonly IPlayerStatsExtractor _statsExtractor;
+        private readonly IEventPlayerExtractor _eventPlayerExtractor;
+        private readonly IStatsPlayerExtractor _statsPlayerExtractor;
+        private readonly IAchievementExtractor _achievementExtractor;
+        private readonly IStatsExtractor _statsExtractor;
         private readonly IValidityChecker _validityChecker;
         private readonly IOutcomeChecker _outcomeChecker;
         private readonly IRunStore _runStore;
@@ -29,7 +31,6 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         public ImportModule(
             IConfigService config,
             IServerPropertiesReader serverPropertiesReader,
-            IPlayerStore playerStore,
             IWorldFinder worldFinder,
             IWorldLoader worldLoader,
             ILogFinder logFinder,
@@ -37,8 +38,10 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             ILogTrimmer logTrimmer,
             ILogAnalyzer logAnalyzer,
             IEventSplitExtractor splitExtractor,
-            IEventPlayerExtractor playerExtractor,
-            IPlayerStatsExtractor statsExtractor,
+            IEventPlayerExtractor eventPlayerExtractor,
+            IStatsPlayerExtractor statsPlayerExtractor,
+            IStatsExtractor statsExtractor,
+            IAchievementExtractor achievementExtractor,
             IValidityChecker validityChecker,
             IOutcomeChecker outcomeChecker,
             IRunStore runStore,
@@ -53,7 +56,9 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             _logTrimmer = logTrimmer;
             _logAnalyzer = logAnalyzer;
             _splitExtractor = splitExtractor;
-            _playerExtractor = playerExtractor;
+            _eventPlayerExtractor = eventPlayerExtractor;
+            _statsPlayerExtractor = statsPlayerExtractor;
+            _achievementExtractor = achievementExtractor;
             _statsExtractor = statsExtractor;
             _validityChecker = validityChecker;
             _outcomeChecker = outcomeChecker;
@@ -101,43 +106,35 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             {
                 _logger.LogDebug($"Run Load: Enhancing information for world {run.Id}.");
 
+                run.Stats = _statsExtractor.Extract(run.World.Name);
+                run.Achievements = _achievementExtractor.Extract(run.World);
+
                 try
                 {
                     run.Logs = gatherLogs(run.World);
-
-                    if (run.Logs != null)
-                    {
-
-                        run.Logs = _logAnalyzer.Analyze(run.Logs);
-                        run.Players = _playerExtractor.Extract(run.Logs.Events);
-                        run.Splits = _splitExtractor.Extract(run.Logs.Events);
-                        run.Stats = _statsExtractor.Extract(run.World.Name);
-                        run.Validity = _validityChecker.Check(run);
-                        run.Outcome = _outcomeChecker.Check(run);
-
-                    }
+                    run.Logs = _logAnalyzer.Analyze(run.Logs);
+                    run.Players = _eventPlayerExtractor.Extract(run.Logs.Events);
+                    run.Splits = _splitExtractor.Extract(run.Logs.Events);
+                    run.Outcome = _outcomeChecker.Check(run);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogWarning(ex, $"Run Load: Enhancement for {run.Id} failed.");
-
-                    run.Outcome = new OutcomeResult(Outcomes.Error);
-                    run.Validity = new ValidityResult(ex.Message);
+                    _logger.LogDebug(ex, $"Run Load: Enhancement for {run.Id} via logs failed.");
+                    run.Players = _statsPlayerExtractor.Extract(run.Stats);
                 }
-                finally
-                {
-                    _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
 
-                    if (overwrite)
-                    {
-                        _runStore.Update(run);
-                    }
-                    else
-                    {
-                        var currentIndex = _runStore.Count();
-                        run.Index = currentIndex + 1;
-                        _runStore.Add(run);
-                    }
+                run.Validity = _validityChecker.Check(run);
+
+                _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
+                if (overwrite)
+                {
+                    _runStore.Update(run);
+                }
+                else
+                {
+                    var currentIndex = _runStore.Count();
+                    run.Index = _config.InitialRunIndex + currentIndex + 1;
+                    _runStore.Add(run);
                 }
             }
 
