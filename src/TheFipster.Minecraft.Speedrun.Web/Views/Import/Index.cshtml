@@ -55,7 +55,7 @@
                                 <strong>@($"{count}.")</strong>
                             </td>
                             <td>
-                                <a asp-controller="Run" asp-action="Index" asp-route-worldName="@run.Index">
+                                <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
                                     @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
                                 </a>
                             </td>

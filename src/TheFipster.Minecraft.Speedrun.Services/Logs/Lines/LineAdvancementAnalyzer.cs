@@ -16,14 +16,14 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _playerStore = playerStore;
         }
 
-        public List<LogEvent> Analyze(LogLine line)
+        public List<GameEvent> Analyze(LogLine line)
         {
             var events = _component.Analyze(line);
 
             if (!line.Message.Contains("advancement"))
                 return events;
 
-            var advancement = LogEvent.CreateAdvancement(line);
+            var advancement = GameEvent.CreateAdvancement(line);
 
             advancement.Player = findPlayer(line);
             if (advancement.Player == null)

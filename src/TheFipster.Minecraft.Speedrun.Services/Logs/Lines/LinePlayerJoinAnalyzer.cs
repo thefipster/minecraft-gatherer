@@ -16,14 +16,14 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _playerStore = playerStore;
         }
 
-        public List<LogEvent> Analyze(LogLine line)
+        public List<GameEvent> Analyze(LogLine line)
         {
             var events = _component.Analyze(line);
 
             if (!line.Message.Contains("logged in with entity id"))
                 return events;
 
-            var joined = LogEvent.CreateJoined(line);
+            var joined = GameEvent.CreateJoined(line);
 
             joined.Player = findPlayer(line);
             if (joined.Player == null)

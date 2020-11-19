@@ -14,14 +14,14 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _playerStore = playerStore;
         }
 
-        public List<LogEvent> Analyze(LogLine line)
+        public List<GameEvent> Analyze(LogLine line)
         {
             var events = _component.Analyze(line);
 
             if (!line.Message.Contains("lost connection"))
                 return events;
 
-            var left = LogEvent.CreateLeft(line);
+            var left = GameEvent.CreateLeft(line);
 
             left.Player = findPlayer(line);
             if (left.Player == null)

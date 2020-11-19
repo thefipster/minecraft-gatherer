@@ -20,18 +20,8 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public PlayerStats(string playerId) : this()
             => PlayerId = playerId;
 
-        private string playerId;
-        public string PlayerId
-        {
-            get
-            {
-                return playerId.Replace(".json", string.Empty);
-            }
-            set
-            {
-                playerId = value;
-            }
-        }
+
+        public string PlayerId { get; set; }
 
         public Dictionary<string, double> Killed { get; set; }
         public Dictionary<string, double> KilledBy { get; set; }

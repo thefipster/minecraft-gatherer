@@ -10,9 +10,9 @@
             @(Model.Run.Index != 0 ? $"#{Model.Run.Index}" : string.Empty)
             <small>
                 played on
-                @Model.Run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy")
+                @Model.Run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy")
                 at
-                @Model.Run.World.CreatedOn.ToLocalTime().ToString("HH:mm")
+                @Model.Run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("HH:mm")
             </small>
         </h1>
     </div>
@@ -45,42 +45,54 @@
                                     @reason
                                 </li>
                             }
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Outcome</span>
-                                @switch (Model.Run.Outcome.State)
+                            @if (Model.Run.Timings != null)
+                            {
+                                @foreach (var reason in Model.Run.Timings.Reasons)
                                 {
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                                        {
-                                            <span class="badge badge-success">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                                        {
-                                            <span class="badge badge-secondary">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                                        {
-                                            <span class="badge badge-primaryl">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                                        {
-                                            <span class="badge badge-warning">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                                        {
-                                            <span class="badge badge-light">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
-                                    case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
-                                        {
-                                            <span class="badge badge-danger">@Model.Run.Outcome.State</span>
-                                            break;
-                                        }
+                                    <li class="list-group-item">
+                                        @reason
+                                    </li>
                                 }
-                            </li>
+                            }
+                            @if (Model.Run.Outcome != null)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Outcome</span>
+                                    @switch (Model.Run.Outcome.State)
+                                    {
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
+                                            {
+                                                <span class="badge badge-success">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
+                                            {
+                                                <span class="badge badge-secondary">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                                            {
+                                                <span class="badge badge-primaryl">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
+                                            {
+                                                <span class="badge badge-warning">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
+                                            {
+                                                <span class="badge badge-light">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
+                                            {
+                                                <span class="badge badge-danger">@Model.Run.Outcome.State</span>
+                                                break;
+                                            }
+                                    }
+                                </li>
+                            }
                             @if (Model.Run.Index != 0)
                             {
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -92,23 +104,41 @@
                                 <span>World</span>
                                 <span class="badge badge-primary">@Model.Run.World.Name</span>
                             </li>
+                            @if (Model.Run.Timings != null && Model.Run.Timings.StartedOn.HasValue && Model.Run.Timings.FinishedOn.HasValue)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Finished in</span>
+                                    <span class="badge badge-primary">@(Model.Run.Timings.FinishedOn.Value - Model.Run.Timings.StartedOn.Value)</span>
+                                </li>
+                            }
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>Playtime</span>
+                                <span class="badge badge-primary">@Model.Run.Outcome.PlayTime</span>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        @if (Model.Run.Splits != null)
+        @if (Model.Run.Timings != null && Model.Run.Timings.Splits.Any())
         {
             <div class="row">
                 <div class="col">
                     <div class="card border-secondary">
-                        <div class="card-header"><h2>Splits</h2></div>
+                        <div class="card-header"><h2>Timings</h2></div>
                         <div class="card-body">
                             <ul class="list-group">
-                                @foreach (var split in Model.Run.Splits.OrderBy(x => x.Timestamp))
+                                @foreach (var split in Model.Run.Timings.Splits.OrderBy(x => x.Timestamp))
                                 {
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <span>@split.Timestamp</span>
+                                        @if (Model.Run.Timings.StartedOn.HasValue)
+                                        {
+                                            <span>@(split.Timestamp - Model.Run.Timings.StartedOn.Value)</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@split.Timestamp.ToString("HH:mm:ss")</span>
+                                        }
                                         <span>@split.Type</span>
                                     </li>
                                 }
@@ -150,7 +180,16 @@
                         @foreach (var advancement in Model.FirstAdvancement.OrderBy(x => x.Time))
                         {
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>@(advancement.Time - Model.BaseTime)</span>
+                                <span>
+                                    @if (Model.Run.Timings.StartedOn.HasValue)
+                                    {
+                                        @(advancement.Time - Model.Run.Timings.StartedOn.Value)
+                                    }
+                                    else
+                                    {
+                                        @advancement.Time.ToString("HH:mm:ss")
+                                    }
+                                </span>
                                 <span>@advancement.Name</span>
                                 <img class="avatar-small" src="@($"/speedrun/img/players/{advancement.Player.Id}.png")" />
                             </li>
@@ -175,142 +214,87 @@
                         <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
                     </div>
                     <div class="card-body">
-                        <h3>Stats</h3>
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Kills</span>
-                                <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.Sum(x => x.Value)</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Deaths</span>
-                                <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).KilledBy.Sum(x => x.Value)</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Items Crafted</span>
-                                <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Crafted.Sum(x => x.Value)</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Items picked up</span>
-                                <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).PickedUp.Sum(x => x.Value)</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Items dropped</span>
-                                <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Dropped.Sum(x => x.Value)</span>
-                            </li>
-                        </ul>
-                        <h3>Advancements</h3>
-                        <ul class="list-group">
-                            @foreach (var advancement in Model.Run.Logs.Events.Where(x => x.Player != null && x.Player.Id == player.Id && x.Type == TheFipster.Minecraft.Speedrun.Domain.LogEventTypes.Advancement).OrderBy(x => x.Timestamp))
-                            {
+                        @if (Model.Run.Stats.Any())
+                        {
+                            <h3>Stats</h3>
+                            <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>
-                                        @if (Model.BaseTime.HasValue)
-                                        {
-                                            @(advancement.Timestamp - Model.BaseTime)
-                                        }
-                                        else
-                                        {
-                                            @advancement.Timestamp
-                                        }
-                                    </span>
-                                    <span>@advancement.Data</span>
+                                    <span>Kills</span>
+                                    <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.Sum(x => x.Value)</span>
                                 </li>
-                            }
-                        </ul>
-                        <h3>Kills</h3>
-                        <ul class="list-group">
-                            @foreach (var kill in @Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.OrderByDescending(x => x.Value))
-                            {
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>@kill.Key</span>
-                                    <span>@kill.Value</span>
+                                    <span>Deaths</span>
+                                    <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).KilledBy.Sum(x => x.Value)</span>
                                 </li>
-                            }
-                        </ul>
-                        <h3>Deaths</h3>
-                        <ul class="list-group">
-                            @foreach (var kill in @Model.Run.Stats.First(x => x.PlayerId == player.Id).KilledBy.OrderByDescending(x => x.Value))
-                            {
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <span>@kill.Key</span>
-                                    <span>@kill.Value</span>
+                                    <span>Items Crafted</span>
+                                    <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Crafted.Sum(x => x.Value)</span>
                                 </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Items picked up</span>
+                                    <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).PickedUp.Sum(x => x.Value)</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>Items dropped</span>
+                                    <span>@Model.Run.Stats.First(x => x.PlayerId == player.Id).Dropped.Sum(x => x.Value)</span>
+                                </li>
+                            </ul>
+                        }
+                        @if (Model.PlayerEvents.ContainsKey(player.Id) && Model.PlayerEvents[player.Id].Any())
+                        {
+                            <h3>Advancements</h3>
+                            <ul class="list-group">
+                                @foreach (var gameEvent in Model.PlayerEvents[player.Id].OrderBy(x => x.Timestamp))
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            @if (Model.Run.Timings.StartedOn.HasValue)
+                                            {
+                                                @(gameEvent.Timestamp - Model.Run.Timings.StartedOn.Value)
+                                            }
+                                            else
+                                            {
+                                                @gameEvent.Timestamp.ToString("HH:mm:ss")
+                                            }
+                                        </span>
+                                        <span>@gameEvent.Data</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        @if (Model.Run.Stats.Any())
+                        {
+                            @if (Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.Any())
+                            {
+                                <h3>Kills</h3>
+                                <ul class="list-group">
+                                    @foreach (var kill in Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.OrderByDescending(x => x.Value))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>@kill.Key</span>
+                                            <span>@kill.Value</span>
+                                        </li>
+                                    }
+                                </ul>
                             }
-                        </ul>
+
+                            @if (Model.Run.Stats.First(x => x.PlayerId == player.Id).KilledBy.Any())
+                            {
+                                <h3>Deaths</h3>
+                                <ul class="list-group">
+                                    @foreach (var kill in Model.Run.Stats.First(x => x.PlayerId == player.Id).KilledBy.OrderByDescending(x => x.Value))
+                                    {
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>@kill.Key</span>
+                                            <span>@kill.Value</span>
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        }
                     </div>
                 </div>
             </div>
         }
-    </div>
-}
-
-@if (Model.Run.Logs != null)
-{
-    <div class="row">
-        <div class="col">
-            <div class="card border-secondary">
-                <div class="card-header"><h2>Debug</h2></div>
-                <div class="card-body">
-
-
-
-
-                    @if (Model.Run.Logs.Events != null)
-                    {
-                        <h3>Events</h3>
-                        <table class="table table-hover">
-                            <tbody>
-                                @foreach (var e in Model.Run.Logs.Events.OrderBy(x => x.Timestamp))
-                                {
-                                    <tr>
-                                        <td>
-                                            @(e.Timestamp.ToLocalTime().ToString("HH:mm:ss"))
-                                        </td>
-                                        <td>
-                                            @e.Type
-                                        </td>
-                                        <td>
-                                            @e.Data
-                                        </td>
-                                        <td>
-                                            @if (e.Player != null)
-                                            {
-                                                <img class="avatar-small" src="@($"/speedrun/img/players/{e.Player.Id}.png")" />
-                                            }
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-
-                    @if (Model.Run.Logs.Lines != null)
-                    {
-                        <h3>Logs</h3>
-                        <table class="table table-hover">
-                            <tbody>
-                                @foreach (var line in Model.Run.Logs.Lines.OrderBy(x => x.Timestamp))
-                                {
-                                    <tr>
-                                        <td>
-                                            @(line.Timestamp.ToLocalTime().ToString("HH:mm:ss"))
-                                        </td>
-                                        <td>
-                                            @line.Level
-                                        </td>
-                                        <td>
-                                            @line.Thread
-                                        </td>
-                                        <td>
-                                            @line.Message
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-                </div>
-            </div>
-        </div>
     </div>
 }

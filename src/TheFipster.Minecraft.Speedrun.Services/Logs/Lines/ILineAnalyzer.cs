@@ -5,6 +5,6 @@ namespace TheFipster.Minecraft.Speedrun.Services
 {
     public interface ILineAnalyzer
     {
-        List<LogEvent> Analyze(LogLine line);
+        List<GameEvent> Analyze(LogLine line);
     }
 }

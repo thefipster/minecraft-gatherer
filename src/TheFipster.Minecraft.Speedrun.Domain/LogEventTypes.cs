@@ -6,6 +6,7 @@
         Join,
         Leave,
         SetTime,
-        Splits
+        Splits,
+        Achievement
     }
 }

@@ -15,7 +15,7 @@
         <div class="btn-group" role="group">
             <a class="btn btn-secondary" asp-controller="Runs" asp-action="Index">Finished</a>
             <a class="btn btn-primary">All Started</a>
-            <a class="btn btn-secondary" asp-controller="Runs" asp-action="All">and resets</a>
+            <a class="btn btn-secondary" asp-controller="Runs" asp-action="All">and discards</a>
             <a class="btn btn-secondary" asp-controller="Runs" asp-action="Garbage">and all else</a>
         </div>
     </div>
@@ -35,11 +35,11 @@
                         </td>
                         <td>
                             <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
-                                @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+                                @run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
                             </a>
                         </td>
                         <td>
-                            <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().ToString("s")"></time>
+                            <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
                         </td>
                         <td>
                             @foreach (var player in run.Players.OrderBy(x => x.Name))
@@ -57,10 +57,15 @@
                                     }
                                 case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
                                     {
-                                        <span class="badge badge-secondary">@run.Outcome.State</span>
+                                        <span class="badge badge-dark">@run.Outcome.State</span>
                                         break;
                                     }
                                 case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                                    {
+                                        <span class="badge badge-secondary">@run.Outcome.State</span>
+                                        break;
+                                    }
+                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSearch:
                                     {
                                         <span class="badge badge-primary">@run.Outcome.State</span>
                                         break;

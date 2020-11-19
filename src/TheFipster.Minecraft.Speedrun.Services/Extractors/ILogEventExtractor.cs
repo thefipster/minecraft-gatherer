@@ -3,8 +3,8 @@ using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public interface IEventPlayerExtractor
+    public interface ILogEventExtractor
     {
-        IEnumerable<Player> Extract(IEnumerable<GameEvent> events);
+        IEnumerable<GameEvent> Extract(IEnumerable<LogLine> log);
     }
 }

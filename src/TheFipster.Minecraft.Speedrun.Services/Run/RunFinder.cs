@@ -30,7 +30,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             .Get()
             .Where(x =>
                 x.Validity.IsValid
-                && x.Logs.Events.Any(y => y.Type == LogEventTypes.SetTime));
+                && x.Players.Count() > 1);
 
         public IEnumerable<RunInfo> GetValid() => _runStore
             .Get()

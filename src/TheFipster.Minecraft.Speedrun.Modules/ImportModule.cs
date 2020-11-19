@@ -17,10 +17,12 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private readonly ILogFinder _logFinder;
         private readonly ILogParser _logParser;
         private readonly ILogTrimmer _logTrimmer;
-        private readonly ILogAnalyzer _logAnalyzer;
-        private readonly IEventSplitExtractor _splitExtractor;
-        private readonly IEventPlayerExtractor _playerExtractor;
-        private readonly IPlayerStatsExtractor _statsExtractor;
+        private readonly ILogEventExtractor _logEventExtractor;
+        private readonly IEventTimingExtractor _splitExtractor;
+        private readonly IEventPlayerExtractor _eventPlayerExtractor;
+        private readonly IStatsPlayerExtractor _statsPlayerExtractor;
+        private readonly IAchievementEventExtractor _achievementExtractor;
+        private readonly IStatsExtractor _statsExtractor;
         private readonly IValidityChecker _validityChecker;
         private readonly IOutcomeChecker _outcomeChecker;
         private readonly IRunStore _runStore;
@@ -29,16 +31,17 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         public ImportModule(
             IConfigService config,
             IServerPropertiesReader serverPropertiesReader,
-            IPlayerStore playerStore,
             IWorldFinder worldFinder,
             IWorldLoader worldLoader,
             ILogFinder logFinder,
             ILogParser logParser,
             ILogTrimmer logTrimmer,
-            ILogAnalyzer logAnalyzer,
-            IEventSplitExtractor splitExtractor,
-            IEventPlayerExtractor playerExtractor,
-            IPlayerStatsExtractor statsExtractor,
+            ILogEventExtractor logEventExtractor,
+            IEventTimingExtractor splitExtractor,
+            IEventPlayerExtractor eventPlayerExtractor,
+            IStatsPlayerExtractor statsPlayerExtractor,
+            IStatsExtractor statsExtractor,
+            IAchievementEventExtractor achievementExtractor,
             IValidityChecker validityChecker,
             IOutcomeChecker outcomeChecker,
             IRunStore runStore,
@@ -51,9 +54,11 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             _logFinder = logFinder;
             _logParser = logParser;
             _logTrimmer = logTrimmer;
-            _logAnalyzer = logAnalyzer;
+            _logEventExtractor = logEventExtractor;
             _splitExtractor = splitExtractor;
-            _playerExtractor = playerExtractor;
+            _eventPlayerExtractor = eventPlayerExtractor;
+            _statsPlayerExtractor = statsPlayerExtractor;
+            _achievementExtractor = achievementExtractor;
             _statsExtractor = statsExtractor;
             _validityChecker = validityChecker;
             _outcomeChecker = outcomeChecker;
@@ -101,43 +106,37 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             {
                 _logger.LogDebug($"Run Load: Enhancing information for world {run.Id}.");
 
+                run.Stats = _statsExtractor.Extract(run.World.Name);
+                var achievementEvents = _achievementExtractor.Extract(run.World);
+                run.Events.AddRange(achievementEvents);
+
                 try
                 {
                     run.Logs = gatherLogs(run.World);
-
-                    if (run.Logs != null)
-                    {
-
-                        run.Logs = _logAnalyzer.Analyze(run.Logs);
-                        run.Players = _playerExtractor.Extract(run.Logs.Events);
-                        run.Splits = _splitExtractor.Extract(run.Logs.Events);
-                        run.Stats = _statsExtractor.Extract(run.World.Name);
-                        run.Validity = _validityChecker.Check(run);
-                        run.Outcome = _outcomeChecker.Check(run);
-
-                    }
+                    var logEvents = _logEventExtractor.Extract(run.Logs);
+                    run.Events.AddRange(logEvents);
+                    run.Players = _eventPlayerExtractor.Extract(run.Events);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogWarning(ex, $"Run Load: Enhancement for {run.Id} failed.");
-
-                    run.Outcome = new OutcomeResult(Outcomes.Error);
-                    run.Validity = new ValidityResult(ex.Message);
+                    _logger.LogDebug(ex, $"Run Load: Enhancement for {run.Id} via logs failed.");
+                    run.Players = _statsPlayerExtractor.Extract(run.Stats);
                 }
-                finally
-                {
-                    _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
 
-                    if (overwrite)
-                    {
-                        _runStore.Update(run);
-                    }
-                    else
-                    {
-                        var currentIndex = _runStore.Count();
-                        run.Index = currentIndex + 1;
-                        _runStore.Add(run);
-                    }
+                run.Timings = _splitExtractor.Extract(run);
+                run.Outcome = _outcomeChecker.Check(run);
+                run.Validity = _validityChecker.Check(run);
+
+                _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
+                if (overwrite)
+                {
+                    _runStore.Update(run);
+                }
+                else
+                {
+                    var currentIndex = _runStore.Count();
+                    run.Index = _config.InitialRunIndex + currentIndex + 1;
+                    _runStore.Add(run);
                 }
             }
 
@@ -147,13 +146,13 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private bool runExistInStore(DirectoryInfo candiate)
             => _runStore.Exists(candiate.Name);
 
-        private ServerLog gatherLogs(WorldInfo world)
+        private IEnumerable<LogLine> gatherLogs(WorldInfo world)
         {
             var allLogs = _logFinder.Find(world.CreatedOn).ToList();
             var parsedLogs = _logParser.Read(allLogs, world.CreatedOn);
             var orderedLogs = parsedLogs.OrderBy(x => x.Timestamp);
             var trimmedLog = _logTrimmer.Trim(parsedLogs, world);
-            return new ServerLog(trimmedLog);
+            return trimmedLog;
 
         }
 

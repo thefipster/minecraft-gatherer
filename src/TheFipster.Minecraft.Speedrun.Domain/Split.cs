@@ -9,13 +9,13 @@ namespace TheFipster.Minecraft.Speedrun.Domain
 
         }
 
-        public Split(SplitTypes type, TimeSpan duration)
+        public Split(SplitTypes type, DateTime timestamp)
         {
             Type = type;
-            Timestamp = duration;
+            Timestamp = timestamp;
         }
 
         public SplitTypes Type { get; set; }
-        public TimeSpan Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
 {
     public class EventPlayerExtractor : IEventPlayerExtractor
     {
-        public List<Player> Extract(IEnumerable<LogEvent> events)
+        public IEnumerable<Player> Extract(IEnumerable<GameEvent> events)
         {
             var players = new List<Player>();
 

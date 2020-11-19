@@ -14,7 +14,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             _playerStore = playerStore;
         }
 
-        public List<LogEvent> Analyze(LogLine line)
+        public List<GameEvent> Analyze(LogLine line)
         {
             var events = _component.Analyze(line);
 

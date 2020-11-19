@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Speedrun.Domain;
+﻿using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
-    public interface IEventSplitExtractor
+    public interface IEventTimingExtractor
     {
-        List<Split> Extract(IEnumerable<LogEvent> events);
+        Timings Extract(RunInfo run);
 
     }
 }
