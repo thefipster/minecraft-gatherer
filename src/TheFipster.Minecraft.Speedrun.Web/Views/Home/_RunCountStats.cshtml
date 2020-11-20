@@ -1,0 +1,69 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model RunCounts
+
+<div class="card border-secondary">
+    <div class="card-header">
+        <h2>Stats</h2>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>All Worlds</span>
+                @Model.All
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Attempts</span>
+                <span>
+                    @Model.Valid
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Discarded</span>
+                <span>
+                    @Model.Discarded
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Started</span>
+                <span>
+                    @(Model.Valid - Model.Discarded)
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Reached the Nether</span>
+                <span>
+                    @(Model.Attempts - Model.Spawn)
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>with a Fortress</span>
+                <span>
+                    @(Model.Fortresses)
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Returned from Nether</span>
+                <span>
+                    @(Model.Attempts - Model.Spawn - Model.Nether)
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Reached Stronghold</span>
+                <span>
+                    @(Model.Attempts - Model.Spawn - Model.Nether - Model.Search)
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Found End Portal</span>
+                <span>
+                    @(Model.Attempts - Model.Spawn - Model.Nether - Model.Search - Model.Stronghold)
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Killed the Dragon</span>
+                <span>
+                    @(Model.Finished)
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

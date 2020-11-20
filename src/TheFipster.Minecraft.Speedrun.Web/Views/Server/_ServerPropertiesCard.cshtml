@@ -1,0 +1,90 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model ServerProperties
+
+<div class="card border-secondary">
+    <div class="card-header">
+        <h2>Server Properties</h2>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>World</span>
+                <span class="badge badge-primary">@Model.LevelName</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>View Distance</span>
+                <span class="badge badge-primary">@Model.ViewDistance chunks</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Seed</span>
+                @if (Model.LevelSeed.HasValue)
+                {
+                    <span class="badge badge-danger">@Model.LevelSeed</span>
+                }
+                else
+                {
+                    <span class="badge badge-primary">random</span>
+                }
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Difficulty</span>
+                @switch (Model.Difficulty)
+                {
+                    case "peaceful":
+                        {
+                            <span class="badge badge-danger">@Model.Difficulty</span>
+                            break;
+                        }
+                    case "easy":
+                        {
+                            <span class="badge badge-success">@Model.Difficulty</span>
+                            break;
+                        }
+                    case "normal":
+                        {
+                            <span class="badge badge-primary">@Model.Difficulty</span>
+                            break;
+                        }
+                    case "hard":
+                        {
+                            <span class="badge badge-warning">@Model.Difficulty</span>
+                            break;
+                        }
+                }
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Gamemode</span>
+                @if (Model.GameMode == "survival")
+                {
+                    <span class="badge badge-primary">@Model.GameMode</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">@Model.GameMode</span>
+                }
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Spawn Protection</span>
+                @if (Model.SpawnProtection == 0)
+                {
+                    <span class="badge badge-primary">off</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">@Model.SpawnProtection blocks</span>
+                }
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Broadcast Console</span>
+                @if (Model.IsConsoleBroadcastEnabled)
+                {
+                    <span class="badge badge-primary">on</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">off</span>
+                }
+            </li>
+        </ul>
+    </div>
+</div>

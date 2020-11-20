@@ -23,10 +23,14 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private readonly IStatsPlayerExtractor _statsPlayerExtractor;
         private readonly IAchievementEventExtractor _achievementExtractor;
         private readonly IStatsExtractor _statsExtractor;
+        private readonly IPlayerNbtReader _playerNbtReader;
         private readonly IValidityChecker _validityChecker;
         private readonly IOutcomeChecker _outcomeChecker;
         private readonly IRunStore _runStore;
+
         private readonly ILogger<ImportModule> _logger;
+
+        private readonly string _activeWorld;
 
         public ImportModule(
             IConfigService config,
@@ -42,6 +46,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             IStatsPlayerExtractor statsPlayerExtractor,
             IStatsExtractor statsExtractor,
             IAchievementEventExtractor achievementExtractor,
+            IPlayerNbtReader playerNbtReader,
             IValidityChecker validityChecker,
             IOutcomeChecker outcomeChecker,
             IRunStore runStore,
@@ -60,18 +65,37 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             _statsPlayerExtractor = statsPlayerExtractor;
             _achievementExtractor = achievementExtractor;
             _statsExtractor = statsExtractor;
+            _playerNbtReader = playerNbtReader;
             _validityChecker = validityChecker;
             _outcomeChecker = outcomeChecker;
             _runStore = runStore;
             _logger = logger;
+
+            _activeWorld = tryFindActiveWorld();
         }
 
         public IEnumerable<RunInfo> Import(bool overwrite = false)
         {
-            var runs = new List<RunInfo>();
-            var candidates = _worldFinder.Find();
-            var activeWorld = string.Empty;
+            List<RunInfo> runs = findRunsToImport(overwrite);
 
+            foreach (var run in runs.OrderBy(x => x.World.CreatedOn))
+            {
+                _logger.LogDebug($"Run Load: Started processing of run {run.Id}.");
+
+                attachInformationsTo(run);
+                enhanceInformationOf(run);
+                attachConclusionsOf(run);
+                saveToStorage(run);
+
+                _logger.LogDebug($"Run Load: Finished processing of run {run.Id}.");
+            }
+
+            return runs;
+        }
+
+        private string tryFindActiveWorld()
+        {
+            var activeWorld = string.Empty;
             try
             {
                 activeWorld = _serverPropertiesReader.Read().LevelName;
@@ -81,15 +105,23 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 _logger.LogWarning(ex, "Import: Can't read server properties, active world is not filtered.");
             }
 
+            return activeWorld;
+        }
+
+        private List<RunInfo> findRunsToImport(bool overwrite)
+        {
+            var runs = new List<RunInfo>();
+            var candidates = _worldFinder.Find();
+
             foreach (var candiate in candidates)
             {
-                if (candiate.Name == activeWorld)
+                if (candiate.Name == _activeWorld)
                 {
-                    _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it is currently active.");
+                    _logger.LogInformation($"Candidate Check: Skipping world {candiate.Name} because it is currently active.");
                     continue;
                 }
 
-                if (!overwrite && runExistInStore(candiate))
+                if (!overwrite && _runStore.Exists(candiate.Name))
                 {
                     _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it was already imported.");
                     continue;
@@ -102,58 +134,71 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 }
             }
 
-            foreach (var run in runs.OrderBy(x => x.World.CreatedOn))
-            {
-                _logger.LogDebug($"Run Load: Enhancing information for world {run.Id}.");
-
-                run.Stats = _statsExtractor.Extract(run.World.Name);
-                var achievementEvents = _achievementExtractor.Extract(run.World);
-                run.Events.AddRange(achievementEvents);
-
-                try
-                {
-                    run.Logs = gatherLogs(run.World);
-                    var logEvents = _logEventExtractor.Extract(run.Logs);
-                    run.Events.AddRange(logEvents);
-                    run.Players = _eventPlayerExtractor.Extract(run.Events);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogDebug(ex, $"Run Load: Enhancement for {run.Id} via logs failed.");
-                    run.Players = _statsPlayerExtractor.Extract(run.Stats);
-                }
-
-                run.Timings = _splitExtractor.Extract(run);
-                run.Outcome = _outcomeChecker.Check(run);
-                run.Validity = _validityChecker.Check(run);
-
-                _logger.LogDebug($"Run Load: Adding world {run.Id} to the store.");
-                if (overwrite)
-                {
-                    _runStore.Update(run);
-                }
-                else
-                {
-                    var currentIndex = _runStore.Count();
-                    run.Index = _config.InitialRunIndex + currentIndex + 1;
-                    _runStore.Add(run);
-                }
-            }
-
+            _logger.LogDebug($"Candidate Check: Completed. Returning {runs.Count()} runs.");
             return runs;
         }
 
-        private bool runExistInStore(DirectoryInfo candiate)
-            => _runStore.Exists(candiate.Name);
-
-        private IEnumerable<LogLine> gatherLogs(WorldInfo world)
+        private void attachInformationsTo(RunInfo run)
         {
-            var allLogs = _logFinder.Find(world.CreatedOn).ToList();
-            var parsedLogs = _logParser.Read(allLogs, world.CreatedOn);
-            var orderedLogs = parsedLogs.OrderBy(x => x.Timestamp);
-            var trimmedLog = _logTrimmer.Trim(parsedLogs, world);
-            return trimmedLog;
+            run.Stats = _statsExtractor.Extract(run.World.Name).ToList();
+            run.Players = _statsPlayerExtractor.Extract(run.Stats).ToList();
+            var achievementEvents = _achievementExtractor.Extract(run.World);
+            run.Events.AddRange(achievementEvents);
+            run.Logs = gatherLogs(run);
+            run.EndScreens = _playerNbtReader.Read(run.World);
 
+            _logger.LogDebug($"Run Load: Attached information to run {run.Id}.");
+        }
+
+        private void enhanceInformationOf(RunInfo run)
+        {
+            attachEventsFromLogsIfPossible(run);
+            attachPlayersFromEventsIfPossible(run);
+            run.Timings = _splitExtractor.Extract(run);
+
+            _logger.LogDebug($"Run Load: Enhanced information of run {run.Id}.");
+        }
+
+        private void attachConclusionsOf(RunInfo run)
+        {
+            run.Outcome = _outcomeChecker.Check(run);
+            run.Validity = _validityChecker.Check(run);
+
+            _logger.LogDebug($"Run Load: Concluded findings on run {run.Id}.");
+        }
+
+        private void saveToStorage(RunInfo run)
+        {
+            if (_runStore.Exists(run.World.Name))
+            {
+                _runStore.Update(run);
+            }
+            else
+            {
+                var currentIndex = _runStore.Count();
+                run.Index = _config.InitialRunIndex + currentIndex + 1;
+                _runStore.Add(run);
+            }
+
+            _logger.LogDebug($"Run Load: Stored run {run.Id}.");
+        }
+
+        private IEnumerable<LogLine> gatherLogs(RunInfo run)
+        {
+            try
+            {
+                var allLogs = _logFinder.Find(run.World.CreatedOn).ToList();
+                var parsedLogs = _logParser.Read(allLogs, run.World.CreatedOn);
+                var orderedLogs = parsedLogs.OrderBy(x => x.Timestamp);
+                var trimmedLog = _logTrimmer.Trim(parsedLogs, run.World);
+                return trimmedLog;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogDebug(ex, $"Run Load: Reading logs failed.");
+                run.Problems.Add(new Problem("Logs are not readable.", ex.Message));
+                return null;
+            }
         }
 
         private bool tryLoadWorldFolder(DirectoryInfo candiate, out RunInfo run)
@@ -168,9 +213,26 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             }
             catch (Exception ex)
             {
-                _logger.LogInformation(ex, "Couldn't load world because an exception was thrown.");
+                _logger.LogInformation(ex, "Couldn't load world.");
                 return false;
             }
+        }
+
+        private void attachEventsFromLogsIfPossible(RunInfo run)
+        {
+            if (run.Logs != null)
+            {
+                var logEvents = _logEventExtractor.Extract(run.Logs);
+                run.Events.AddRange(logEvents);
+            }
+        }
+
+        private void attachPlayersFromEventsIfPossible(RunInfo run)
+        {
+            var playersFromEvents = _eventPlayerExtractor.Extract(run.Events);
+            foreach (var player in playersFromEvents)
+                if (!run.Players.Any(x => x.Id == player.Id))
+                    run.Players.Add(player);
         }
     }
 }
