@@ -10,6 +10,8 @@ namespace TheFipster.Minecraft.Speedrun.Domain
             Stats = new List<PlayerStats>();
             Events = new List<GameEvent>();
             Logs = new List<LogLine>();
+            EndScreens = new Dictionary<string, bool>();
+            Problems = new List<Problem>();
         }
 
         public string Id { get; set; }
@@ -18,9 +20,11 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public ValidityResult Validity { get; set; }
         public OutcomeResult Outcome { get; set; }
         public Timings Timings { get; set; }
-        public IEnumerable<Player> Players { get; set; }
-        public IEnumerable<PlayerStats> Stats { get; set; }
+        public ICollection<Player> Players { get; set; }
+        public ICollection<PlayerStats> Stats { get; set; }
         public List<GameEvent> Events { get; set; }
         public IEnumerable<LogLine> Logs { get; set; }
+        public Dictionary<string, bool> EndScreens { get; set; }
+        public ICollection<Problem> Problems { get; set; }
     }
 }
