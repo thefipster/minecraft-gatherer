@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.LogTransformer", "TheFipster.Minecraft.LogTransformer\TheFipster.Minecraft.LogTransformer.csproj", "{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Gatherer.NbtConsole", "TheFipster.Minecraft.Gatherer.NbtConsole\TheFipster.Minecraft.Gatherer.NbtConsole.csproj", "{9375C34D-A5D8-4248-BE46-7F1B7FACF072}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Gatherer.NbtConsole", "TheFipster.Minecraft.Gatherer.NbtConsole\TheFipster.Minecraft.Gatherer.NbtConsole.csproj", "{9375C34D-A5D8-4248-BE46-7F1B7FACF072}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experiments", "Experiments", "{BF43BB5A-8EEE-4CA6-B608-277414026EC6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6A781008-CC7A-4F23-B9AD-3756ADA05B09} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
+		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
+		{9375C34D-A5D8-4248-BE46-7F1B7FACF072} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A72F90A-5712-4E05-B847-A2A60419ABB8}

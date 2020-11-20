@@ -77,6 +77,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         public IEnumerable<RunInfo> Import(bool overwrite = false)
         {
             List<RunInfo> runs = findRunsToImport(overwrite);
+            _logger.LogInformation($"Import started.");
 
             foreach (var run in runs.OrderBy(x => x.World.CreatedOn))
             {
@@ -90,6 +91,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 _logger.LogDebug($"Run Load: Finished processing of run {run.Id}.");
             }
 
+            _logger.LogInformation($"Import finished with {runs.Count()} runs.");
             return runs;
         }
 
@@ -178,6 +180,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 var currentIndex = _runStore.Count();
                 run.Index = _config.InitialRunIndex + currentIndex + 1;
                 _runStore.Add(run);
+                _logger.LogDebug($"Import store new run {run.Id}.");
             }
 
             _logger.LogDebug($"Run Load: Stored run {run.Id}.");
