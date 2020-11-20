@@ -6,12 +6,34 @@ namespace TheFipster.Minecraft.Speedrun.Services
 {
     public class OutcomeChecker : IOutcomeChecker
     {
+        private readonly IPlayerNbtReader _playerReader;
+
+        public OutcomeChecker(IPlayerNbtReader playerReader)
+        {
+            _playerReader = playerReader;
+        }
+
         public OutcomeResult Check(RunInfo run)
         {
-            if (run.Timings != null && run.Timings.Splits.Any())
-                return outcomeFromTimings(run);
+            OutcomeResult result;
 
-            return outcomeFromEvents(run);
+            if (run.Timings != null && run.Timings.Splits.Any())
+                result = outcomeFromTimings(run);
+            else
+                result = outcomeFromEvents(run);
+
+            result.SeenEndScreen = _playerReader.Read(run.World);
+            if (result.SeenEndScreen.Any(x => x.Value))
+            {
+                if (result.IsFinished == false && run.Events.Any())
+                    run.Timings.FinishedOn = run.Events.OrderByDescending(x => x.Timestamp).First().Timestamp.AddMinutes(5);
+
+                result.IsFinished = true;
+                result.State = Outcomes.Finished;
+
+            }
+
+            return result;
         }
 
         private OutcomeResult outcomeFromEvents(RunInfo run)

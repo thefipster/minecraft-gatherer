@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TheFipster.Minecraft.Speedrun.Domain
 {
@@ -6,10 +7,10 @@ namespace TheFipster.Minecraft.Speedrun.Domain
     {
         public OutcomeResult()
         {
-
+            SeenEndScreen = new Dictionary<string, bool>();
         }
 
-        public OutcomeResult(Outcomes outcome)
+        public OutcomeResult(Outcomes outcome) : this()
         {
             State = outcome;
 
@@ -17,6 +18,7 @@ namespace TheFipster.Minecraft.Speedrun.Domain
                 IsFinished = true;
         }
 
+        public Dictionary<string, bool> SeenEndScreen { get; set; }
         public bool IsFinished { get; set; }
         public Outcomes State { get; set; }
         public TimeSpan Time { get; set; }

@@ -9,7 +9,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
         {
         }
 
-        public ServerProperties ServerProperties { get; internal set; }
         public IEnumerable<RunInfo> LatestRuns { get; internal set; }
+        public RunCounts RunCounts { get; internal set; }
     }
 }
