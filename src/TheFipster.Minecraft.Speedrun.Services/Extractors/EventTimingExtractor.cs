@@ -45,13 +45,13 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
             if (_run.Events.Count(x => x.Type == LogEventTypes.Join) > 1)
             {
-                var approxBaseTime = _run.Events.Where(x => x.Type == LogEventTypes.Join).OrderBy(x => x.Timestamp).First().Timestamp;
+                var approxBaseTime = _run.Events.Where(x => x.Type == LogEventTypes.Join).OrderBy(x => x.Timestamp).First().Timestamp.AddSeconds(-1);
                 return new Timings(approxBaseTime, "SetTime approximated based on player join events.");
             }
 
             if (_run.Events.All(x => x.Line == null))
             {
-                var approxBaseTime = _run.Events.Where(x => x.Type == LogEventTypes.Achievement).Min(x => x.Timestamp);
+                var approxBaseTime = _run.Events.Where(x => x.Type == LogEventTypes.Achievement).Min(x => x.Timestamp).AddSeconds(-30);
                 return new Timings(approxBaseTime, "SetTime approximated based on achievements.");
             }
 

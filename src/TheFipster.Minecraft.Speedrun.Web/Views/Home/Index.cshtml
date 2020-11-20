@@ -100,88 +100,68 @@
     <div class="col">
         <div class="card border-secondary">
             <div class="card-header">
-                <h2>Server Properties</h2>
+                <h2>Stats</h2>
             </div>
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>World</span>
-                        <span class="badge badge-primary">@Model.ServerProperties.LevelName</span>
+                        <span>All Worlds</span>
+                        @Model.RunCounts.All
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>View Distance</span>
-                        <span class="badge badge-primary">@Model.ServerProperties.ViewDistance chunks</span>
+                        <span>Attempts</span>
+                        <span>
+                            @Model.RunCounts.Valid
+                        </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Seed</span>
-                        @if (Model.ServerProperties.LevelSeed.HasValue)
-                        {
-                            <span class="badge badge-danger">@Model.ServerProperties.LevelSeed</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-primary">random</span>
-                        }
+                        <span>Discarded</span>
+                        <span>
+                            @Model.RunCounts.Discarded
+                        </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Difficulty</span>
-                        @switch (Model.ServerProperties.Difficulty)
-                        {
-                            case "peaceful":
-                                {
-                                    <span class="badge badge-danger">@Model.ServerProperties.Difficulty</span>
-                                    break;
-                                }
-                            case "easy":
-                                {
-                                    <span class="badge badge-success">@Model.ServerProperties.Difficulty</span>
-                                    break;
-                                }
-                            case "normal":
-                                {
-                                    <span class="badge badge-primary">@Model.ServerProperties.Difficulty</span>
-                                    break;
-                                }
-                            case "hard":
-                                {
-                                    <span class="badge badge-warning">@Model.ServerProperties.Difficulty</span>
-                                    break;
-                                }
-                        }
+                        <span>Started</span>
+                        <span>
+                            @(Model.RunCounts.Valid - Model.RunCounts.Discarded)
+                        </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Gamemode</span>
-                        @if (Model.ServerProperties.GameMode == "survival")
-                        {
-                            <span class="badge badge-primary">@Model.ServerProperties.GameMode</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">@Model.ServerProperties.GameMode</span>
-                        }
+                        <span>Reached the Nether</span>
+                        <span>
+                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn)
+                        </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Spawn Protection</span>
-                        @if (Model.ServerProperties.SpawnProtection == 0)
-                        {
-                            <span class="badge badge-primary">off</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">@Model.ServerProperties.SpawnProtection blocks</span>
-                        }
+                        <span>with a Fortress</span>
+                        <span>
+                            @(Model.RunCounts.Fortresses)
+                        </span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Broadcast Console</span>
-                        @if (Model.ServerProperties.IsConsoleBroadcastEnabled)
-                        {
-                            <span class="badge badge-primary">on</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">off</span>
-                        }
+                        <span>Returned from Nether</span>
+                        <span>
+                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn - Model.RunCounts.Nether)
+                        </span>
                     </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Reached Stronghold</span>
+                        <span>
+                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn - Model.RunCounts.Nether - Model.RunCounts.Search)
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Found End Portal</span>
+                        <span>
+                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn - Model.RunCounts.Nether - Model.RunCounts.Search - Model.RunCounts.Stronghold)
+                        </span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span>Killed the Dragon</span>
+                        <span>
+                            @(Model.RunCounts.Finished)
+                        </span>
+                    </li>
+
                 </ul>
             </div>
         </div>

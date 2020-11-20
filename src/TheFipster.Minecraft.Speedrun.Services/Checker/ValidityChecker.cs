@@ -22,31 +22,16 @@ namespace TheFipster.Minecraft.Speedrun.Services
             }
 
             if ((!run.Events.Any(x => x.Type == LogEventTypes.SetTime)) && run.Players.Count() > 1)
-            {
                 result.Reasons.Add("There was no SetTime event.");
-            }
 
-            if ((!run.Events.Any(x => x.Type == LogEventTypes.SetTime)) && run.Outcome.IsFinished)
-            {
-                result.IsValid = false;
-            }
-
-            if (run.Timings == null && run.Players.Count() > 1)
-            {
-                result.IsValid = false;
+            if (run.Timings == null)
                 result.Reasons.Add("Splits couldn't be determined.");
-            }
 
             if (run.Outcome == null)
-            {
-                result.IsValid = false;
                 result.Reasons.Add("Run has no outcome.");
-            }
 
             if (run.Logs == null)
-            {
                 result.Reasons.Add("Run has no logs.");
-            }
 
             return result;
         }

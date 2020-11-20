@@ -71,6 +71,8 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
             _container.Register<IServerPropertiesReader, ServerPropertiesReader>(Lifestyle.Transient);
 
+            _container.Register<IPlayerNbtReader, PlayerNbtReader>(Lifestyle.Transient);
+
             _container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
 
             _container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>(Lifestyle.Transient);
