@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-md navbar-toggleable-md fixed-top navbar-dark border-bottom box-shadow mb-3">
             <div class="container">
                 <a class="navbar-brand" asp-controller="Home" asp-action="Index">
                     <img src="/speedrun/img/logo.png" width="30" height="30">
@@ -22,7 +22,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse">
-                    <ul class="navbar-nav">
+                    <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
@@ -39,18 +39,22 @@
                             <a class="nav-link" asp-controller="Server" asp-action="Index">Server</a>
                         </li>
                     </ul>
-                </div>
-                <div class="navbar-collapse collapse text-right">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="navbar-text">
-                            @($"v {System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Minor}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Build}")
+                    <ul class="navbar-nav text-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @($"v {System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Minor}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Build}")
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="https://github.com/thefipster/minecraft-gatherer/releases">See what's new</a>
+                                <a class="dropdown-item" href="https://github.com/thefipster/minecraft-gatherer/issues/new">File an issue</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container app">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>

@@ -15,6 +15,15 @@ h3 {
     font-size: 1.1rem;
 }
 
+.app {
+    margin-top: 100px;
+}
+
+.navbar {
+    background-color: #222;
+    padding: 10px;
+}
+
 .run-box {
     margin: 10px;
     padding: 10px;
