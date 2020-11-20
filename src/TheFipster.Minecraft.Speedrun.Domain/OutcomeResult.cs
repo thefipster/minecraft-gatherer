@@ -23,10 +23,5 @@ namespace TheFipster.Minecraft.Speedrun.Domain
         public Outcomes State { get; set; }
         public TimeSpan Time { get; set; }
         public TimeSpan PlayTime { get; set; }
-
-        public bool Any(Func<object, object> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
