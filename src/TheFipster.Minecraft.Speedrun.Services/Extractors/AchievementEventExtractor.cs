@@ -11,31 +11,32 @@ namespace TheFipster.Minecraft.Speedrun.Services
     public class AchievementEventExtractor : IAchievementEventExtractor
     {
         private const string AchievementFolder = "advancements";
+        private const string TokenNamespace = "$..minecraft:";
 
         private Dictionary<string, string> eventTranslation = new Dictionary<string, string>
         {
-            { "killed_dragon", "Free the End" },
-            { "has_cobblestone", "Stone Age" },
-            { "stone_pickaxe", "Getting an Upgrade" },
-            { "entered_nether", "We Need to Go Deeper" },
-            { "entered_end", "The End?" },
-            { "in_stronghold", "Eye Spy" },
-            { "fortress", "A Terrible Fortress" },
-            { "has_blaze_rod", "Into Fire" },
-            { "has_blaze_powder", "Got Blaze Powder" },
-            { "has_bed", "Got Bed" },
-            { "has_log", "Punched a Tree" },
-            { "has_flint", "Got Flint" },
-            { "has_iron_ore", "Got Iron Ore" },
-            { "has_gold_ingot", "Got Gold Ingot" },
-            { "has_gravel", "Got Gravel" },
-            { "has_string", "Got String" },
-            { "has_gold_nugget", "Got Gold Nugget" }
+            { "killed_dragon", EventNames.FreeTheEnd },
+            { "has_cobblestone", EventNames.StoneAge },
+            { "stone_pickaxe", EventNames.GettingAnUpgrade },
+            { "entered_nether", EventNames.WeNeedToGoDeeper },
+            { "entered_end", EventNames.TheEnd },
+            { "in_stronghold", EventNames.EyeSpy },
+            { "fortress", EventNames.ATerribleFortress },
+            { "has_blaze_rod", EventNames.IntoFire },
+            { "has_blaze_powder",EventNames.GotBlazePowder },
+            { "has_bed", EventNames.GotBed },
+            { "has_log", EventNames.PunchedATree },
+            { "has_flint", EventNames.GotFlint },
+            { "has_iron_ore", EventNames.GotIronOre },
+            { "has_gold_ingot", EventNames.GotGoldIngot },
+            { "has_gravel", EventNames.GotGravel },
+            { "has_string", EventNames.GotString },
+            { "has_gold_nugget", EventNames.GotGoldNugget }
         };
 
         private Dictionary<string, string> recipeTranslation = new Dictionary<string, string>
         {
-            { "adventure/kill_a_mob", "Monster Hunter" }
+            { "adventure/kill_a_mob", EventNames.MonsterHunter }
         };
 
         private readonly IConfigService _config;
@@ -93,7 +94,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
         private GameEvent extractFromRecipe(Player player, JObject jObject, KeyValuePair<string, string> translation)
         {
-            var tokens = jObject.SelectTokens($"$..minecraft:{translation.Key}");
+            var tokens = jObject.SelectTokens($"{TokenNamespace}{translation.Key}");
             if (tokens.Count() == 0)
                 return null;
 

@@ -1,0 +1,59 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model RunInfo
+
+<tr>
+    <td>
+        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
+            <strong>@($"#{Model.Index}")</strong>
+        </a>
+    </td>
+    <td>
+        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
+            @Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
+        </a>
+    </td>
+    <td>
+        <time class="timeago" datetime="@Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
+    </td>
+    <td>
+        @foreach (var player in Model.Players.OrderBy(x => x.Name))
+        {
+            @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
+        }
+    </td>
+    <td>
+        @switch (Model.Outcome.State)
+        {
+            case Outcomes.Finished:
+                {
+                    <span class="badge badge-success">@Model.Outcome.State</span>
+                    break;
+                }
+            case Outcomes.ResetEnd:
+                {
+                    <span class="badge badge-dark">@Model.Outcome.State</span>
+                    break;
+                }
+            case Outcomes.ResetStronghold:
+                {
+                    <span class="badge badge-secondary">@Model.Outcome.State</span>
+                    break;
+                }
+            case Outcomes.ResetSearch:
+                {
+                    <span class="badge badge-primary">@Model.Outcome.State</span>
+                    break;
+                }
+            case Outcomes.ResetNether:
+                {
+                    <span class="badge badge-danger">@Model.Outcome.State</span>
+                    break;
+                }
+            case Outcomes.ResetSpawn:
+                {
+                    <span class="badge badge-light">@Model.Outcome.State</span>
+                    break;
+                }
+        }
+    </td>
+</tr>

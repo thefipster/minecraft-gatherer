@@ -1,21 +1,10 @@
 ﻿@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home";
-
-    var mobs = new List<string>
-{
-        "/speedrun/img/mobs/enderman.png",
-        "/speedrun/img/mobs/creeper.png",
-        "/speedrun/img/mobs/ghast.png",
-        "/speedrun/img/mobs/zombie.png"
-    };
-
-    var randomMob = mobs[new Random().Next(0, 4)];
 }
 
 <div class="jumbotron text-center">
-
-    <img class="rounded greetings-mob" height="150" width="150" src="@randomMob" />
+    @await Html.PartialAsync("_RandomMobImage")
     <h1 class="display-4">Hello christian speedrunner!</h1>
 </div>
 
@@ -24,8 +13,8 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Just show me the runs</h5>
-                <p class="card-text">Well not all the runs... but at least those I was able to analyse.</p>
-                <a asp-controller="Runs" asp-action="Index" class="btn btn-primary">Go there</a>
+                <p class="card-text">Let's start with our glorious finishes.</p>
+                <a asp-controller="Runs" asp-action="Index" class="btn btn-primary">Take me there</a>
             </div>
         </div>
     </div>
@@ -33,8 +22,8 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Synchronize world folders</h5>
-                <p class="card-text">Check if there are unknown worlds left in the depths of the minecraft realms.</p>
-                <a asp-controller="Import" asp-action="Index" class="btn btn-primary">Sync</a>
+                <p class="card-text">Check if there are new worlds on our server.</p>
+                <a asp-controller="Import" asp-action="Index" class="btn btn-primary">Synchronize Worlds</a>
             </div>
         </div>
     </div>
@@ -42,128 +31,10 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-6">
-        <div class="card border-secondary">
-            <div class="card-header">
-                <h2>Latest Runs that actually started</h2>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    @foreach (var run in Model.LatestRuns.OrderByDescending(x => x.World.CreatedOn))
-                    {
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>
-                                <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
-                                    @($"#{run.Index}")
-                                </a>
-                            </span>
-                            <span>
-                                @foreach (var player in run.Players.OrderBy(x => x.Name))
-                                {
-                                    <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
-                                }
-                            </span>
-                            @switch (run.Outcome.State)
-                            {
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                                    {
-                                        <span class="badge badge-success">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                                    {
-                                        <span class="badge badge-secondary">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                                    {
-                                        <span class="badge badge-primary">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                                    {
-                                        <span class="badge badge-danger">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                                    {
-                                        <span class="badge badge-light">@run.Outcome.State</span>
-                                        break;
-                                    }
-                            }
-                        </li>
-                    }
-                </ul>
-            </div>
-        </div>
+        @await Html.PartialAsync("_LatestFiveRuns", Model.LatestRuns)
     </div>
 
     <div class="col-sm-12 col-md-6">
-        <div class="card border-secondary">
-            <div class="card-header">
-                <h2>Stats</h2>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>All Worlds</span>
-                        @Model.RunCounts.All
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Attempts</span>
-                        <span>
-                            @Model.RunCounts.Valid
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Discarded</span>
-                        <span>
-                            @Model.RunCounts.Discarded
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Started</span>
-                        <span>
-                            @(Model.RunCounts.Valid - Model.RunCounts.Discarded)
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Reached the Nether</span>
-                        <span>
-                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn)
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>with a Fortress</span>
-                        <span>
-                            @(Model.RunCounts.Fortresses)
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Returned from Nether</span>
-                        <span>
-                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn - Model.RunCounts.Nether)
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Reached Stronghold</span>
-                        <span>
-                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn - Model.RunCounts.Nether - Model.RunCounts.Search)
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Found End Portal</span>
-                        <span>
-                            @(Model.RunCounts.Attempts - Model.RunCounts.Spawn - Model.RunCounts.Nether - Model.RunCounts.Search - Model.RunCounts.Stronghold)
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>Killed the Dragon</span>
-                        <span>
-                            @(Model.RunCounts.Finished)
-                        </span>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
+        @await Html.PartialAsync("_RunCountStats", Model.RunCounts)
     </div>
 </div>

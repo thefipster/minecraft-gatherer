@@ -1,0 +1,19 @@
+﻿@{
+    var mobs = new List<string>
+{
+        "/speedrun/img/mobs/enderman.png",
+        "/speedrun/img/mobs/creeper.png",
+        "/speedrun/img/mobs/creeper.png",
+        "/speedrun/img/mobs/creeper.png",
+        "/speedrun/img/mobs/creeper.png",
+        "/speedrun/img/mobs/ghast.png",
+        "/speedrun/img/mobs/ghast.png",
+        "/speedrun/img/mobs/zombie.png",
+        "/speedrun/img/mobs/zombie.png",
+        "/speedrun/img/mobs/zombie.png"
+    };
+
+    var randomMob = mobs[new Random().Next(0, mobs.Count())];
+}
+
+<img class="rounded greetings-mob" height="150" width="150" src="@randomMob" />

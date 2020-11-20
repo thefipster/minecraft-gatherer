@@ -1,0 +1,99 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model RunInfo
+
+<div class="card border-secondary">
+    <div class="card-header">
+        <h2>Info</h2>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Validity</span>
+                @if (Model.Validity.IsValid)
+                {
+                    <span class="badge badge-primary">Looks good</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">Oh no</span>
+                }
+            </li>
+            @foreach (var reason in Model.Validity.Reasons)
+            {
+                <li class="list-group-item">
+                    @reason
+                </li>
+            }
+            @if (Model.Timings != null)
+            {
+                @foreach (var reason in Model.Timings.Reasons)
+                {
+                    <li class="list-group-item">
+                        @reason
+                    </li>
+                }
+            }
+            @if (Model.Outcome != null)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Outcome</span>
+                    @switch (Model.Outcome.State)
+                    {
+                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
+                            {
+                                <span class="badge badge-success">@Model.Outcome.State</span>
+                                break;
+                            }
+                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
+                            {
+                                <span class="badge badge-secondary">@Model.Outcome.State</span>
+                                break;
+                            }
+                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
+                            {
+                                <span class="badge badge-primaryl">@Model.Outcome.State</span>
+                                break;
+                            }
+                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
+                            {
+                                <span class="badge badge-warning">@Model.Outcome.State</span>
+                                break;
+                            }
+                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
+                            {
+                                <span class="badge badge-light">@Model.Outcome.State</span>
+                                break;
+                            }
+                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
+                            {
+                                <span class="badge badge-danger">@Model.Outcome.State</span>
+                                break;
+                            }
+                    }
+                </li>
+            }
+            @if (Model.Index != 0)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Index</span>
+                    <span class="badge badge-primary">@Model.Index</span>
+                </li>
+            }
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>World</span>
+                <span class="badge badge-primary">@Model.World.Name</span>
+            </li>
+            @if (Model.Timings != null && Model.Timings.StartedOn.HasValue && Model.Timings.FinishedOn.HasValue)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span>Finished in</span>
+                    <span class="badge badge-primary">@(Model.Timings.FinishedOn.Value - Model.Timings.StartedOn.Value)</span>
+                </li>
+            }
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Playtime</span>
+                <span class="badge badge-primary">@Model.Outcome.PlayTime</span>
+            </li>
+        </ul>
+    </div>
+</div>

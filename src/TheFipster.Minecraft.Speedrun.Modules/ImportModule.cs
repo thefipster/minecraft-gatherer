@@ -153,7 +153,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private void enhanceInformationOf(RunInfo run)
         {
             attachEventsFromLogsIfPossible(run);
-            attachPlayersFromEventIfMissing(run);
+            attachPlayersFromEventsIfPossible(run);
             run.Timings = _splitExtractor.Extract(run);
 
             _logger.LogDebug($"Run Load: Enhanced information of run {run.Id}.");
@@ -227,7 +227,7 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             }
         }
 
-        private void attachPlayersFromEventIfMissing(RunInfo run)
+        private void attachPlayersFromEventsIfPossible(RunInfo run)
         {
             var playersFromEvents = _eventPlayerExtractor.Extract(run.Events);
             foreach (var player in playersFromEvents)

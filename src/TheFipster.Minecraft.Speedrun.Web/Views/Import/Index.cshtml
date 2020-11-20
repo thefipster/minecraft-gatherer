@@ -1,11 +1,9 @@
 ﻿@model WorldIndexViewModel
 @{
     ViewData["Title"] = "Synchronize";
-    int count = Model.Runs.Count();
 }
 
 <div class="jumbotron text-center">
-
     <img class="rounded greetings-mob" height="150" width="150" src="/speedrun/img/blocks/chest.png" />
     <h1 class="display-4">Storage Sync</h1>
     <p class="lead">Lets take a look into the server chest and see what worlds we can discover.</p>
@@ -50,63 +48,7 @@
                 <tbody>
                     @foreach (var run in Model.Runs.OrderByDescending(x => x.World.CreatedOn))
                     {
-                        <tr>
-                            <td>
-                                <strong>@($"{count}.")</strong>
-                            </td>
-                            <td>
-                                <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
-                                    @run.World.CreatedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
-                                </a>
-                            </td>
-                            <td>
-                                <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().ToString("s")"></time>
-                            </td>
-                            <td>
-                                @foreach (var player in run.Players.OrderBy(x => x.Name))
-                                {
-                                    <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
-                                }
-                            </td>
-                            <td>
-                                @if (run.Validity.IsValid)
-                                {
-                                    @switch (run.Outcome.State)
-                                    {
-                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                                            {
-                                                <span class="badge badge-success">@run.Outcome.State</span>
-                                                break;
-                                            }
-                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                                            {
-                                                <span class="badge badge-secondary">@run.Outcome.State</span>
-                                                break;
-                                            }
-                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                                            {
-                                                <span class="badge badge-primary">@run.Outcome.State</span>
-                                                break;
-                                            }
-                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                                            {
-                                                <span class="badge badge-warning">@run.Outcome.State</span>
-                                                break;
-                                            }
-                                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                                            {
-                                                <span class="badge badge-light">@run.Outcome.State</span>
-                                                break;
-                                            }
-                                    }
-                                }
-                                else
-                                {
-                                    <span class="badge badge-danger">Invalid</span>
-                                }
-                            </td>
-                        </tr>
-                        count--;
+                        @await Html.PartialAsync("_LineRun", run);
                     }
                 </tbody>
             </table>

@@ -1,0 +1,32 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model RunInfo
+
+<tr>
+    <td>
+        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
+            <strong>@($"{ViewData["Count"]}.")</strong>
+        </a>
+    </td>
+    <td>
+        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
+            <strong>@($"#{Model.Index}")</strong>
+        </a>
+    </td>
+    <td>
+        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
+            @Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
+        </a>
+    </td>
+    <td>
+        <time class="timeago" datetime="@Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
+    </td>
+    <td>
+        @foreach (var player in Model.Players.OrderBy(x => x.Name))
+        {
+            @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
+        }
+    </td>
+    <td>
+        <span class="badge badge-primary">@(Model.Timings.FinishedOn.Value - Model.Timings.StartedOn.Value)</span>
+    </td>
+</tr>

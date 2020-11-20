@@ -27,76 +27,7 @@
             <tbody>
                 @foreach (var run in Model.Runs.OrderByDescending(x => x.World.CreatedOn))
                 {
-                    <tr>
-                        <td>
-                            @if (run.Index != 0)
-                            {
-                                <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
-                                    <strong>@($"#{run.Index}")</strong>
-                                </a>
-                            }
-                        </td>
-                        <td>
-                            <a asp-controller="Run" asp-action="Index" asp-route-index="@run.Index">
-                                @run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
-                            </a>
-                        </td>
-                        <td>
-                            <time class="timeago" datetime="@run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
-                        </td>
-                        <td>
-                            @foreach (var player in run.Players.OrderBy(x => x.Name))
-                            {
-                                <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
-                            }
-                        </td>
-                        <td>
-                            @switch (run.Outcome.State)
-                            {
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                                    {
-                                        <span class="badge badge-success">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                                    {
-                                        <span class="badge badge-dark">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                                    {
-                                        <span class="badge badge-secondary">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSearch:
-                                    {
-                                        <span class="badge badge-primary">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                                    {
-                                        <span class="badge badge-danger">@run.Outcome.State</span>
-                                        break;
-                                    }
-                                case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                                    {
-                                        <span class="badge badge-light">@run.Outcome.State</span>
-                                        break;
-                                    }
-                            }
-                        </td>
-                        <td>
-                            @if (run.Validity.IsValid)
-                            {
-                                <span class="badge badge-success">Valid</span>
-                            }
-                            else
-                            {
-                                <span class="badge badge-danger">Invalid</span>
-                            }
-                        </td>
-                    </tr>
-                    count--;
+                    @await Html.PartialAsync("_LineRun", run);
                 }
             </tbody>
         </table>
