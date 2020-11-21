@@ -59,6 +59,9 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.RegisterDecorator<ILineAnalyzer, LineSetTimeAnalyzer>(Lifestyle.Transient);
             _container.RegisterDecorator<ILineAnalyzer, LinePlayerJoinAnalyzer>(Lifestyle.Transient);
             _container.RegisterDecorator<ILineAnalyzer, LinePlayerLeaveAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LineGameModeAnalyser>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LineDeathAnalyzer>(Lifestyle.Transient);
+            _container.RegisterDecorator<ILineAnalyzer, LineTeleportAnalyzer>(Lifestyle.Transient);
 
             _container.Register<IEventPlayerExtractor, EventPlayerExtractor>(Lifestyle.Transient);
             _container.Register<IStatsPlayerExtractor, StatsPlayerExtractor>(Lifestyle.Transient);

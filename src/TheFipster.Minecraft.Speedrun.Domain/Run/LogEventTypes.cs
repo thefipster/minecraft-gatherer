@@ -7,6 +7,9 @@
         Leave,
         SetTime,
         Splits,
-        Achievement
+        Achievement,
+        Killed,
+        GameMode,
+        Teleported
     }
 }

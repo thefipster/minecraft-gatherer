@@ -1,0 +1,20 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model GameEvent
+
+<tr>
+    <td>
+        @Model.Timestamp.ToString("HH:mm:ss")
+    </td>
+    <td>
+        @Model.Type
+    </td>
+    <td>
+        @Model.Data
+    </td>
+    <td>
+        @if (Model.Player != null)
+        {
+            @await Html.PartialAsync("_PlayerAvatarSmall", Model.Player.Id)
+        }
+    </td>
+</tr>
