@@ -20,16 +20,18 @@
             </li>
             @foreach (var reason in Model.Validity.Reasons)
             {
-                <li class="list-group-item">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                     @reason
+                    <i class="fas fa-exclamation-triangle"></i>
                 </li>
             }
             @if (Model.Timings != null)
             {
                 @foreach (var reason in Model.Timings.Reasons)
                 {
-                    <li class="list-group-item">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
                         @reason
+                        <i class="fas fa-exclamation-triangle"></i>
                     </li>
                 }
             }
@@ -37,39 +39,7 @@
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Outcome</span>
-                    @switch (Model.Outcome.State)
-                    {
-                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Finished:
-                            {
-                                <span class="badge badge-success">@Model.Outcome.State</span>
-                                break;
-                            }
-                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetEnd:
-                            {
-                                <span class="badge badge-secondary">@Model.Outcome.State</span>
-                                break;
-                            }
-                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetStronghold:
-                            {
-                                <span class="badge badge-primaryl">@Model.Outcome.State</span>
-                                break;
-                            }
-                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetNether:
-                            {
-                                <span class="badge badge-warning">@Model.Outcome.State</span>
-                                break;
-                            }
-                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.ResetSpawn:
-                            {
-                                <span class="badge badge-light">@Model.Outcome.State</span>
-                                break;
-                            }
-                        case TheFipster.Minecraft.Speedrun.Domain.Outcomes.Error:
-                            {
-                                <span class="badge badge-danger">@Model.Outcome.State</span>
-                                break;
-                            }
-                    }
+                    @await Html.PartialAsync("_OutcomeBadge", Model.Outcome.State)
                 </li>
             }
             @if (Model.Index != 0)

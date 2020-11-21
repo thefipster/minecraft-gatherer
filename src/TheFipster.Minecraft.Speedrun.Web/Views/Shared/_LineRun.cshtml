@@ -22,38 +22,6 @@
         }
     </td>
     <td>
-        @switch (Model.Outcome.State)
-        {
-            case Outcomes.Finished:
-                {
-                    <span class="badge badge-success">@Model.Outcome.State</span>
-                    break;
-                }
-            case Outcomes.ResetEnd:
-                {
-                    <span class="badge badge-dark">@Model.Outcome.State</span>
-                    break;
-                }
-            case Outcomes.ResetStronghold:
-                {
-                    <span class="badge badge-secondary">@Model.Outcome.State</span>
-                    break;
-                }
-            case Outcomes.ResetSearch:
-                {
-                    <span class="badge badge-primary">@Model.Outcome.State</span>
-                    break;
-                }
-            case Outcomes.ResetNether:
-                {
-                    <span class="badge badge-danger">@Model.Outcome.State</span>
-                    break;
-                }
-            case Outcomes.ResetSpawn:
-                {
-                    <span class="badge badge-light">@Model.Outcome.State</span>
-                    break;
-                }
-        }
+        @await Html.PartialAsync("_OutcomeBadge", Model.Outcome.State)
     </td>
 </tr>

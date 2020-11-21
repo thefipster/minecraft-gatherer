@@ -1,0 +1,45 @@
+﻿@using TheFipster.Minecraft.Speedrun.Domain
+@model Outcomes
+@{
+    var badgeClass = string.Empty;
+    switch (Model)
+    {
+        case Outcomes.Finished:
+            {
+                badgeClass = "badge-success";
+                break;
+            }
+        case Outcomes.ResetEnd:
+            {
+                badgeClass = "badge-success";
+                break;
+            }
+        case Outcomes.ResetStronghold:
+            {
+                badgeClass = "badge-primary";
+                break;
+            }
+        case Outcomes.ResetNether:
+            {
+                badgeClass = "badge-warning";
+                break;
+            }
+        case Outcomes.ResetSearch:
+            {
+                badgeClass = "badge-warning";
+                break;
+            }
+        case Outcomes.ResetSpawn:
+            {
+                badgeClass = "badge-light";
+                break;
+            }
+        case Outcomes.Error:
+            {
+                badgeClass = "badge-danger";
+                break;
+            }
+    }
+}
+
+<span class="badge @badgeClass">@Model</span>
