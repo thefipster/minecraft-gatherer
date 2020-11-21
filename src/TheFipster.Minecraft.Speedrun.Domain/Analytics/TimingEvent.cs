@@ -4,8 +4,20 @@ namespace TheFipster.Minecraft.Speedrun.Domain.Analytics
 {
     public class TimingEvent
     {
-        public string PlayerId { get; set; }
-        public EventNames Event { get; set; }
+        public TimingEvent()
+        {
+
+        }
+
+        public TimingEvent(RunSections section)
+        {
+            Section = section;
+        }
+
+        public string FirstPlayerId { get; set; }
         public TimeSpan Time { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public RunSections Section { get; set; }
     }
 }
