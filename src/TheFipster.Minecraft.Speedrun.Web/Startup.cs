@@ -13,78 +13,29 @@ namespace TheFipster.Minecraft.Speedrun.Web
 {
     public class Startup
     {
-        private Container _container;
-
         public Startup(IConfiguration configuration)
         {
-            _container = new Container();
             Configuration = configuration;
+            Container = new Container();
         }
 
         public IConfiguration Configuration { get; }
+        public Container Container { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
 
-            services.AddSimpleInjector(_container, options =>
+            services.AddSimpleInjector(Container, options =>
                 options.AddAspNetCore()
                        .AddControllerActivation());
 
             InitializeContainer();
         }
 
-        private void InitializeContainer()
-        {
-            _container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
-            _container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
-            _container.Register<IRunStore, RunLiteStore>(Lifestyle.Singleton);
-
-            _container.Register<IStatsFinder, StatsFinder>(Lifestyle.Transient);
-            _container.Register<IWorldFinder, WorldFinder>(Lifestyle.Transient);
-            _container.Register<ILogFinder, LogFinder>(Lifestyle.Transient);
-            _container.Register<IRunFinder, RunFinder>(Lifestyle.Transient);
-
-            _container.Register<IWorldLoader, WorldLoader>(Lifestyle.Transient);
-            _container.RegisterDecorator<IWorldLoader, WorldLoadVerifier>(Lifestyle.Transient);
-            _container.RegisterDecorator<IWorldLoader, WorldDimensionLoader>(Lifestyle.Transient);
-
-            _container.Register<ILogParser, LogParser>(Lifestyle.Transient);
-            _container.Register<ILogTrimmer, LogTrimmer>(Lifestyle.Transient);
-            _container.Register<ILogEventExtractor, LogEventExtractor>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILogEventExtractor, LogLineAnalyzer>(Lifestyle.Transient);
-
-            _container.Register<ILineAnalyzer, LineAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LineAdvancementAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LineSetTimeAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LinePlayerJoinAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LinePlayerLeaveAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LineGameModeAnalyser>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LineDeathAnalyzer>(Lifestyle.Transient);
-            _container.RegisterDecorator<ILineAnalyzer, LineTeleportAnalyzer>(Lifestyle.Transient);
-
-            _container.Register<IEventPlayerExtractor, EventPlayerExtractor>(Lifestyle.Transient);
-            _container.Register<IStatsPlayerExtractor, StatsPlayerExtractor>(Lifestyle.Transient);
-            _container.Register<IEventTimingExtractor, EventTimingExtractor>(Lifestyle.Transient);
-            _container.Register<IStatsExtractor, StatsExtractor>(Lifestyle.Transient);
-            _container.Register<IAchievementEventExtractor, AchievementEventExtractor>(Lifestyle.Transient);
-
-            _container.Register<IValidityChecker, ValidityChecker>(Lifestyle.Transient);
-            _container.Register<IOutcomeChecker, OutcomeChecker>(Lifestyle.Transient);
-
-            _container.Register<IServerPropertiesReader, ServerPropertiesReader>(Lifestyle.Transient);
-
-            _container.Register<IPlayerNbtReader, PlayerNbtReader>(Lifestyle.Transient);
-
-            _container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
-
-            _container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>(Lifestyle.Transient);
-            _container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>(Lifestyle.Transient);
-        }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSimpleInjector(_container);
+            app.UseSimpleInjector(Container);
 
             if (env.IsDevelopment())
             {
@@ -112,7 +63,55 @@ namespace TheFipster.Minecraft.Speedrun.Web
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            _container.Verify();
+            Container.Verify();
+        }
+
+        private void InitializeContainer()
+        {
+            Container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
+            Container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
+            Container.Register<IRunStore, RunLiteStore>(Lifestyle.Singleton);
+
+            Container.Register<IStatsFinder, StatsFinder>(Lifestyle.Transient);
+            Container.Register<IWorldFinder, WorldFinder>(Lifestyle.Transient);
+            Container.Register<ILogFinder, LogFinder>(Lifestyle.Transient);
+            Container.Register<IRunFinder, RunFinder>(Lifestyle.Transient);
+
+            Container.Register<IWorldLoader, WorldLoader>(Lifestyle.Transient);
+            Container.RegisterDecorator<IWorldLoader, WorldLoadVerifier>(Lifestyle.Transient);
+            Container.RegisterDecorator<IWorldLoader, WorldDimensionLoader>(Lifestyle.Transient);
+
+            Container.Register<ILogParser, LogParser>(Lifestyle.Transient);
+            Container.Register<ILogTrimmer, LogTrimmer>(Lifestyle.Transient);
+            Container.Register<ILogEventExtractor, LogEventExtractor>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILogEventExtractor, LogLineAnalyzer>(Lifestyle.Transient);
+
+            Container.Register<ILineAnalyzer, LineAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LineAdvancementAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LineSetTimeAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LinePlayerJoinAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LinePlayerLeaveAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LineGameModeAnalyser>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LineDeathAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ILineAnalyzer, LineTeleportAnalyzer>(Lifestyle.Transient);
+
+            Container.Register<IEventPlayerExtractor, EventPlayerExtractor>(Lifestyle.Transient);
+            Container.Register<IStatsPlayerExtractor, StatsPlayerExtractor>(Lifestyle.Transient);
+            Container.Register<IEventTimingExtractor, EventTimingExtractor>(Lifestyle.Transient);
+            Container.Register<IStatsExtractor, StatsExtractor>(Lifestyle.Transient);
+            Container.Register<IAchievementEventExtractor, AchievementEventExtractor>(Lifestyle.Transient);
+
+            Container.Register<IValidityChecker, ValidityChecker>(Lifestyle.Transient);
+            Container.Register<IOutcomeChecker, OutcomeChecker>(Lifestyle.Transient);
+
+            Container.Register<IServerPropertiesReader, ServerPropertiesReader>(Lifestyle.Transient);
+
+            Container.Register<IPlayerNbtReader, PlayerNbtReader>(Lifestyle.Transient);
+
+            Container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
+
+            Container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>(Lifestyle.Transient);
+            Container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>(Lifestyle.Transient);
         }
     }
 }

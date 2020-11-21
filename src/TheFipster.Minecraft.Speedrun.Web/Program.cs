@@ -4,27 +4,22 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
     public class Program
     {
-        public static int Main(string[] args)
+        public static async Task<int> Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom
-                .Configuration(configuration)
-                .CreateLogger();
+            var config = createConfig();
+            createLogger(config);
 
             try
             {
-                Log.Information("Starting web host");
-                CreateHostBuilder(args).Build().Run();
+                Log.Information("Starting Host");
+                await CreateHostBuilder(args).Build().RunAsync();
+                Log.Information("Host Stopped");
                 return 0;
             }
             catch (Exception ex)
@@ -43,5 +38,17 @@ namespace TheFipster.Minecraft.Speedrun.Web
                 .UseSerilog()
                 .ConfigureWebHostDefaults(
                     webBuilder => webBuilder.UseStartup<Startup>());
+
+        private static void createLogger(IConfiguration config)
+            => Log.Logger = new LoggerConfiguration()
+                .ReadFrom
+                .Configuration(config)
+                .CreateLogger();
+
+        private static IConfigurationRoot createConfig()
+            => new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
     }
 }

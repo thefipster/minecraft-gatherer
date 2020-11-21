@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedrun.Domain", "TheFipster.Minecraft.Speedrun.Domain\TheFipster.Minecraft.Speedrun.Domain.csproj", "{2526CC70-93CD-43E7-A006-64AFFB2B0FB6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EC6D6CD2-D5DF-47D9-8FFC-6CC1B736136D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{EC6D6CD2-D5DF-47D9-8FFC-6CC1B736136D}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		..\.github\workflows\dotnet-core.yml = ..\.github\workflows\dotnet-core.yml
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedrun.Modules", "TheFipster.Minecraft.Speedrun.Modules\TheFipster.Minecraft.Speedrun.Modules.csproj", "{7C788196-BE91-4E46-BB6C-6B5E931F07F9}"
@@ -23,6 +25,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Gatherer.NbtConsole", "TheFipster.Minecraft.Gatherer.NbtConsole\TheFipster.Minecraft.Gatherer.NbtConsole.csproj", "{9375C34D-A5D8-4248-BE46-7F1B7FACF072}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experiments", "Experiments", "{BF43BB5A-8EEE-4CA6-B608-277414026EC6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{ABFB7836-5252-413E-996E-59CA9F604AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +68,9 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6A781008-CC7A-4F23-B9AD-3756ADA05B09} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
+		{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
+		{2526CC70-93CD-43E7-A006-64AFFB2B0FB6} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
+		{7C788196-BE91-4E46-BB6C-6B5E931F07F9} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
 		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
 		{9375C34D-A5D8-4248-BE46-7F1B7FACF072} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
 	EndGlobalSection
