@@ -13,7 +13,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Enhancer
             foreach (var player in run.Players)
             {
                 var playerEvents = new List<GameEvent>();
-                var events = run.Events.Where(x => x.Player.Id == player.Id);
+                var events = run.Events.Where(x => x.Player != null && x.Player.Id == player.Id);
                 var eventNames = events.Select(x => x.Data).Distinct();
 
                 foreach (var eventName in eventNames)

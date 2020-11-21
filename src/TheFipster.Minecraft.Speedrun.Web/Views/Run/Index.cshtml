@@ -63,3 +63,20 @@
         }
     </div>
 }
+
+@if (Model.Run.Events != null && Model.Run.Events.Any())
+{
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover">
+                <tbody>
+                    @foreach (var gameEvent in Model.Run.Events.OrderBy(x => x.Timestamp))
+                    {
+                        @await Html.PartialAsync("_EventLine", gameEvent)
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
