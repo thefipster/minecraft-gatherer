@@ -17,7 +17,8 @@ namespace TheFipster.Minecraft.Speedrun.Domain.Analytics
         public string FirstPlayerId { get; set; }
         public TimeSpan Time { get; set; }
         public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
         public RunSections Section { get; set; }
+        public bool IsSubSplit { get; set; }
     }
 }

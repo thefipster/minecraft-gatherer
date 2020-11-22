@@ -10,15 +10,18 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IRunFinder _runFinder;
         private readonly IQuickestEventEnhancer _quickestEventEnhancer;
         private readonly IPlayerEventEnhancer _playerEventEnhancer;
+        private readonly ITimingStore _timingStore;
 
         public RunController(
             IRunFinder runFinder,
             IQuickestEventEnhancer quickestEventEnhancer,
-            IPlayerEventEnhancer playerEventEnhancer)
+            IPlayerEventEnhancer playerEventEnhancer,
+            ITimingStore timingStore)
         {
             _runFinder = runFinder;
             _quickestEventEnhancer = quickestEventEnhancer;
             _playerEventEnhancer = playerEventEnhancer;
+            _timingStore = timingStore;
         }
 
         public IActionResult Name(string worldName)
@@ -28,6 +31,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 
             viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run);
             viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run);
+            viewmodel.Timings = _timingStore.Get(run.Id);
 
             return View("Index", viewmodel);
         }
@@ -39,6 +43,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 
             viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run);
             viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run);
+            viewmodel.Timings = _timingStore.Get(run.Id);
 
             return View(viewmodel);
         }

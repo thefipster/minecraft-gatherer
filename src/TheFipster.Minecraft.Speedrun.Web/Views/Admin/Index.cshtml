@@ -13,9 +13,19 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Reindex Runs</h5>
+                <h5 class="card-title">Re-Index</h5>
                 <p class="card-text">Iterates through every run in the database and checks if the run index is correct. If not it gets corrected.</p>
-                <a asp-controller="Admin" asp-action="ReindexRuns" class="btn btn-primary">Reindex ALL Runs</a>
+                <a asp-controller="Admin" asp-action="ReIndex" class="btn btn-primary">Reindex ALL Runs</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Re-Analyze</h5>
+                <p class="card-text">Iterates through every run in the database and analyses it. The results will overwrite the current analysis if one is stored.</p>
+                <a asp-controller="Admin" asp-action="ReAnalyze" class="btn btn-primary">Re-Analyze ALL Runs</a>
             </div>
         </div>
     </div>

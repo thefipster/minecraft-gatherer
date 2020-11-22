@@ -12,16 +12,21 @@ namespace TheFipster.Minecraft.Speedrun.Domain.Analytics
 
         public TimingAnalytics(string worldName) : this()
         {
+            Id = worldName;
             Worldname = worldName;
         }
 
+        public string Id { get; set; }
         public string Worldname { get; set; }
-        public IEnumerable<TimingEvent> Events { get; set; }
+        public IList<TimingEvent> Events { get; set; }
 
         public DateTime StartedOn { get; set; }
         public StartTimeStrategy StartTimeStrategy { get; set; }
 
         public DateTime? FinishedOn { get; set; }
         public FinishTimeStrategy FinishTimeStrategy { get; set; }
+
+        public TimeSpan RunTime { get; set; }
+        public TimeSpan PlayTime { get; set; }
     }
 }

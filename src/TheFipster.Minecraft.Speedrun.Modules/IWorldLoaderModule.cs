@@ -3,8 +3,9 @@ using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Modules
 {
-    public interface IImportModule
+    public interface IWorldLoaderModule
     {
-        IEnumerable<RunInfo> Import(bool overwrite = false);
+        IEnumerable<WorldInfo> Load(bool overwrite);
+
     }
 }

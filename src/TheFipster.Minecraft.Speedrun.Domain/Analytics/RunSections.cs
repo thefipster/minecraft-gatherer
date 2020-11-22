@@ -6,6 +6,8 @@
         Nether,
         Search,
         Stronghold,
-        End
+        TheEnd,
+        BlazeRod,
+        Fortress
     }
 }

@@ -1,23 +1,16 @@
 ﻿using LiteDB;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Services
 {
     public class RunLiteStore : IRunStore
     {
-        private const string DatabaseFilename = "run.litedb";
-
         private ILiteCollection<RunInfo> _collection;
 
-        public RunLiteStore(IConfigService config)
-        {
-            var dbPath = Path.Combine(config.DataLocation.FullName, DatabaseFilename);
-            var db = new LiteDatabase(dbPath);
-            _collection = db.GetCollection<RunInfo>();
-        }
+        public RunLiteStore(IDatabaseHandler databaseHandler)
+            => _collection = databaseHandler.GetCollection<RunInfo>();
 
         public void Add(RunInfo run)
             => _collection.Insert(run);

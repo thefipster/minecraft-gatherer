@@ -1,19 +1,15 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using TheFipster.Minecraft.Speedrun.Domain;
 using TheFipster.Minecraft.Speedrun.Services;
 
 namespace TheFipster.Minecraft.Speedrun.Modules
 {
-    public class ImportModule : IImportModule
+    public class ImportRunModule : IImportRunModule
     {
         private readonly IConfigService _config;
-        private readonly IServerPropertiesReader _serverPropertiesReader;
-        private readonly IWorldFinder _worldFinder;
-        private readonly IWorldLoader _worldLoader;
         private readonly ILogFinder _logFinder;
         private readonly ILogParser _logParser;
         private readonly ILogTrimmer _logTrimmer;
@@ -28,15 +24,10 @@ namespace TheFipster.Minecraft.Speedrun.Modules
         private readonly IOutcomeChecker _outcomeChecker;
         private readonly IRunStore _runStore;
 
-        private readonly ILogger<ImportModule> _logger;
+        private readonly ILogger<ImportRunModule> _logger;
 
-        private readonly string _activeWorld;
-
-        public ImportModule(
+        public ImportRunModule(
             IConfigService config,
-            IServerPropertiesReader serverPropertiesReader,
-            IWorldFinder worldFinder,
-            IWorldLoader worldLoader,
             ILogFinder logFinder,
             ILogParser logParser,
             ILogTrimmer logTrimmer,
@@ -50,12 +41,9 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             IValidityChecker validityChecker,
             IOutcomeChecker outcomeChecker,
             IRunStore runStore,
-            ILogger<ImportModule> logger)
+            ILogger<ImportRunModule> logger)
         {
             _config = config;
-            _serverPropertiesReader = serverPropertiesReader;
-            _worldFinder = worldFinder;
-            _worldLoader = worldLoader;
             _logFinder = logFinder;
             _logParser = logParser;
             _logTrimmer = logTrimmer;
@@ -70,74 +58,20 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             _outcomeChecker = outcomeChecker;
             _runStore = runStore;
             _logger = logger;
-
-            _activeWorld = tryFindActiveWorld();
         }
 
-        public IEnumerable<RunInfo> Import(bool overwrite = false)
+        public RunInfo Import(WorldInfo world)
         {
-            List<RunInfo> runs = findRunsToImport(overwrite);
-            _logger.LogInformation($"Import started.");
+            _logger.LogInformation($"Import started for world {world.Name}.");
 
-            foreach (var run in runs.OrderBy(x => x.World.CreatedOn))
-            {
-                _logger.LogDebug($"Run Load: Started processing of run {run.Id}.");
+            var run = new RunInfo(world);
+            attachInformationsTo(run);
+            enhanceInformationOf(run);
+            attachConclusionsOf(run);
+            saveToStorage(run);
 
-                attachInformationsTo(run);
-                enhanceInformationOf(run);
-                attachConclusionsOf(run);
-                saveToStorage(run);
-
-                _logger.LogDebug($"Run Load: Finished processing of run {run.Id}.");
-            }
-
-            _logger.LogInformation($"Import finished with {runs.Count()} runs.");
-            return runs;
-        }
-
-        private string tryFindActiveWorld()
-        {
-            var activeWorld = string.Empty;
-            try
-            {
-                activeWorld = _serverPropertiesReader.Read().LevelName;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex, "Import: Can't read server properties, active world is not filtered.");
-            }
-
-            return activeWorld;
-        }
-
-        private List<RunInfo> findRunsToImport(bool overwrite)
-        {
-            var runs = new List<RunInfo>();
-            var candidates = _worldFinder.Find();
-
-            foreach (var candiate in candidates)
-            {
-                if (candiate.Name == _activeWorld)
-                {
-                    _logger.LogInformation($"Candidate Check: Skipping world {candiate.Name} because it is currently active.");
-                    continue;
-                }
-
-                if (!overwrite && _runStore.Exists(candiate.Name))
-                {
-                    _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it was already imported.");
-                    continue;
-                }
-
-                if (tryLoadWorldFolder(candiate, out var run))
-                {
-                    _logger.LogDebug($"Candidate Check: Loading world {candiate.Name}.");
-                    runs.Add(run);
-                }
-            }
-
-            _logger.LogDebug($"Candidate Check: Completed. Returning {runs.Count()} runs.");
-            return runs;
+            _logger.LogInformation($"Import finished for world {world.Name}.");
+            return run;
         }
 
         private void attachInformationsTo(RunInfo run)
@@ -201,23 +135,6 @@ namespace TheFipster.Minecraft.Speedrun.Modules
                 _logger.LogDebug(ex, $"Run Load: Reading logs failed.");
                 run.Problems.Add(new Problem("Logs are not readable.", ex.Message));
                 return null;
-            }
-        }
-
-        private bool tryLoadWorldFolder(DirectoryInfo candiate, out RunInfo run)
-        {
-            run = new RunInfo();
-
-            try
-            {
-                run.World = _worldLoader.Load(candiate);
-                run.Id = run.World.Name;
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogInformation(ex, "Couldn't load world.");
-                return false;
             }
         }
 

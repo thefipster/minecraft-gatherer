@@ -6,34 +6,30 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
     public class ImportController : Controller
     {
-        private readonly IImportModule _importModule;
+        private readonly ISyncModule _syncModule;
 
-        public ImportController(
-            IImportModule importModule)
-        {
-            _importModule = importModule;
-        }
+        public ImportController(ISyncModule syncModule)
+            => _syncModule = syncModule;
 
         public IActionResult Index()
         {
-            var runs = _importModule.Import();
-            var viewmodel = new WorldIndexViewModel
-            {
-                Runs = runs
-            };
-
+            var viewmodel = importWorlds();
             return View(viewmodel);
         }
 
         public IActionResult Force()
         {
-            var runs = _importModule.Import(true);
-            var viewmodel = new WorldIndexViewModel
+            var viewmodel = importWorlds(true);
+            return View("Index", viewmodel);
+        }
+
+        private ImportIndexViewModel importWorlds(bool force = false)
+        {
+            var runs = _syncModule.Synchronize(force);
+            return new ImportIndexViewModel
             {
                 Runs = runs
             };
-
-            return View("Index", viewmodel);
         }
     }
 }
