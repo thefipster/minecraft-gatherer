@@ -7,10 +7,10 @@
 <div class="card border-secondary">
     <div class="card-header d-flex justify-content-between align-items-center">
         <h2>@player.Name</h2>
-        <img class="avatar-small" src="@($"/speedrun/img/players/{player.Id}.png")" />
+        @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
     </div>
     <div class="card-body">
-        @if (Model.Run.Stats.Any())
+        @if (Model.Run.Stats.Any(x => x.PlayerId == player.Id))
         {
             <h3>Stats</h3>
             <ul class="list-group">
@@ -58,7 +58,7 @@
                 }
             </ul>
         }
-        @if (Model.Run.Stats.Any())
+        @if (Model.Run.Stats.Any(x => x.PlayerId == player.Id))
         {
             @if (Model.Run.Stats.First(x => x.PlayerId == player.Id).Killed.Any())
             {

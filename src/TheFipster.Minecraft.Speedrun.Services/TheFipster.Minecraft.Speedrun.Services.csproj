@@ -17,8 +17,4 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Domain\TheFipster.Minecraft.Speedrun.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Analytics\" />
-  </ItemGroup>
-
 </Project>

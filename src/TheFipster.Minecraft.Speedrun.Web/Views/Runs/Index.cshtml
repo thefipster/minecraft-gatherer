@@ -25,9 +25,10 @@
     <div class="col">
         <table class="table table-hover">
             <tbody>
-                @foreach (var run in Model.Runs.OrderBy(x => x.Timings.FinishedOn.Value - x.Timings.StartedOn.Value))
+                @foreach (var timing in Model.Timings.OrderBy(x => x.RunTime))
                 {
-                    @await Html.PartialAsync("_LineFinished", run, new ViewDataDictionary(ViewData) { { "Count", count++ } });
+                    var run = Model.Runs.First(x => x.World.Name == timing.Worldname);
+                    @await Html.PartialAsync("_LineFinished", run, new ViewDataDictionary(ViewData) { { "Count", count++ }, { "Timing", timing } });
                 }
             </tbody>
         </table>

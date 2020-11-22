@@ -1,5 +1,5 @@
 ﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model RunInfo
+@model RunDetailViewModel
 
 <div class="card border-secondary">
     <div class="card-header">
@@ -9,7 +9,7 @@
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>Validity</span>
-                @if (Model.Validity.IsValid)
+                @if (Model.Run.Validity.IsValid)
                 {
                     <span class="badge badge-primary">Looks good</span>
                 }
@@ -18,51 +18,40 @@
                     <span class="badge badge-danger">Oh no</span>
                 }
             </li>
-            @foreach (var reason in Model.Validity.Reasons)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    @reason
-                    <i class="fas fa-exclamation-triangle"></i>
-                </li>
-            }
-            @if (Model.Timings != null)
-            {
-                @foreach (var reason in Model.Timings.Reasons)
-                {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @reason
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </li>
-                }
-            }
-            @if (Model.Outcome != null)
+            @if (Model.Run.Outcome != null)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Outcome</span>
-                    @await Html.PartialAsync("_OutcomeBadge", Model.Outcome.State)
+                    @await Html.PartialAsync("_OutcomeBadge", Model.Run.Outcome.State)
                 </li>
             }
-            @if (Model.Index != 0)
+            @if (Model.Run.Index != 0)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Index</span>
-                    <span class="badge badge-primary">@Model.Index</span>
+                    <span class="badge badge-primary">@Model.Run.Index</span>
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>World</span>
-                <span class="badge badge-primary">@Model.World.Name</span>
+                <span class="badge badge-primary">@Model.Run.World.Name</span>
             </li>
-            @if (Model.Timings != null && Model.Timings.StartedOn.HasValue && Model.Timings.FinishedOn.HasValue)
+            @if (Model.Timings.FinishedOn.HasValue)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Finished in</span>
-                    <span class="badge badge-primary">@(Model.Timings.FinishedOn.Value - Model.Timings.StartedOn.Value)</span>
+                    <span data-toggle="tooltip" data-placement="right" title="Official timing from start to first person entering exit portal.">
+                        Runtime
+                        <i class="fas fa-question-circle help-bubble"></i>
+                    </span>
+                    <span class="badge badge-primary">@(Model.Timings.RunTime)</span>
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>Playtime</span>
-                <span class="badge badge-primary">@Model.Outcome.PlayTime</span>
+                <span data-toggle="tooltip" data-placement="right" title="Time from first person entering server until last person exits or server shuts down.">
+                    Playtime
+                    <i class="fas fa-question-circle help-bubble"></i>
+                </span>
+                <span class="badge badge-primary">@Model.Timings.PlayTime</span>
             </li>
         </ul>
     </div>

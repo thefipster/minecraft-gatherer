@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Speedrun.Domain;
+using TheFipster.Minecraft.Speedrun.Domain.Analytics;
 using TheFipster.Minecraft.Speedrun.Web.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
@@ -30,5 +31,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
 
         public IEnumerable<FirstEvent> FirstAdvancement { get; internal set; }
         public Dictionary<string, IEnumerable<GameEvent>> PlayerEvents { get; internal set; }
+        public TimingAnalytics Timings { get; internal set; }
     }
 }

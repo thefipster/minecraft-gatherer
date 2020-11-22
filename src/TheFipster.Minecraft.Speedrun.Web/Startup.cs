@@ -70,7 +70,10 @@ namespace TheFipster.Minecraft.Speedrun.Web
         {
             Container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
             Container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
-            Container.Register<IRunStore, RunLiteStore>(Lifestyle.Singleton);
+
+            Container.Register<IDatabaseHandler, LiteDatabaseHandler>(Lifestyle.Singleton);
+            Container.Register<IRunStore, RunLiteStore>(Lifestyle.Transient);
+            Container.Register<ITimingStore, TimingLiteStore>(Lifestyle.Transient);
 
             Container.Register<IStatsFinder, StatsFinder>(Lifestyle.Transient);
             Container.Register<IWorldFinder, WorldFinder>(Lifestyle.Transient);
@@ -108,10 +111,26 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
             Container.Register<IPlayerNbtReader, PlayerNbtReader>(Lifestyle.Transient);
 
-            Container.Register<IImportModule, ImportModule>(Lifestyle.Transient);
+            Container.Register<ITimingAnalyzer, TimingAnalyser>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingStartAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingFinishAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingPlaytimeAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingSpawnSectionAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingNetherSectionAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingFortressSectionAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingBlazeRodSectionAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingSearchSectionAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingStrongholdSectionAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingTheEndSectionAnalyzer>(Lifestyle.Transient);
+
+            Container.Register<IWorldLoaderModule, WorldLoaderModule>(Lifestyle.Transient);
+            Container.Register<IImportRunModule, ImportRunModule>(Lifestyle.Transient);
+            Container.Register<IAnalyticsModule, AnalyticsModule>(Lifestyle.Transient);
+            Container.Register<ISyncModule, SyncModule>(Lifestyle.Transient);
 
             Container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>(Lifestyle.Transient);
             Container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>(Lifestyle.Transient);
+            Container.Register<IRunCounterEnhancer, RunCounterEnhancer>(Lifestyle.Transient);
         }
     }
 }

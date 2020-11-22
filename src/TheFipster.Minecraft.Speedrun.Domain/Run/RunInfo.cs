@@ -14,6 +14,12 @@ namespace TheFipster.Minecraft.Speedrun.Domain
             Problems = new List<Problem>();
         }
 
+        public RunInfo(WorldInfo world) : this()
+        {
+            World = world;
+            Id = World.Name;
+        }
+
         public string Id { get; set; }
         public int Index { get; set; }
         public WorldInfo World { get; set; }

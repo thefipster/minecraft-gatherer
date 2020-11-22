@@ -22,14 +22,14 @@
     <div class="col-sm-12 col-md-6">
         <div class="row">
             <div class="col">
-                @await Html.PartialAsync("_InfoCard", Model.Run)
+                @await Html.PartialAsync("_InfoCard", Model)
             </div>
         </div>
-        @if (Model.Run.Timings != null && Model.Run.Timings.Splits.Any())
+        @if (Model.Timings != null && Model.Timings.Events.Any())
         {
             <div class="row">
                 <div class="col">
-                    @await Html.PartialAsync("_TimingsCard", Model.Run)
+                    @await Html.PartialAsync("_TimingsCard", Model.Timings)
                 </div>
             </div>
         }
@@ -69,14 +69,20 @@
 
     <div class="row">
         <div class="col">
-            <table class="table table-hover">
-                <tbody>
-                    @foreach (var gameEvent in Model.Run.Events.OrderBy(x => x.Timestamp))
-                    {
-                        @await Html.PartialAsync("_EventLine", gameEvent)
-                    }
-                </tbody>
-            </table>
+            <div class="card border-secondary">
+                <div class="card-header"><h2>Raw Events</h2></div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tbody>
+                            @foreach (var gameEvent in Model.Run.Events.OrderBy(x => x.Timestamp))
+                            {
+                                @await Html.PartialAsync("_EventLine", gameEvent)
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 }
+

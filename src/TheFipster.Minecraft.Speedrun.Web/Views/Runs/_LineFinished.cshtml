@@ -1,5 +1,9 @@
 ﻿@using TheFipster.Minecraft.Speedrun.Domain
+@using TheFipster.Minecraft.Speedrun.Domain.Analytics
 @model RunInfo
+@{
+    var timing = (TimingAnalytics)ViewData["Timing"];
+}
 
 <tr>
     <td>
@@ -26,7 +30,7 @@
             @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
         }
     </td>
-    <td>
-        <span class="badge badge-primary">@(Model.Timings.FinishedOn.Value - Model.Timings.StartedOn.Value)</span>
+    <td class="text-right">
+        <span class="badge badge-primary">@(timing.RunTime)</span>
     </td>
 </tr>

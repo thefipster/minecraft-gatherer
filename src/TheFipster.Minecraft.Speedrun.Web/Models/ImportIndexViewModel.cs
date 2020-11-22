@@ -3,9 +3,9 @@ using TheFipster.Minecraft.Speedrun.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
 {
-    public class WorldIndexViewModel
+    public class ImportIndexViewModel
     {
-        public WorldIndexViewModel()
+        public ImportIndexViewModel()
         {
             Runs = new List<RunInfo>();
         }
