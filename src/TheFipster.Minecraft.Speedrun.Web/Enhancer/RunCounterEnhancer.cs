@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TheFipster.Minecraft.Speedrun.Domain;
 using TheFipster.Minecraft.Speedrun.Domain.Analytics;
 using TheFipster.Minecraft.Speedrun.Services;
@@ -21,18 +22,24 @@ namespace TheFipster.Minecraft.Speedrun.Web.Enhancer
 
             foreach (var timing in timings)
             {
-                runCount.Attempts++;
+                if (timing.PlayTime != TimeSpan.Zero)
+                    runCount.Attempts++;
 
                 if (timing.Events.Any(x => x.Section == RunSections.Spawn))
                     runCount.Nether++;
+
                 if (timing.Events.Any(x => x.Section == RunSections.Nether))
                     runCount.Search++;
+
                 if (timing.Events.Any(x => x.Section == RunSections.Fortress))
                     runCount.Fortresses++;
+
                 if (timing.Events.Any(x => x.Section == RunSections.Search))
                     runCount.Stronghold++;
+
                 if (timing.Events.Any(x => x.Section == RunSections.Stronghold))
                     runCount.End++;
+
                 if (timing.Events.Any(x => x.Section == RunSections.TheEnd))
                     runCount.Finished++;
             }

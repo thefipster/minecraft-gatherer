@@ -23,6 +23,9 @@ namespace TheFipster.Minecraft.Speedrun.Services
         {
             var timings = _component.Analyse(run);
 
+            if (run.Players.Count() == 0 || run.World.Dimensions.Count() == 0)
+                return timings;
+
             var start = getPlaytimeStart(timings, run);
             if (start > timings.StartedOn)
                 start = timings.StartedOn;

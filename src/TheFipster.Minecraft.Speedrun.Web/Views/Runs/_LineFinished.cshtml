@@ -1,5 +1,9 @@
 ﻿@using TheFipster.Minecraft.Speedrun.Domain
+@using TheFipster.Minecraft.Speedrun.Domain.Analytics
 @model RunInfo
+@{
+    var timing = (TimingAnalytics)ViewData["Timing"];
+}
 
 <tr>
     <td>
@@ -27,6 +31,6 @@
         }
     </td>
     <td class="text-right">
-        <span class="badge badge-primary">@(Model.Timings.FinishedOn.Value - Model.Timings.StartedOn.Value)</span>
+        <span class="badge badge-primary">@(timing.RunTime)</span>
     </td>
 </tr>

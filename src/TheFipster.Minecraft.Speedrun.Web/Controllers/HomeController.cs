@@ -21,7 +21,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         public IActionResult Index()
         {
             var viewmodel = new HomeIndexViewModel();
-            viewmodel.LatestRuns = _runFinder.GetStarted().OrderByDescending(x => x.World.CreatedOn).Take(5);
+            viewmodel.LatestRuns = _runFinder.GetStarted().OrderByDescending(x => x.World.CreatedOn).Take(7);
             viewmodel.RunCounts = _runCounter.Enhance();
 
             return View(viewmodel);
