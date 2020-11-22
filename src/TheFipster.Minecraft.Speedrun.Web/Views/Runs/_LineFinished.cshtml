@@ -26,7 +26,7 @@
             @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
         }
     </td>
-    <td>
+    <td class="text-right">
         <span class="badge badge-primary">@(Model.Timings.FinishedOn.Value - Model.Timings.StartedOn.Value)</span>
     </td>
 </tr>

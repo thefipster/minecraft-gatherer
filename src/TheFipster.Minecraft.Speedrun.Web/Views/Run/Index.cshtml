@@ -22,14 +22,14 @@
     <div class="col-sm-12 col-md-6">
         <div class="row">
             <div class="col">
-                @await Html.PartialAsync("_InfoCard", Model.Run)
+                @await Html.PartialAsync("_InfoCard", Model)
             </div>
         </div>
-        @if (Model.Run.Timings != null && Model.Run.Timings.Splits.Any())
+        @if (Model.Timings != null && Model.Timings.Events.Any())
         {
             <div class="row">
                 <div class="col">
-                    @await Html.PartialAsync("_TimingsCard", Model.Run)
+                    @await Html.PartialAsync("_TimingsCard", Model.Timings)
                 </div>
             </div>
         }
@@ -64,82 +64,25 @@
     </div>
 }
 
-@*@if (Model.Run.Events != null && Model.Run.Events.Any())
-    {
-
-        <div class="row">
-            <div class="col">
-                <table class="table table-hover">
-                    <tbody>
-                        @foreach (var gameEvent in Model.Run.Events.OrderBy(x => x.Timestamp))
-                        {
-                            @await Html.PartialAsync("_EventLine", gameEvent)
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    }*@
-
-@if (Model.Timings != null)
+@if (Model.Run.Events != null && Model.Run.Events.Any())
 {
+
     <div class="row">
         <div class="col">
             <div class="card border-secondary">
-                <div class="card-header">
-                    <h2>Timings</h2>
-                </div>
+                <div class="card-header"><h2>Raw Events</h2></div>
                 <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>Start</span>
-                            <span>@Model.Timings.StartedOn.ToString("dd.MM.yyyy HH:mm:ss")</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>@Model.Timings.StartTimeStrategy</span>
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </li>
-                        @if (Model.Timings.FinishedOn.HasValue)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Finished</span>
-                                <span>@Model.Timings.FinishedOn.Value.ToString("dd.MM.yyyy HH:mm:ss")</span>
-                            </li>
-                        }
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <span>@Model.Timings.FinishTimeStrategy</span>
-                            <i class="fas fa-exclamation-triangle"></i>
-                        </li>
-                        @if (Model.Timings.FinishedOn.HasValue)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span>Runtime</span>
-                                <span>@Model.Timings.RunTime</span>
-                            </li>
-                        }
-                    </ul>
+                    <table class="table table-hover">
+                        <tbody>
+                            @foreach (var gameEvent in Model.Run.Events.OrderBy(x => x.Timestamp))
+                            {
+                                @await Html.PartialAsync("_EventLine", gameEvent)
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            @if (Model.Timings.Events.Any())
-            {
-                TimeSpan total = TimeSpan.Zero;
-                <table class="table table-hover">
-                    <tbody>
-                        @foreach (var timing in Model.Timings.Events.OrderBy(x => x.Start))
-                        {
-                            total += timing.IsSubSplit ? TimeSpan.Zero : timing.Time;
-                            <tr>
-                                <td>@timing.Section</td>
-                                <td>@timing.FirstPlayerId</td>
-                                <td>@timing.Start</td>
-                                <td>@(timing.End.HasValue ? timing.End.Value.ToString("dd.MM.yyyy HH:mm:ss") : "")</td>
-                                <td>@(timing.End.HasValue ? timing.Time.ToString() : "")</td>
-                                <td>@total</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
         </div>
     </div>
 }
+

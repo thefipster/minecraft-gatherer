@@ -21,7 +21,7 @@
             @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
         }
     </td>
-    <td>
+    <td class="text-right">
         @await Html.PartialAsync("_OutcomeBadge", Model.Outcome.State)
     </td>
 </tr>

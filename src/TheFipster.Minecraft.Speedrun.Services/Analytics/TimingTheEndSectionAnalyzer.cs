@@ -25,8 +25,12 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
             if (timings.FinishedOn.HasValue)
             {
-                timingEvent.End = timings.FinishedOn;
-                timingEvent.Time = timingEvent.End.Value - timingEvent.Start;
+                timingEvent.End = timings.FinishedOn.Value;
+                timingEvent.Time = timingEvent.End - timingEvent.Start;
+            }
+            else
+            {
+                return timings;
             }
 
             timings.Events.Add(timingEvent);

@@ -1,22 +1,95 @@
 ﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model RunInfo
+@using TheFipster.Minecraft.Speedrun.Domain.Analytics
+@model TimingAnalytics
+@{
+    var total = TimeSpan.Zero;
+    var subtotal = TimeSpan.Zero;
+}
 
 <div class="card border-secondary">
     <div class="card-header"><h2>Timings</h2></div>
     <div class="card-body">
         <ul class="list-group">
-            @foreach (var split in Model.Timings.Splits.OrderBy(x => x.Timestamp))
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Start Accuracy</span>
+                <span>
+                    @switch (Model.StartTimeStrategy)
+                    {
+                        case StartTimeStrategy.AchievementsStrategy:
+                            {
+                                <span class="badge badge-warning">tens of seconds</span>
+                                break;
+                            }
+                        case StartTimeStrategy.PlayerJoinStrategy:
+                            {
+                                <span class="badge badge-info">couple seconds</span>
+                                break;
+                            }
+                        case StartTimeStrategy.WorldCreationStrategy:
+                            {
+                                <span class="badge badge-danger">wild guess</span>
+                                break;
+                            }
+                        case StartTimeStrategy.SetTimeStrategy:
+                            {
+                                <span class="badge badge-success">+/- a second</span>
+                                break;
+                            }
+                    }
+                </span>
+            </li>
+            @foreach (var timing in Model.Events.OrderBy(x => x.Start))
+            {
+                total += timing.IsSubSplit ? TimeSpan.Zero : timing.Time;
+                subtotal += timing.Time;
+
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <span class="w-25">
+                        @if (timing.IsSubSplit)
+                        {
+                            <i class="fas fa-level-up-alt fa-rotate-90 subsplit-icon"></i>
+                        }
+                        @timing.Section
+                    </span>
+                    <span class="w-25 text-center">
+                        @if (!string.IsNullOrWhiteSpace(timing.FirstPlayerId))
+                        {
+                            @await Html.PartialAsync("_PlayerAvatarSmall", timing.FirstPlayerId)
+                        }
+                    </span>
+                    <span class="w-25 text-center">@timing.Time.ToString(@"mm\:ss")</span>
+                    <span class="w-25 text-right">@(timing.IsSubSplit ? subtotal.ToString() : total.ToString())</span>
+                </li>
+            }
+            @if (Model.FinishedOn.HasValue)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    @if (Model.Timings.StartedOn.HasValue)
-                    {
-                        <span>@(split.Timestamp - Model.Timings.StartedOn.Value)</span>
-                    }
-                    else
-                    {
-                        <span>@split.Timestamp.ToString("HH:mm:ss")</span>
-                    }
-                    <span>@split.Type</span>
+                    <span>Finish Accuracy</span>
+                    <span>
+                        @switch (Model.FinishTimeStrategy)
+                        {
+                            case FinishTimeStrategy.DragonKilledStrategy:
+                                {
+                                    <span class="badge badge-success">couple seconds</span>
+                                    break;
+                                }
+                            case FinishTimeStrategy.EnteredEndStrategy:
+                                {
+                                    <span class="badge badge-warning">couple minutes</span>
+                                    break;
+                                }
+                            case FinishTimeStrategy.NotFinished:
+                                {
+                                    <span class="badge badge-dark">not finished</span>
+                                    break;
+                                }
+                            case FinishTimeStrategy.WildGuess:
+                                {
+                                    <span class="badge badge-danger">wild guess</span>
+                                    break;
+                                }
+                        }
+                    </span>
                 </li>
             }
         </ul>

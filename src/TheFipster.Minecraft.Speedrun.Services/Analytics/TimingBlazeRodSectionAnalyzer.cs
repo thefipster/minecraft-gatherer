@@ -24,7 +24,8 @@ namespace TheFipster.Minecraft.Speedrun.Services
             if (!appendStartIfPossible(timingEvent))
                 return timings;
 
-            appendEndIfPossible(timingEvent);
+            if (!appendEndIfPossible(timingEvent))
+                return timings;
 
             timings.Events.Add(timingEvent);
             return timings;
@@ -48,7 +49,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
             return false;
         }
 
-        private void appendEndIfPossible(TimingEvent timingEvent)
+        private bool appendEndIfPossible(TimingEvent timingEvent)
         {
             var intoFireEvent = ValidEvents
                 .Where(x => x.Type == LogEventTypes.Achievement
@@ -59,8 +60,11 @@ namespace TheFipster.Minecraft.Speedrun.Services
             if (intoFireEvent != null)
             {
                 timingEvent.End = intoFireEvent.Timestamp;
-                timingEvent.Time = timingEvent.End.Value - timingEvent.Start;
+                timingEvent.Time = timingEvent.End - timingEvent.Start;
+                return true;
             }
+
+            return false;
         }
     }
 }

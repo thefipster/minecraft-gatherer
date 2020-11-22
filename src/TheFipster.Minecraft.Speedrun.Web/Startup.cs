@@ -114,6 +114,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
             Container.Register<ITimingAnalyzer, TimingAnalyser>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingStartAnalyzer>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingFinishAnalyzer>(Lifestyle.Transient);
+            Container.RegisterDecorator<ITimingAnalyzer, TimingPlaytimeAnalyzer>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingSpawnSectionAnalyzer>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingNetherSectionAnalyzer>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingFortressSectionAnalyzer>(Lifestyle.Transient);
@@ -121,7 +122,6 @@ namespace TheFipster.Minecraft.Speedrun.Web
             Container.RegisterDecorator<ITimingAnalyzer, TimingSearchSectionAnalyzer>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingStrongholdSectionAnalyzer>(Lifestyle.Transient);
             Container.RegisterDecorator<ITimingAnalyzer, TimingTheEndSectionAnalyzer>(Lifestyle.Transient);
-            Container.RegisterDecorator<ITimingAnalyzer, TimingPlaytimeAnalyzer>(Lifestyle.Transient);
 
             Container.Register<IWorldLoaderModule, WorldLoaderModule>(Lifestyle.Transient);
             Container.Register<IImportRunModule, ImportRunModule>(Lifestyle.Transient);

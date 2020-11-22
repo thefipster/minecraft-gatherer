@@ -61,3 +61,15 @@ a, a:visited {
 .greetings-mob {
     margin-bottom: 20px;
 }
+
+.subsplit-icon {
+    margin-right: 10px;
+}
+
+.w-33 {
+    width: 33% !important;
+}
+
+.help-bubble {
+    margin-left: 5px;
+}

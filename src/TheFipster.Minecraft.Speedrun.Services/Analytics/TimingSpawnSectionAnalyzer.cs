@@ -22,7 +22,9 @@ namespace TheFipster.Minecraft.Speedrun.Services
 
             timingEvent.Start = timings.StartedOn;
             appendPlayerIfPossible(timingEvent);
-            appendEndIfPossible(timingEvent);
+
+            if (!appendEndIfPossible(timingEvent))
+                return timings;
 
             timings.Events.Add(timingEvent);
             return timings;
@@ -35,7 +37,7 @@ namespace TheFipster.Minecraft.Speedrun.Services
                 timingEvent.FirstPlayerId = firstJoinEvent.Player.Id;
         }
 
-        private void appendEndIfPossible(TimingEvent timingEvent)
+        private bool appendEndIfPossible(TimingEvent timingEvent)
         {
             var weNeedToGoDeeperEvent = ValidEvents
                 .Where(x => x.Type == LogEventTypes.Achievement
@@ -46,8 +48,11 @@ namespace TheFipster.Minecraft.Speedrun.Services
             if (weNeedToGoDeeperEvent != null)
             {
                 timingEvent.End = weNeedToGoDeeperEvent.Timestamp;
-                timingEvent.Time = timingEvent.End.Value - timingEvent.Start;
+                timingEvent.Time = timingEvent.End - timingEvent.Start;
+                return true;
             }
+
+            return false;
         }
     }
 }
