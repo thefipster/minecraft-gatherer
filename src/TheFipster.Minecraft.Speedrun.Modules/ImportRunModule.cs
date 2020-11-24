@@ -31,16 +31,16 @@ namespace TheFipster.Minecraft.Speedrun.Modules
             ILogFinder logFinder,
             ILogParser logParser,
             ILogTrimmer logTrimmer,
-            ILogEventExtractor logEventExtractor,
-            IEventTimingExtractor splitExtractor,
-            IEventPlayerExtractor eventPlayerExtractor,
-            IStatsPlayerExtractor statsPlayerExtractor,
             IStatsExtractor statsExtractor,
             IAchievementEventExtractor achievementExtractor,
             IPlayerNbtReader playerNbtReader,
-            IValidityChecker validityChecker,
-            IOutcomeChecker outcomeChecker,
             IRunStore runStore,
+            IValidityChecker validityChecker,
+            IStatsPlayerExtractor statsPlayerExtractor,
+            IOutcomeChecker outcomeChecker,
+            ILogEventExtractor logEventExtractor,
+            IEventPlayerExtractor eventPlayerExtractor,
+            IEventTimingExtractor splitExtractor,
             ILogger<ImportRunModule> logger)
         {
             _config = config;
