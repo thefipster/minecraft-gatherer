@@ -4,12 +4,11 @@ namespace TheFipster.Minecraft.Import.Domain
 {
     public class WorldInfo
     {
+        public string Name { get; set; }
         public string Path { get; set; }
         public DateTime CreatedOn { get; set; }
         public long SizeInBytes { get; set; }
-        public string Name { get; set; }
-        public DateTime WrittenOn { get; set; }
-        public DateTime WrittenUtcOn { get; set; }
-        public string NameUrlEncoded { get; set; }
+
+        public override string ToString() => Name;
     }
 }

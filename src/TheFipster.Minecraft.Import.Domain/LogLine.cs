@@ -9,5 +9,8 @@ namespace TheFipster.Minecraft.Import.Domain
         public string Level { get; set; }
         public string Message { get; set; }
         public string Raw { get; set; }
+
+        public override string ToString()
+            => Raw;
     }
 }

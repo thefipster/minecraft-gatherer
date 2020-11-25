@@ -15,5 +15,8 @@
 
         public string Message { get; set; }
         public string Exception { get; set; }
+
+        public override string ToString()
+            => $"{Message} - Ex: {Exception}";
     }
 }

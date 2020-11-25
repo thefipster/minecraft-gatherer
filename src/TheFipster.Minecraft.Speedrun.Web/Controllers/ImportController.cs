@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TheFipster.Minecraft.Speedrun.Modules;
+using TheFipster.Minecraft.Modules;
 using TheFipster.Minecraft.Speedrun.Web.Models;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers

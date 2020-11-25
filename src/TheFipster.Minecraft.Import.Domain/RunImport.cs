@@ -10,10 +10,15 @@ namespace TheFipster.Minecraft.Import.Domain
         {
             Dimensions = new List<DimensionInfo>();
             Logs = new List<LogLine>();
-            Stats = new Dictionary<string, ICollection<PlayerStats>>();
-            EndScreens = new Dictionary<string, bool>();
-            Achievements = new Dictionary<string, IEnumerable<Achievement>>();
+            Stats = new Dictionary<string, Stats>();
+            EndScreens = new List<string>();
+            Achievements = new Dictionary<string, ICollection<Achievement>>();
             Problems = new List<Problem>();
+        }
+        public RunImport(WorldInfo worldInfo) : this()
+        {
+            World = worldInfo;
+            Worldname = worldInfo.Name;
         }
 
         [BsonId]
@@ -22,9 +27,9 @@ namespace TheFipster.Minecraft.Import.Domain
         public WorldInfo World { get; set; }
         public ICollection<DimensionInfo> Dimensions { get; set; }
         public IEnumerable<LogLine> Logs { get; set; }
-        public Dictionary<string, ICollection<PlayerStats>> Stats { get; set; }
-        public Dictionary<string, bool> EndScreens { get; set; }
-        public Dictionary<string, IEnumerable<Achievement>> Achievements { get; set; }
+        public Dictionary<string, Stats> Stats { get; set; }
+        public ICollection<string> EndScreens { get; set; }
+        public Dictionary<string, ICollection<Achievement>> Achievements { get; set; }
         public ICollection<Problem> Problems { get; set; }
     }
 }

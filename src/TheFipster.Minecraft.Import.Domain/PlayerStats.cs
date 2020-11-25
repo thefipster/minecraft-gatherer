@@ -2,9 +2,9 @@
 
 namespace TheFipster.Minecraft.Import.Domain
 {
-    public class PlayerStats
+    public class Stats
     {
-        public PlayerStats()
+        public Stats()
         {
             Killed = new Dictionary<string, double>();
             KilledBy = new Dictionary<string, double>();

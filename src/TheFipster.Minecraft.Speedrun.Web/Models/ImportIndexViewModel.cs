@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Speedrun.Domain;
+using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
 {
@@ -7,9 +7,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
     {
         public ImportIndexViewModel()
         {
-            Runs = new List<RunInfo>();
+            Runs = new List<RunImport>();
         }
 
-        public IEnumerable<RunInfo> Runs { get; set; }
+        public IEnumerable<RunImport> Runs { get; set; }
     }
 }

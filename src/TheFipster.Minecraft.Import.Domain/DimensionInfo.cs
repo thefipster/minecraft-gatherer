@@ -2,17 +2,15 @@
 {
     public class DimensionInfo
     {
-        public DimensionInfo()
-        {
-
-        }
+        public DimensionInfo() { }
 
         public DimensionInfo(string name)
-        {
-            Name = name;
-        }
+            => Name = name;
 
         public string Name { get; set; }
         public long Size { get; set; }
+
+        public override string ToString()
+            => Name;
     }
 }

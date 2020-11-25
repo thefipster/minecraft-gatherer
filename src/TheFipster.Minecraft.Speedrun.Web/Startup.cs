@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using TheFipster.Minecraft.Speedrun.Modules;
 using TheFipster.Minecraft.Speedrun.Services;
+using TheFipster.Minecraft.Speedrun.Web.Dependencies;
 using TheFipster.Minecraft.Speedrun.Web.Enhancer;
 
 namespace TheFipster.Minecraft.Speedrun.Web
@@ -68,6 +69,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
         private void InitializeContainer()
         {
+
             Container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
             Container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
 
@@ -131,6 +133,8 @@ namespace TheFipster.Minecraft.Speedrun.Web
             Container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>(Lifestyle.Transient);
             Container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>(Lifestyle.Transient);
             Container.Register<IRunCounterEnhancer, RunCounterEnhancer>(Lifestyle.Transient);
+
+            ImportDeps.Register(Container);
         }
     }
 }
