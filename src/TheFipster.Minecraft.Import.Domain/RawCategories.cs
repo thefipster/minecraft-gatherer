@@ -6,30 +6,30 @@ namespace TheFipster.Minecraft.Import.Domain
     public class RawCategories
     {
         [JsonProperty("minecraft:killed", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftKilled { get; set; }
+        public Dictionary<string, int> MinecraftKilled { get; set; }
 
         [JsonProperty("minecraft:killed_by", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftKilledBy { get; set; }
+        public Dictionary<string, int> MinecraftKilledBy { get; set; }
 
         [JsonProperty("minecraft:used", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftUsed { get; set; }
+        public Dictionary<string, int> MinecraftUsed { get; set; }
 
         [JsonProperty("minecraft:crafted", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftCrafted { get; set; }
+        public Dictionary<string, int> MinecraftCrafted { get; set; }
 
         [JsonProperty("minecraft:custom", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftCustom { get; set; }
+        public Dictionary<string, int> MinecraftCustom { get; set; }
 
         [JsonProperty("minecraft:dropped", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftDropped { get; set; }
+        public Dictionary<string, int> MinecraftDropped { get; set; }
 
         [JsonProperty("minecraft:mined", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftMined { get; set; }
+        public Dictionary<string, int> MinecraftMined { get; set; }
 
         [JsonProperty("minecraft:picked_up", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftPickedUp { get; set; }
+        public Dictionary<string, int> MinecraftPickedUp { get; set; }
 
         [JsonProperty("minecraft:broken", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, long> MinecraftBroken { get; set; }
+        public Dictionary<string, int> MinecraftBroken { get; set; }
     }
 }

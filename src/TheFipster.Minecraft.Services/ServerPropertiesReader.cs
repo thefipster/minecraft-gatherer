@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Domain.Exceptions;
-using TheFipster.Minecraft.Services.Abstractions;
+using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Services
 {

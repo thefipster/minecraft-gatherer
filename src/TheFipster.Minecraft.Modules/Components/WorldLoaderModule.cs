@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Domain.Exceptions;
+using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
-using TheFipster.Minecraft.Services.Abstractions;
 
 namespace TheFipster.Minecraft.Modules
 {
@@ -18,7 +19,12 @@ namespace TheFipster.Minecraft.Modules
         private readonly ServerProperties _serverProperties;
         private readonly ILogger<WorldLoaderModule> _logger;
 
-        public WorldLoaderModule(IWorldFinder worldFinder, IWorldLoader worldLoader, IRunImportStore runStore, IServerPropertiesReader serverPropReader, ILogger<WorldLoaderModule> logger)
+        public WorldLoaderModule(
+            IWorldFinder worldFinder, 
+            IWorldLoader worldLoader, 
+            IRunImportStore runStore, 
+            IServerPropertiesReader serverPropReader, 
+            ILogger<WorldLoaderModule> logger)
         {
             _worldFinder = worldFinder;
             _worldLoader = worldLoader;

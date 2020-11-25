@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using TheFipster.Minecraft.Domain.Exceptions;
+using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Import.Services.Extensions;
-using TheFipster.Minecraft.Services.Abstractions;
 
 namespace TheFipster.Minecraft.Import.Services
 {

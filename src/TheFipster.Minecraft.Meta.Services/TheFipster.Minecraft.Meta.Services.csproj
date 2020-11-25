@@ -5,12 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cyotek.Data.Nbt" Version="3.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Meta.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

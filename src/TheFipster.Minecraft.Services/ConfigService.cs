@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Domain;
-using TheFipster.Minecraft.Services.Abstractions;
 
 namespace TheFipster.Minecraft.Services
 {
@@ -26,7 +26,6 @@ namespace TheFipster.Minecraft.Services
             TempLocation = ensureExistance(_paths.Temp);
             DataLocation = ensureExistance(_paths.Data);
             InitialRunIndex = ensureInt(InitialRunIndexKey);
-
         }
 
         public DirectoryInfo ServerLocation { get; }

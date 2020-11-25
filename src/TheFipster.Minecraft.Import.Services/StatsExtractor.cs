@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
+using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
-using TheFipster.Minecraft.Services.Abstractions;
 
 namespace TheFipster.Minecraft.Import.Services
 {
@@ -11,54 +11,34 @@ namespace TheFipster.Minecraft.Import.Services
         private readonly IStatsFinder _statsFinder;
 
         public StatsExtractor(IStatsFinder statsFinder)
-        {
-            _statsFinder = statsFinder;
-        }
+            => _statsFinder = statsFinder;
 
         public Dictionary<string, Stats> Extract(WorldInfo world)
         {
-            var stats = new Dictionary<string, Stats>();
+            var allStats = new Dictionary<string, Stats>();
             var files = _statsFinder.Find(world);
 
             foreach (var file in files)
             {
                 var json = File.ReadAllText(file.FullName);
                 var playerId = file.Name.Replace(".json", string.Empty);
-                var cleanedStats = new Stats();
+                var stats = new Stats();
                 var rawStat = JsonConvert.DeserializeObject<RawStats>(json);
 
-                cleanedStats.Broken = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftBroken);
-                cleanedStats.Crafted = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftCrafted);
-                cleanedStats.Custom = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftCustom);
-                cleanedStats.Dropped = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftDropped);
-                cleanedStats.Killed = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftKilled);
-                cleanedStats.KilledBy = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftKilledBy);
-                cleanedStats.Mined = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftMined);
-                cleanedStats.PickedUp = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftPickedUp);
-                cleanedStats.Used = convertToHumanFriendlyKeyName(rawStat.Categories.MinecraftUsed);
+                stats.Broken = rawStat.Categories.MinecraftBroken;
+                stats.Crafted = rawStat.Categories.MinecraftCrafted;
+                stats.Custom = rawStat.Categories.MinecraftCustom;
+                stats.Dropped = rawStat.Categories.MinecraftDropped;
+                stats.Killed = rawStat.Categories.MinecraftKilled;
+                stats.KilledBy = rawStat.Categories.MinecraftKilledBy;
+                stats.Mined = rawStat.Categories.MinecraftMined;
+                stats.PickedUp = rawStat.Categories.MinecraftPickedUp;
+                stats.Used = rawStat.Categories.MinecraftUsed;
 
-                stats.Add(playerId, cleanedStats);
+                allStats.Add(playerId, stats);
             }
 
-            return stats;
-        }
-
-        private Dictionary<string, double> convertToHumanFriendlyKeyName(Dictionary<string, long> raw)
-        {
-            var clean = new Dictionary<string, double>();
-
-            if (raw == null)
-                return clean;
-
-            foreach (var entry in raw)
-            {
-                var newKey = entry.Key.Replace("minecraft:", string.Empty).Replace("-", " ").Replace("_", " ");
-                var newFirstChar = newKey.Substring(0, 1).ToUpper();
-                newKey = newFirstChar + newKey.Substring(1);
-                clean.Add(newKey, entry.Value);
-            }
-
-            return clean;
+            return allStats;
         }
     }
 }

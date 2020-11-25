@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace TheFipster.Minecraft.Services.Abstractions
+namespace TheFipster.Minecraft.Import.Abstractions
 {
     public interface IWorldFinder
     {

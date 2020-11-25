@@ -1,8 +1,9 @@
 ﻿using SimpleInjector;
+using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Services;
 using TheFipster.Minecraft.Modules;
 using TheFipster.Minecraft.Services;
-using TheFipster.Minecraft.Services.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Import.Domain;
-using TheFipster.Minecraft.Services.Abstractions;
+using TheFipster.Minecraft.Import.Abstractions;
 
 namespace TheFipster.Minecraft.Modules
 {

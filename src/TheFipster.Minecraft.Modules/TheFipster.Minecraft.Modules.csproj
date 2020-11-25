@@ -9,8 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

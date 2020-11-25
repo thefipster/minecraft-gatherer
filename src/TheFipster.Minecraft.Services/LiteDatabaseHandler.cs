@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 using System.IO;
-using TheFipster.Minecraft.Services.Abstractions;
+using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Services
 {

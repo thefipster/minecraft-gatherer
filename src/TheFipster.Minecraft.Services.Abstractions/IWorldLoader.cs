@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using TheFipster.Minecraft.Import.Domain;
 
-namespace TheFipster.Minecraft.Services.Abstractions
+namespace TheFipster.Minecraft.Import.Abstractions
 {
     public interface IWorldLoader
     {

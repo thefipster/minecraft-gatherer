@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TheFipster.Minecraft.Services.Abstractions;
+using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Import.Abstractions;
 
 namespace TheFipster.Minecraft.Import.Services
 {
@@ -11,9 +12,7 @@ namespace TheFipster.Minecraft.Import.Services
         private readonly IConfigService _config;
 
         public LogFinder(IConfigService config)
-        {
-            _config = config;
-        }
+            => _config = config;
 
         public IEnumerable<string> Find(DateTime date)
         {
@@ -36,13 +35,12 @@ namespace TheFipster.Minecraft.Import.Services
             var timestamps = new List<long>();
 
             foreach (var filename in filenames)
-            {
                 if (int.TryParse(filename, out var timestamp))
                     timestamps.Add(timestamp);
-            }
 
-            var start = new DateTimeOffset(date.Date).ToUnixTimeSeconds();
-            var end = new DateTimeOffset(date.Date + new TimeSpan(23, 59, 59)).ToUnixTimeSeconds();
+            // Take all logs from the date of the run and for safety reasons subtract/add 12 hours to the start and end respectively
+            var start = new DateTimeOffset(date.Date).AddHours(-12).ToUnixTimeSeconds();
+            var end = new DateTimeOffset(date.Date).AddHours(36).ToUnixTimeSeconds();
 
             var validFilenames = timestamps.Where(x => x > start && x < end).Select(y => y.ToString() + ".log");
             var candidates = new List<FileInfo>();

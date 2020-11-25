@@ -26,7 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Services\TheFipster.Minecraft.Import.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Modules\TheFipster.Minecraft.Modules.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Services\TheFipster.Minecraft.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Modules\TheFipster.Minecraft.Speedrun.Modules.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Services\TheFipster.Minecraft.Speedrun.Services.csproj" />

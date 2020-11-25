@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace TheFipster.Minecraft.Services.Abstractions
+namespace TheFipster.Minecraft.Import.Abstractions
 {
     public interface ILogFinder
     {
