@@ -26,6 +26,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private ImportIndexViewModel importWorlds(bool force = false)
         {
             var runs = _syncModule.Synchronize(force);
+
             return new ImportIndexViewModel
             {
                 Runs = runs

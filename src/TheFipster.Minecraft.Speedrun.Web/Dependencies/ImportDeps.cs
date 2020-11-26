@@ -11,10 +11,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
     {
         internal static void Register(Container container)
         {
-            container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
-            container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
-
-            container.Register<IDatabaseHandler, LiteDatabaseHandler>(Lifestyle.Singleton);
             container.Register<IRunImportStore, RunImportLiteStore>(Lifestyle.Transient);
 
             container.Register<IStatsFinder, StatsFinder>(Lifestyle.Transient);

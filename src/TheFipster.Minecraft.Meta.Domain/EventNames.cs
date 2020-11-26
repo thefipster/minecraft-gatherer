@@ -39,6 +39,8 @@ namespace TheFipster.Minecraft.Meta.Domain
             public const string GotWaterBucket = "Got Water Bucket";
             public const string SweetDreams = "Sweet Dreams";
             public const string GotEnderEye = "Got Eye of Ender";
+            public const string GotMushroomStew = "Got Mushroom Stew";
+            public const string GotBow = "Got Bow";
         }
 
         public class Biomes
@@ -140,9 +142,78 @@ namespace TheFipster.Minecraft.Meta.Domain
             public const string Silverfish = "Silverfish";
             public const string Spider = "Spider";
             public const string CaveSpider = "Cave Spider";
+            public const string Drowned = "Drowned";
+            public const string Slime = "Slime";
+            public const string Witch = "Witch";
+            public const string ZombieVillager = "ZombieVillager";
+            public const string Pillager = "Pillager";
+            public const string Husk = "Husk";
+            public const string Creeper = "Creeper";
         }
 
-        public Dictionary<string, string> AdvancementTranslation => new Dictionary<string, string>
+        public class NaturalDeathCauses
+        {
+            public const string Gravity = "Gravity";
+            public const string Fire = "Fire";
+            public const string Lava = "Lava";
+            public const string Void = "Void";
+        }
+
+        public static Dictionary<string, string> MobDeathTranslation => new Dictionary<string, string>
+        {
+            { "slain by piglin", Mobs.Piglin },
+            { "shot by piglin", Mobs.Piglin },
+            { "escape piglin", Mobs.Piglin },
+
+            { "fireballed by ghast", Mobs.Ghast },
+            { "escape ghast", Mobs.Ghast },
+
+            { "fireballed by blaze", Mobs.Blaze },
+            { "fighting by blaze", Mobs.Blaze },
+            { "escape blaze", Mobs.Blaze },
+
+            { "slain by hoglin", Mobs.Hoglin },
+            { "escape hoglin", Mobs.Hoglin },
+
+            { "slain by zombified piglin", Mobs.ZombifiedPiglin },
+            { "escape zombified piglin", Mobs.ZombifiedPiglin },
+
+            { "slain by enderman", Mobs.Enderman },
+            { "escape enderman", Mobs.Enderman },
+
+            { "slain by zombie", Mobs.Zombie },
+            { "escape zombie", Mobs.Zombie },
+
+            { "slain by silverfish", Mobs.Silverfish },
+            { "escape silverfish", Mobs.Silverfish },
+
+            { "slain by ender dragon", Mobs.EnderDragon },
+            { "killed by ender dragon", Mobs.EnderDragon },
+            { "escape ender dragon", Mobs.EnderDragon },
+
+            { "slain by wither skeleton", Mobs.EnderDragon },
+            { "escape wither skeleton", Mobs.EnderDragon },
+            { "withered away", Mobs.EnderDragon },
+
+            { "shot by skeleton", Mobs.Skeleton },
+            { "escape skeleton", Mobs.Skeleton },
+
+            { "blown up by creeper", Mobs.Creeper },
+            { "escape creeper", Mobs.Creeper },
+
+            { "killed by [intentional game design]", "Game Design" },
+        };
+
+        public static Dictionary<string, string> NaturalDeathTranslation => new Dictionary<string, string>
+        {
+            { "fell from a high place", NaturalDeathCauses.Gravity },
+            { "burned to death", NaturalDeathCauses.Fire },
+            { "went up in flames", NaturalDeathCauses.Fire },
+            { "tried to swim in lava", NaturalDeathCauses.Lava },
+            { "fell out of the world", NaturalDeathCauses.Void }
+        };
+
+        public static Dictionary<string, string> AdvancementTranslation => new Dictionary<string, string>
         {
             { "killed_dragon", Advancements.FreeTheEnd },
             { "has_cobblestone", Advancements.StoneAge },
@@ -169,10 +240,13 @@ namespace TheFipster.Minecraft.Meta.Domain
             { "has_water_bucket", Advancements.GotWaterBucket },
             { "slept_in_bed", Advancements.SweetDreams },
             { "has_ender_eye", Advancements.GotEnderEye },
-            { "has_iron_pickaxe", Advancements.IsntItIronPick }
+            { "has_iron_pickaxe", Advancements.IsntItIronPick },
+            { "has_stone_pickaxe", Advancements.GettingAnUpgrade },
+            { "mushroom_stew", Advancements.GotMushroomStew },
+            { "has_bow", Advancements.GotBow }
         };
 
-        public Dictionary<string, string> BiomeTranslation => new Dictionary<string, string>
+        public static Dictionary<string, string> BiomeTranslation => new Dictionary<string, string>
         {
             { "minecraft:jungle", Biomes.Jungle },
             { "minecraft:jungle_hills", Biomes.JungleHills },
@@ -228,10 +302,26 @@ namespace TheFipster.Minecraft.Meta.Domain
             { "minecraft:end_midlands", Biomes.EndMidlands },
             { "minecraft:end_highlands", Biomes.EndHighlands },
             { "minecraft:end_barrens", Biomes.EndBarrens },
-            { "minecraft:the_void", Biomes.TheVoid }
+            { "minecraft:the_void", Biomes.TheVoid },
+            { "minecraft:forest", Biomes.Forest },
+            { "minecraft:beach", Biomes.Beach },
+            { "minecraft:river", Biomes.River },
+            { "minecraft:dark_forest", Biomes.DarkForest},
+            { "minecraft:wooded_hills", Biomes.WoodedHills },
+            { "minecraft:deep_cold_ocean", Biomes.DeepColdOcean },
+            { "minecraft:birch_forest", Biomes.BirchForest },
+            { "minecraft:birch_forest_hills", Biomes.BirchForestHills },
+            { "minecraft:cold_ocean", Biomes.ColdOcean },
+            { "minecraft:deep_lukewarm_ocean", Biomes.DeepLukewarmOcean },
+            { "minecraft:lukewarm_ocean", Biomes.LukewarmOcean },
+            { "minecraft:warm_ocean", Biomes.WarmOcean },
+            { "minecraft:frozen_river", Biomes.FrozenRiver },
+            { "minecraft:deep_frozen_ocean", Biomes.DeepFrozenOcean },
+            { "minecraft:stone_shore", Biomes.StoneShore },
+            { "minecraft:snowy_beach", Biomes.SnowyBeach }
         };
 
-        public Dictionary<string, string> MobTranslation => new Dictionary<string, string>
+        public static Dictionary<string, string> MobTranslation => new Dictionary<string, string>
         {
             { "minecraft:blaze", Mobs.Blaze },
             { "minecraft:ghast", Mobs.Ghast },
@@ -246,7 +336,15 @@ namespace TheFipster.Minecraft.Meta.Domain
             { "minecraft:zombie", Mobs.Zombie },
             { "minecraft:zombified_piglin", Mobs.Zombie },
             { "minecraft:zombie_pigman", Mobs.Zombie },
-            { "minecraft:cave_spider", Mobs.CaveSpider }
+            { "minecraft:cave_spider", Mobs.CaveSpider },
+            { "minecraft:drowned", Mobs.Drowned },
+            { "minecraft:slime", Mobs.Slime },
+            { "minecraft:witch", Mobs.Witch },
+            { "minecraft:zombie_villager", Mobs.ZombieVillager },
+            { "minecraft:pillager", Mobs.Pillager },
+            { "minecraft:husk", Mobs.Husk },
+            { "minecraft:spider", Mobs.Spider },
+            { "minecraft:creeper", Mobs.Creeper }
         };
     }
 }

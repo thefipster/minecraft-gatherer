@@ -25,6 +25,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Services\TheFipster.Minecraft.Import.Services.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Meta.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Meta.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Services\TheFipster.Minecraft.Meta.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Modules\TheFipster.Minecraft.Modules.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Services\TheFipster.Minecraft.Services.csproj" />
