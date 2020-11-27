@@ -134,7 +134,9 @@ namespace TheFipster.Minecraft.Speedrun.Web
             Container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>(Lifestyle.Transient);
             Container.Register<IRunCounterEnhancer, RunCounterEnhancer>(Lifestyle.Transient);
 
+            CommonDeps.Register(Container);
             ImportDeps.Register(Container);
+            EnhancerDeps.Register(Container);
         }
     }
 }

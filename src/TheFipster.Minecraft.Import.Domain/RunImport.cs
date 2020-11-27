@@ -1,6 +1,7 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
 using TheFipster.Minecraft.Domain;
+using TheFipster.Minecraft.Enhancer.Domain;
 
 namespace TheFipster.Minecraft.Import.Domain
 {
@@ -14,6 +15,7 @@ namespace TheFipster.Minecraft.Import.Domain
             EndScreens = new List<string>();
             Achievements = new Dictionary<string, ICollection<Achievement>>();
             Problems = new List<Problem>();
+            Events = new List<RunEvent>();
         }
         public RunImport(WorldInfo worldInfo) : this()
         {
@@ -31,5 +33,6 @@ namespace TheFipster.Minecraft.Import.Domain
         public ICollection<string> EndScreens { get; set; }
         public Dictionary<string, ICollection<Achievement>> Achievements { get; set; }
         public ICollection<Problem> Problems { get; set; }
+        public IList<RunEvent> Events { get; set; }
     }
 }

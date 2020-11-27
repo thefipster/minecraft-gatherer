@@ -5,6 +5,6 @@ namespace TheFipster.Minecraft.Modules
 {
     public interface ISyncModule
     {
-        IEnumerable<RunImport> Synchronize(bool withForce);
+        IEnumerable<RunImport> Synchronize(bool withForce = false);
     }
 }

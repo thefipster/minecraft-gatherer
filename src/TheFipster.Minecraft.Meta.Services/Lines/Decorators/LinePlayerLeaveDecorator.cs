@@ -2,10 +2,10 @@
 using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Import.Domain;
-using TheFipster.Minecraft.Meta.Abstractions;
-using TheFipster.Minecraft.Meta.Domain;
+using TheFipster.Minecraft.Enhancer.Abstractions;
+using TheFipster.Minecraft.Enhancer.Domain;
 
-namespace TheFipster.Minecraft.Meta.Services.Lines.Decorators
+namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
 {
     public class LinePlayerLeaveDecorator : ILogLineEventConverter
     {

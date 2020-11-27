@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Meta.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

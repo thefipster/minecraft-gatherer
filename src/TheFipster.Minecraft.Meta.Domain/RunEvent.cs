@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheFipster.Minecraft.Meta.Domain
+namespace TheFipster.Minecraft.Enhancer.Domain
 {
     public class RunEvent
     {
@@ -25,5 +25,7 @@ namespace TheFipster.Minecraft.Meta.Domain
         public DateTime Timestamp { get; set; }
         public string PlayerId { get; set; }
         public string Value { get; set; }
+
+        public override string ToString() => $"{Timestamp:yyyy-MM-dd HH:mm:ss} - {Type} - {Value} - {PlayerId}";
     }
 }

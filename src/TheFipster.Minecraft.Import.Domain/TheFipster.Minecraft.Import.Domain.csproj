@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Domain\TheFipster.Minecraft.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj" />
   </ItemGroup>
 
 </Project>

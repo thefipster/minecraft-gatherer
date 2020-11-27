@@ -46,15 +46,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A015091A-2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{D3CE86E3-2B44-4A9C-B3EE-BB85B1984503}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Abstraction", "TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj", "{E658DA68-27A8-4EC6-9700-2057A1CCF88D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Abstraction", "TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj", "{E658DA68-27A8-4EC6-9700-2057A1CCF88D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{05D343F2-5B2E-413F-BA67-9130A4115000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Meta.Domain", "TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Meta.Domain.csproj", "{28A49D42-8122-478F-B68C-08D8AE6834B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Domain", "TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj", "{28A49D42-8122-478F-B68C-08D8AE6834B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Meta.Services", "TheFipster.Minecraft.Meta.Services\TheFipster.Minecraft.Meta.Services.csproj", "{38027A83-233E-4102-A006-D94641B116CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Services", "TheFipster.Minecraft.Meta.Services\TheFipster.Minecraft.Enhancer.Services.csproj", "{38027A83-233E-4102-A006-D94641B116CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Meta.Abstractions", "TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Meta.Abstractions.csproj", "{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Abstractions", "TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj", "{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

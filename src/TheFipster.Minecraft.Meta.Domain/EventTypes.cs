@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Minecraft.Meta.Domain
+﻿namespace TheFipster.Minecraft.Enhancer.Domain
 {
     public enum EventTypes
     {

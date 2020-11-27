@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Domain;
-using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Import.Abstractions;
+using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Modules
 {
@@ -95,7 +95,7 @@ namespace TheFipster.Minecraft.Modules
             {
                 _logger.LogDebug(ex, $"Run Load: Reading logs failed.");
                 run.Problems.Add(new Problem("Logs are not readable.", ex.Message));
-                return null;
+                return Enumerable.Empty<LogLine>();
             }
         }
     }
