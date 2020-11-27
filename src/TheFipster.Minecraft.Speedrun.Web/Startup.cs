@@ -69,7 +69,6 @@ namespace TheFipster.Minecraft.Speedrun.Web
 
         private void InitializeContainer()
         {
-
             Container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
             Container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
 
@@ -137,6 +136,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
             CommonDeps.Register(Container);
             ImportDeps.Register(Container);
             EnhancerDeps.Register(Container);
+            AnalyticsDeps.Register(Container);
         }
     }
 }

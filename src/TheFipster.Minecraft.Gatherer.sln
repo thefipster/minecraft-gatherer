@@ -56,6 +56,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhanc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Abstractions", "TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj", "{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analytics", "Analytics", "{9068CA33-CE18-4283-B5C4-68349B39B37E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Analytics.Abstractions", "TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj", "{719DB039-99C6-4B54-98A2-EEDC1127742B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Analytics.Services", "TheFipster.Minecraft.Analytics.Services\TheFipster.Minecraft.Analytics.Services.csproj", "{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Analytics.Domain", "TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj", "{4E37AC18-6666-4EA7-AAE2-970852E3B97C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -130,6 +138,18 @@ Global
 		{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{719DB039-99C6-4B54-98A2-EEDC1127742B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{719DB039-99C6-4B54-98A2-EEDC1127742B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{719DB039-99C6-4B54-98A2-EEDC1127742B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{719DB039-99C6-4B54-98A2-EEDC1127742B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E37AC18-6666-4EA7-AAE2-970852E3B97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E37AC18-6666-4EA7-AAE2-970852E3B97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E37AC18-6666-4EA7-AAE2-970852E3B97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E37AC18-6666-4EA7-AAE2-970852E3B97C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -154,6 +174,10 @@ Global
 		{28A49D42-8122-478F-B68C-08D8AE6834B1} = {05D343F2-5B2E-413F-BA67-9130A4115000}
 		{38027A83-233E-4102-A006-D94641B116CA} = {05D343F2-5B2E-413F-BA67-9130A4115000}
 		{90D4CD87-2A69-4D4F-B253-2CD01A6825F4} = {05D343F2-5B2E-413F-BA67-9130A4115000}
+		{9068CA33-CE18-4283-B5C4-68349B39B37E} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
+		{719DB039-99C6-4B54-98A2-EEDC1127742B} = {9068CA33-CE18-4283-B5C4-68349B39B37E}
+		{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7} = {9068CA33-CE18-4283-B5C4-68349B39B37E}
+		{4E37AC18-6666-4EA7-AAE2-970852E3B97C} = {9068CA33-CE18-4283-B5C4-68349B39B37E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A72F90A-5712-4E05-B847-A2A60419ABB8}

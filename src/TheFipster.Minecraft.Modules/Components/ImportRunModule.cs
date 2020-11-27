@@ -48,24 +48,15 @@ namespace TheFipster.Minecraft.Modules
             _logger.LogInformation($"Import started for world {world.Name}.");
 
             var run = new RunImport(world);
-            attachInformationsTo(run);
-            saveToStorage(run);
-
-            _logger.LogInformation($"Import finished for world {world.Name}.");
-            return run;
-        }
-
-        private void attachInformationsTo(RunImport run)
-        {
             run.Dimensions = _dimensionLoader.Load(run.World);
             run.Stats = _statsExtractor.Extract(run.World);
             run.Achievements = _achievementExtractor.Extract(run.World);
             run.Logs = gatherLogs(run);
             run.EndScreens = _playerNbtReader.Read(run.World);
 
-            _logger.LogDebug($"Run Load: Attached information to run {run.Worldname}.");
+            _logger.LogInformation($"Import finished for world {world.Name}.");
+            return run;
         }
-
 
         private void saveToStorage(RunImport run)
         {
