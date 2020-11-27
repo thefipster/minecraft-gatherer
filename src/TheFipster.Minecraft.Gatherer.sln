@@ -48,7 +48,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{D3CE86
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Abstraction", "TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj", "{E658DA68-27A8-4EC6-9700-2057A1CCF88D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{05D343F2-5B2E-413F-BA67-9130A4115000}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enhance", "Enhance", "{05D343F2-5B2E-413F-BA67-9130A4115000}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Domain", "TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj", "{28A49D42-8122-478F-B68C-08D8AE6834B1}"
 EndProject

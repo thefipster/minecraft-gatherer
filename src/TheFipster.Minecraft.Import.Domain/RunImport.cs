@@ -16,6 +16,7 @@ namespace TheFipster.Minecraft.Import.Domain
             Achievements = new Dictionary<string, ICollection<Achievement>>();
             Problems = new List<Problem>();
             Events = new List<RunEvent>();
+            PlayerIds = new List<string>();
         }
         public RunImport(WorldInfo worldInfo) : this()
         {
@@ -33,6 +34,7 @@ namespace TheFipster.Minecraft.Import.Domain
         public ICollection<string> EndScreens { get; set; }
         public Dictionary<string, ICollection<Achievement>> Achievements { get; set; }
         public ICollection<Problem> Problems { get; set; }
-        public IList<RunEvent> Events { get; set; }
+        public ICollection<RunEvent> Events { get; set; }
+        public ICollection<string> PlayerIds { get; set; }
     }
 }

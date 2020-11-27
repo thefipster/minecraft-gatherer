@@ -2,9 +2,9 @@
 using System.Linq;
 using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Domain;
-using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
+using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
 {
@@ -23,6 +23,8 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
         {
             var events = _component.Convert(line);
             var player = extractPlayer(line);
+            if (player == null)
+                return events;
 
             foreach (var mobCause in EventNames.MobDeathTranslation)
             {
