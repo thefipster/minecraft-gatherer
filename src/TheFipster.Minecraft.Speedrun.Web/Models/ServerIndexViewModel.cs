@@ -1,4 +1,4 @@
-﻿using TheFipster.Minecraft.Abstraction;
+﻿using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {

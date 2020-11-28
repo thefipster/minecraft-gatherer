@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Minecraft.Abstraction
+﻿namespace TheFipster.Minecraft.Abstractions
 {
     public interface IServerProperties
     {

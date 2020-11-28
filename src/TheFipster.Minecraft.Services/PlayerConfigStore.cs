@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
-using TheFipster.Minecraft.Abstraction;
+using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Domain;
 

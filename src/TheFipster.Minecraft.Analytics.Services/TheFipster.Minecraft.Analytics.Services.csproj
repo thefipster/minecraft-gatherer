@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj" />

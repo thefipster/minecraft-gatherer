@@ -39,8 +39,8 @@ namespace TheFipster.Minecraft.Import.Services
                     timestamps.Add(timestamp);
 
             // Take all logs from the date of the run and for safety reasons subtract/add 12 hours to the start and end respectively
-            var start = new DateTimeOffset(date.Date).AddHours(-12).ToUnixTimeSeconds();
-            var end = new DateTimeOffset(date.Date).AddHours(36).ToUnixTimeSeconds();
+            var start = new DateTimeOffset(date.Date).ToUnixTimeSeconds();
+            var end = new DateTimeOffset(date.Date).Add(new TimeSpan(23, 59, 59)).ToUnixTimeSeconds();
 
             var validFilenames = timestamps.Where(x => x > start && x < end).Select(y => y.ToString() + ".log");
             var candidates = new List<FileInfo>();

@@ -21,9 +21,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             _playerEventEnhancer = playerEventEnhancer;
         }
 
-        public IActionResult Name(string worldName)
+        public IActionResult Name(string worldname)
         {
-            var run = _runFinder.GetByName(worldName);
+            var run = _runFinder.GetByName(worldname);
             var viewmodel = new RunDetailViewModel(run);
 
             viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run.Import);

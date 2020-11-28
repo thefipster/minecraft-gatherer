@@ -20,9 +20,6 @@ namespace TheFipster.Minecraft.Analytics.Services
             if (run.PlayerIds.Count() == 1)
                 return Outcomes.Discarded;
 
-            if (run.Events.Count() == 0)
-                return Outcomes.Unknown;
-
             var validEvents = getValidEvents(run.Events);
             return outcomeFromEvents(validEvents);
         }
@@ -39,6 +36,50 @@ namespace TheFipster.Minecraft.Analytics.Services
                 return Outcomes.ResetStronghold;
 
             if (events.Any(x => x.Value == EventNames.Advancements.GotEnderEye))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 return Outcomes.ResetSearch;
 
             if (events.Any(x => x.Value == EventNames.Advancements.ATerribleFortress))

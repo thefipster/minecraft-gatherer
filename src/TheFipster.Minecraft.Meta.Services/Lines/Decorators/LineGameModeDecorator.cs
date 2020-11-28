@@ -5,7 +5,7 @@ using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
-using TheFipster.Minecraft.Abstraction;
+using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
 {
