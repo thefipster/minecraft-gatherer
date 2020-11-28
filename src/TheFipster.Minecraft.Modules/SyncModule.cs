@@ -37,6 +37,7 @@ namespace TheFipster.Minecraft.Modules
             var runs = new List<RunImport>();
             var analytics = new List<RunAnalytics>();
             var worlds = _loader.Load(withForce);
+            var outcomeHistogram = new Dictionary<Outcomes, int>();
             foreach (var world in worlds)
             {
                 var run = _importer.Import(world);
@@ -46,6 +47,11 @@ namespace TheFipster.Minecraft.Modules
 
                 var analytic = _analytics.Analyze(run);
                 analytics.Add(analytic);
+
+                if (outcomeHistogram.ContainsKey(analytic.Outcome))
+                    outcomeHistogram[analytic.Outcome]++;
+                else
+                    outcomeHistogram.Add(analytic.Outcome, 1);
             }
 
             return runs;

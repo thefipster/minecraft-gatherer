@@ -17,9 +17,9 @@ namespace TheFipster.Minecraft.Analytics.Services
         public IEnumerable<RunEvent> ValidEvents
             => _component.ValidEvents;
 
-        public TimingAnalytics Analyse(RunImport run)
+        public TimingAnalytics Analyze(RunImport run)
         {
-            var timings = _component.Analyse(run);
+            var timings = _component.Analyze(run);
             var timingEvent = new TimingEvent(RunSections.BlazeRod);
             timingEvent.IsSubSplit = true;
 

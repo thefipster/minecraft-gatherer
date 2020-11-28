@@ -8,17 +8,22 @@ namespace TheFipster.Minecraft.Modules.Components
     public class AnalyticsModule : IAnalyticsModule
     {
         private readonly ITimingAnalyzer _timingAnalyzer;
+        private readonly IOutcomeAnalyzer _outcomeAnalyzer;
 
-        public AnalyticsModule(ITimingAnalyzer timingAnalyzer)
+        public AnalyticsModule(
+            ITimingAnalyzer timingAnalyzer,
+            IOutcomeAnalyzer outcomeAnalyzer)
         {
             _timingAnalyzer = timingAnalyzer;
+            _outcomeAnalyzer = outcomeAnalyzer;
         }
 
         public RunAnalytics Analyze(RunImport run)
         {
             var analytics = new RunAnalytics(run.Worldname);
 
-            analytics.Timings = _timingAnalyzer.Analyse(run);
+            analytics.Timings = _timingAnalyzer.Analyze(run);
+            analytics.Outcome = _outcomeAnalyzer.Analyze(run);
 
             return analytics;
         }

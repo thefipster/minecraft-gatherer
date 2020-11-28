@@ -9,7 +9,7 @@ namespace TheFipster.Minecraft.Analytics.Services
 {
     public class TimingAnalyser : ITimingAnalyzer
     {
-        public TimingAnalytics Analyse(RunImport run)
+        public TimingAnalytics Analyze(RunImport run)
         {
             ValidEvents = getValidEvents(run.Events);
             return new TimingAnalytics(run.World.Name);

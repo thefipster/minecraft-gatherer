@@ -22,6 +22,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.RegisterDecorator<ITimingAnalyzer, TimingTheEndSectionDecorator>();
             container.RegisterDecorator<ITimingAnalyzer, TimingPlaytimeDecorator>();
 
+            container.Register<IOutcomeAnalyzer, OutcomeAnalyzer>();
+
             container.Register<IAnalyticsModule, AnalyticsModule>();
         }
     }

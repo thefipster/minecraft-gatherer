@@ -11,6 +11,8 @@ namespace TheFipster.Minecraft.Analytics.Domain
 
         [BsonId]
         public string Worldname { get; set; }
+
         public TimingAnalytics Timings { get; set; }
+        public Outcomes Outcome { get; set; }
     }
 }

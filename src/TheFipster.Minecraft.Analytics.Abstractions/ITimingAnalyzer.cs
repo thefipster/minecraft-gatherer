@@ -7,7 +7,7 @@ namespace TheFipster.Minecraft.Analytics.Abstractions
 {
     public interface ITimingAnalyzer
     {
-        TimingAnalytics Analyse(RunImport run);
+        TimingAnalytics Analyze(RunImport run);
         IEnumerable<RunEvent> ValidEvents { get; }
     }
 }
