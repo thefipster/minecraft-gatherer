@@ -1,9 +1,5 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@using TheFipster.Minecraft.Speedrun.Domain.Analytics
-@model RunInfo
-@{
-    var timing = (TimingAnalytics)ViewData["Timing"];
-}
+﻿@using TheFipster.Minecraft.Analytics.Domain
+@model RunAnalytics
 
 <tr>
     <td>
@@ -18,11 +14,11 @@
     </td>
     <td>
         <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
-            @Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
+            @Model.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
         </a>
     </td>
     <td>
-        <time class="timeago" datetime="@Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
+        <time class="timeago" datetime="@Model.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
     </td>
     <td>
         @foreach (var player in Model.Players.OrderBy(x => x.Name))
@@ -31,6 +27,6 @@
         }
     </td>
     <td class="text-right">
-        <span class="badge badge-primary">@(timing.RunTime)</span>
+        <span class="badge badge-primary">@(Model.Timings.RunTime)</span>
     </td>
 </tr>

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheFipster.Minecraft.Analytics.Domain;
 
-namespace TheFipster.Minecraft.Analytics.Abstractions
+namespace TheFipster.Minecraft.Storage.Abstractions
 {
     public interface IRunAnalyticsStore
     {
@@ -12,5 +12,7 @@ namespace TheFipster.Minecraft.Analytics.Abstractions
         int Count();
         IEnumerable<RunAnalytics> Get();
         RunAnalytics Get(string name);
+        void Index();
+        RunAnalytics Get(int index);
     }
 }

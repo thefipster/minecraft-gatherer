@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TheFipster.Minecraft.Speedrun.Services;
+using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
@@ -8,9 +8,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IServerPropertiesReader _serverPropertiesReader;
 
         public ServerController(IServerPropertiesReader serverPropertiesReader)
-        {
-            _serverPropertiesReader = serverPropertiesReader;
-        }
+            => _serverPropertiesReader = serverPropertiesReader;
 
         public IActionResult Index()
         {

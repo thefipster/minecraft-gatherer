@@ -4,14 +4,12 @@ using TheFipster.Minecraft.Services;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
-    public class CommonDeps
+    public static class CommonDeps
     {
-        internal static void Register(Container container)
+        public static void RegisterCommon(this Container container)
         {
             container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
             container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
-
-            container.Register<IDatabaseHandler, LiteDatabaseHandler>(Lifestyle.Singleton);
         }
     }
 }

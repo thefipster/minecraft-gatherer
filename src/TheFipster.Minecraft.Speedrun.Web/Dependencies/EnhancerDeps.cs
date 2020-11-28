@@ -10,9 +10,9 @@ using TheFipster.Minecraft.Modules.Components;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
-    public class EnhancerDeps
+    public static class EnhancerDeps
     {
-        internal static void Register(Container container)
+        public static void RegisterEnhancer(this Container container)
         {
             container.Register<IRunEventConverter, RunEventConverter>();
             container.RegisterDecorator<IRunEventConverter, RunEventLogDecorator>();

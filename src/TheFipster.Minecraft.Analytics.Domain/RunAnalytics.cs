@@ -19,5 +19,6 @@ namespace TheFipster.Minecraft.Analytics.Domain
         public ICollection<PlayerAnalytics> Players { get; set; }
         public ICollection<DimensionInfo> Dimensions { get; set; }
         public WorldInfo World { get; set; }
+        public int Index { get; set; }
     }
 }

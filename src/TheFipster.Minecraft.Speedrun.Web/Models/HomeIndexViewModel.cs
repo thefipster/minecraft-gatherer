@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Speedrun.Domain;
+using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Extender.Domain;
+using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
@@ -9,7 +11,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
         {
         }
 
-        public IEnumerable<RunInfo> LatestRuns { get; internal set; }
         public RunCounts RunCounts { get; internal set; }
+        public IEnumerable<RunAnalytics> LatestRuns { get; internal set; }
     }
 }

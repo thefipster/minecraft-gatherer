@@ -1,18 +1,16 @@
 ﻿@model RunDetailViewModel
 @{
-    ViewData["Title"] = $"Run #{Model.Run.Index}";
+    ViewData["Title"] = $"Run #{Model.Analytics.Index}";
 }
 
 <div class="row">
     <div class="col">
         <h1>
             Run
-            @(Model.Run.Index != 0 ? $"#{Model.Run.Index}" : string.Empty)
+            @(Model.Analytics.Index != 0 ? $"#{Model.Analytics.Index}" : string.Empty)
             <small>
                 played on
-                @Model.Run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy")
-                at
-                @Model.Run.World.CreatedOn.ToLocalTime().AddHours(1).ToString("HH:mm")
+                @Model.Analytics.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy at HH:mm")
             </small>
         </h1>
     </div>
@@ -25,19 +23,19 @@
                 @await Html.PartialAsync("_InfoCard", Model)
             </div>
         </div>
-        @if (Model.Timings != null && Model.Timings.Events.Any())
+        @if (Model.Analytics.Timings != null && Model.Analytics.Timings.Events.Any())
         {
             <div class="row">
                 <div class="col">
-                    @await Html.PartialAsync("_TimingsCard", Model.Timings)
+                    @await Html.PartialAsync("_TimingsCard", Model.Analytics.Timings)
                 </div>
             </div>
         }
-        @if (Model.Run.World.Dimensions != null && Model.Run.World.Dimensions.Any())
+        @if (Model.Analytics.Dimensions != null && Model.Analytics.Dimensions.Any())
         {
             <div class="row">
                 <div class="col">
-                    @await Html.PartialAsync("_DimensionsCard", Model.Run)
+                    @await Html.PartialAsync("_DimensionsCard", Model.Analytics)
 
                 </div>
             </div>
@@ -51,10 +49,10 @@
     }
 </div>
 
-@if (Model.Run.Players.Any())
+@if (Model.Analytics.Players.Any())
 {
     <div class="row">
-        @foreach (var player in Model.Run.Players.OrderBy(x => x.Name))
+        @foreach (var player in Model.Analytics.Players.OrderBy(x => x.Name))
         {
 
             <div class="col-sm-12 col-md-6">
@@ -64,7 +62,7 @@
     </div>
 }
 
-@if (Model.Run.Events != null && Model.Run.Events.Any())
+@if (Model.Import.Events != null && Model.Import.Events.Any())
 {
 
     <div class="row">
@@ -74,7 +72,7 @@
                 <div class="card-body">
                     <table class="table table-hover">
                         <tbody>
-                            @foreach (var gameEvent in Model.Run.Events.OrderBy(x => x.Timestamp))
+                            @foreach (var gameEvent in Model.Import.Events.OrderBy(x => x.Timestamp))
                             {
                                 @await Html.PartialAsync("_EventLine", gameEvent)
                             }

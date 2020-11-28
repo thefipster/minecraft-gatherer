@@ -1,36 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using TheFipster.Minecraft.Speedrun.Domain;
-using TheFipster.Minecraft.Speedrun.Domain.Analytics;
-using TheFipster.Minecraft.Speedrun.Web.Domain;
+﻿using System.Collections.Generic;
+using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Enhancer.Domain;
+using TheFipster.Minecraft.Extender.Domain;
+using TheFipster.Minecraft.Import.Domain;
+using TheFipster.Minecraft.Storage.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
 {
     public class RunDetailViewModel
     {
-        public RunDetailViewModel(RunInfo run)
+        public RunDetailViewModel(Run run)
         {
-            Run = run;
-        }
-
-        public RunInfo Run { get; set; }
-
-        public DateTime? BaseTime
-        {
-            get
-            {
-                var startEvent = Run.Events.FirstOrDefault(x => x.Type == LogEventTypes.SetTime);
-                if (startEvent == null)
-                    return null;
-
-                return startEvent.Timestamp;
-
-            }
+            Import = run.Import;
+            Analytics = run.Analytics;
         }
 
         public IEnumerable<FirstEvent> FirstAdvancement { get; internal set; }
-        public Dictionary<string, IEnumerable<GameEvent>> PlayerEvents { get; internal set; }
-        public TimingAnalytics Timings { get; internal set; }
+        public Dictionary<string, IEnumerable<RunEvent>> PlayerEvents { get; internal set; }
+
+        public RunImport Import { get; internal set; }
+        public RunAnalytics Analytics { get; internal set; }
     }
 }

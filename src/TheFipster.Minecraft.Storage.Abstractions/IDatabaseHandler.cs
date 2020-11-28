@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 
-namespace TheFipster.Minecraft.Abstractions
+namespace TheFipster.Minecraft.Storage.Abstractions
 {
     public interface IDatabaseHandler
     {

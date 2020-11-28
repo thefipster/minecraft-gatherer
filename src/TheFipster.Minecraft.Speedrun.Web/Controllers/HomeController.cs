@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Linq;
-using TheFipster.Minecraft.Speedrun.Services;
-using TheFipster.Minecraft.Speedrun.Web.Enhancer;
+using TheFipster.Minecraft.Extender.Abstractions;
 using TheFipster.Minecraft.Speedrun.Web.Models;
+using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
@@ -21,14 +21,22 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         public IActionResult Index()
         {
             var viewmodel = new HomeIndexViewModel();
-            viewmodel.LatestRuns = _runFinder.GetStarted().OrderByDescending(x => x.World.CreatedOn).Take(7);
+
+            viewmodel.LatestRuns = _runFinder
+                .GetStarted()
+                .OrderByDescending(x => x.Timings.StartedOn)
+                .Take(7);
+
             viewmodel.RunCounts = _runCounter.Enhance();
 
             return View(viewmodel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-            => View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        public IActionResult Error() => View(
+            new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
     }
 }

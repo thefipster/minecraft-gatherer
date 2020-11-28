@@ -26,6 +26,9 @@
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Services\TheFipster.Minecraft.Analytics.Services.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Extender.Abstractions\TheFipster.Minecraft.Extender.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Extender.Domain\TheFipster.Minecraft.Extender.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Extender.Services\TheFipster.Minecraft.Extender.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Services\TheFipster.Minecraft.Import.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj" />
@@ -35,6 +38,7 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Services\TheFipster.Minecraft.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Modules\TheFipster.Minecraft.Speedrun.Modules.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Speedrun.Services\TheFipster.Minecraft.Speedrun.Services.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,8 +1,9 @@
 ﻿using LiteDB;
 using System.IO;
 using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Storage.Abstractions;
 
-namespace TheFipster.Minecraft.Services
+namespace TheFipster.Minecraft.Storage.Services
 {
     public class LiteDatabaseHandler : IDatabaseHandler
     {

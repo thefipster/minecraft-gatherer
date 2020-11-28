@@ -7,9 +7,9 @@ using TheFipster.Minecraft.Modules.Components;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
-    public class AnalyticsDeps
+    public static class AnalyticsDeps
     {
-        internal static void Register(Container container)
+        public static void RegisterAnalytics(this Container container)
         {
             container.Register<ITimingAnalyzer, TimingAnalyser>();
             container.RegisterDecorator<ITimingAnalyzer, TimingStartDecorator>();
@@ -27,8 +27,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 
             container.Register<IPlayerAnalyzer, PlayerAnalyzer>();
             container.RegisterDecorator<IPlayerAnalyzer, PlayerStatisticsCounterDecorator>();
-
-            container.Register<IRunAnalyticsStore, RunAnalyticsLiteStore>();
 
             container.Register<IAnalyticsModule, AnalyticsModule>();
         }

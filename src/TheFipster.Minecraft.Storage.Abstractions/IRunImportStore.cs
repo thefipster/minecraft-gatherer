@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheFipster.Minecraft.Import.Domain;
 
-namespace TheFipster.Minecraft.Import.Abstractions
+namespace TheFipster.Minecraft.Storage.Abstractions
 {
     public interface IRunImportStore
     {

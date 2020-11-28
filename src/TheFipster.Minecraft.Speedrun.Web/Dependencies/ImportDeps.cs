@@ -7,33 +7,31 @@ using TheFipster.Minecraft.Services;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
-    public class ImportDeps
+    public static class ImportDeps
     {
-        internal static void Register(Container container)
+        public static void RegisterImporter(this Container container)
         {
-            container.Register<IRunImportStore, RunImportLiteStore>(Lifestyle.Transient);
+            container.Register<IStatsFinder, StatsFinder>();
+            container.Register<IWorldFinder, WorldFinder>();
+            container.Register<ILogFinder, LogFinder>();
 
-            container.Register<IStatsFinder, StatsFinder>(Lifestyle.Transient);
-            container.Register<IWorldFinder, WorldFinder>(Lifestyle.Transient);
-            container.Register<ILogFinder, LogFinder>(Lifestyle.Transient);
+            container.Register<IWorldLoader, WorldLoader>();
 
-            container.Register<IWorldLoader, WorldLoader>(Lifestyle.Transient);
+            container.Register<IDimensionLoader, DimensionLoader>();
 
-            container.Register<IDimensionLoader, DimensionLoader>(Lifestyle.Transient);
+            container.Register<ILogParser, LogParser>();
+            container.Register<ILogTrimmer, LogTrimmer>();
 
-            container.Register<ILogParser, LogParser>(Lifestyle.Transient);
-            container.Register<ILogTrimmer, LogTrimmer>(Lifestyle.Transient);
+            container.Register<IStatsExtractor, StatsExtractor>();
+            container.Register<IAchievementExtractor, AchievementExtractor>();
 
-            container.Register<IStatsExtractor, StatsExtractor>(Lifestyle.Transient);
-            container.Register<IAchievementExtractor, AchievementExtractor>(Lifestyle.Transient);
+            container.Register<IServerPropertiesReader, ServerPropertiesReader>();
 
-            container.Register<IServerPropertiesReader, ServerPropertiesReader>(Lifestyle.Transient);
+            container.Register<IPlayerNbtReader, PlayerNbtReader>();
 
-            container.Register<IPlayerNbtReader, PlayerNbtReader>(Lifestyle.Transient);
-
-            container.Register<IWorldLoaderModule, WorldLoaderModule>(Lifestyle.Transient);
-            container.Register<IImportRunModule, ImportModule>(Lifestyle.Transient);
-            container.Register<ISyncModule, SyncModule>(Lifestyle.Transient);
+            container.Register<IWorldLoaderModule, WorldLoaderModule>();
+            container.Register<IImportRunModule, ImportModule>();
+            container.Register<ISyncModule, SyncModule>();
         }
     }
 }

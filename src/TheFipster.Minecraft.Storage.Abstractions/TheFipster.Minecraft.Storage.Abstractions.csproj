@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Storage.Domain\TheFipster.Minecraft.Storage.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

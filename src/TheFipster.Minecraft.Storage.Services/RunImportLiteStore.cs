@@ -1,10 +1,9 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
-using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
+using TheFipster.Minecraft.Storage.Abstractions;
 
-namespace TheFipster.Minecraft.Import.Services
+namespace TheFipster.Minecraft.Storage.Services
 {
     public class RunImportLiteStore : IRunImportStore
     {

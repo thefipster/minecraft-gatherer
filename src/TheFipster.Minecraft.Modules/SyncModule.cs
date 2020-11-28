@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
-using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Modules.Abstractions;
 using TheFipster.Minecraft.Modules.Models;
+using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Modules
 {
@@ -44,6 +43,8 @@ namespace TheFipster.Minecraft.Modules
                 var analytics = analyzeRun(import);
                 sync.Add(new WorldSync(import, analytics));
             }
+
+            _analyticsStore.Index();
 
             return sync;
         }
