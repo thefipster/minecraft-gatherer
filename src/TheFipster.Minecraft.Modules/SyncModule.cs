@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
@@ -13,22 +14,25 @@ namespace TheFipster.Minecraft.Modules
         private readonly IImportRunModule _importer;
         private readonly IEnhanceModule _enhancer;
         private readonly IAnalyticsModule _analytics;
-        private readonly IRunImportStore _runStore;
+        private readonly IRunImportStore _importStore;
+        private readonly IRunAnalyticsStore _analyticsStore;
         private readonly ILogger<SyncModule> _logger;
 
         public SyncModule(
             IWorldLoaderModule worldLoaderModule,
-            IImportRunModule importRunModule,
+            IImportRunModule importModule,
             IEnhanceModule enhanceModule,
             IRunImportStore runImportStore,
             IAnalyticsModule analyticsModule,
+            IRunAnalyticsStore runAnalyticsStore,
             ILogger<SyncModule> logger)
         {
             _loader = worldLoaderModule;
-            _importer = importRunModule;
+            _importer = importModule;
             _enhancer = enhanceModule;
             _analytics = analyticsModule;
-            _runStore = runImportStore;
+            _importStore = runImportStore;
+            _analyticsStore = runAnalyticsStore;
             _logger = logger;
         }
 
@@ -37,37 +41,46 @@ namespace TheFipster.Minecraft.Modules
             var runs = new List<RunImport>();
             var analytics = new List<RunAnalytics>();
             var worlds = _loader.Load(withForce);
-            var outcomeHistogram = new Dictionary<Outcomes, int>();
             foreach (var world in worlds)
             {
                 var run = _importer.Import(world);
                 run = _enhancer.Enhance(run);
-                storeEnhancedImport(run);
+                storeImport(run);
                 runs.Add(run);
 
                 var analytic = _analytics.Analyze(run);
+                storeAnalytics(analytic);
                 analytics.Add(analytic);
-
-                if (outcomeHistogram.ContainsKey(analytic.Outcome))
-                    outcomeHistogram[analytic.Outcome]++;
-                else
-                    outcomeHistogram.Add(analytic.Outcome, 1);
             }
 
             return runs;
         }
 
-        private void storeEnhancedImport(RunImport run)
+        private void storeImport(RunImport import)
         {
-            if (_runStore.Exists(run.World.Name))
+            if (_importStore.Exists(import.Worldname))
             {
-                _runStore.Update(run);
-                _logger.LogDebug($"Import store updated run {run.Worldname}.");
+                _importStore.Update(import);
+                _logger.LogDebug($"Import store updated run {import.Worldname}.");
             }
             else
             {
-                _runStore.Add(run);
-                _logger.LogDebug($"Import store created run {run.Worldname}.");
+                _importStore.Add(import);
+                _logger.LogDebug($"Import store created run {import.Worldname}.");
+            }
+        }
+
+        private void storeAnalytics(RunAnalytics analytics)
+        {
+            if (_analyticsStore.Exists(analytics.Worldname))
+            {
+                _analyticsStore.Update(analytics);
+                _logger.LogDebug($"Import store updated run {analytics.Worldname}.");
+            }
+            else
+            {
+                _analyticsStore.Add(analytics);
+                _logger.LogDebug($"Import store created run {analytics.Worldname}.");
             }
         }
     }

@@ -58,11 +58,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhanc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analytics", "Analytics", "{9068CA33-CE18-4283-B5C4-68349B39B37E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Analytics.Abstractions", "TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj", "{719DB039-99C6-4B54-98A2-EEDC1127742B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Analytics.Abstractions", "TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj", "{719DB039-99C6-4B54-98A2-EEDC1127742B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Analytics.Services", "TheFipster.Minecraft.Analytics.Services\TheFipster.Minecraft.Analytics.Services.csproj", "{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Analytics.Services", "TheFipster.Minecraft.Analytics.Services\TheFipster.Minecraft.Analytics.Services.csproj", "{DCB7B3CC-9663-4446-AF11-DE92DA2C00E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Analytics.Domain", "TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj", "{4E37AC18-6666-4EA7-AAE2-970852E3B97C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Analytics.Domain", "TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj", "{4E37AC18-6666-4EA7-AAE2-970852E3B97C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -32,7 +32,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IPlayerNbtReader, PlayerNbtReader>(Lifestyle.Transient);
 
             container.Register<IWorldLoaderModule, WorldLoaderModule>(Lifestyle.Transient);
-            container.Register<IImportRunModule, ImportRunModule>(Lifestyle.Transient);
+            container.Register<IImportRunModule, ImportModule>(Lifestyle.Transient);
             container.Register<ISyncModule, SyncModule>(Lifestyle.Transient);
         }
     }

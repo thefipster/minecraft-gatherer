@@ -8,7 +8,7 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Modules
 {
-    public class ImportRunModule : IImportRunModule
+    public class ImportModule : IImportRunModule
     {
         private readonly ILogFinder _logFinder;
         private readonly ILogParser _logParser;
@@ -19,9 +19,9 @@ namespace TheFipster.Minecraft.Modules
         private readonly IPlayerNbtReader _playerNbtReader;
         private readonly IRunImportStore _runStore;
 
-        private readonly ILogger<ImportRunModule> _logger;
+        private readonly ILogger<ImportModule> _logger;
 
-        public ImportRunModule(
+        public ImportModule(
             ILogFinder logFinder,
             ILogParser logParser,
             ILogTrimmer logTrimmer,
@@ -30,7 +30,7 @@ namespace TheFipster.Minecraft.Modules
             IStatsExtractor statsExtractor,
             IPlayerNbtReader playerNbtReader,
             IRunImportStore runImportStore,
-            ILogger<ImportRunModule> logger)
+            ILogger<ImportModule> logger)
         {
             _logFinder = logFinder;
             _logParser = logParser;
