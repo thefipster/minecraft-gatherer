@@ -67,7 +67,7 @@ namespace TheFipster.Minecraft.Modules
             }
             else
             {
-                _runStore.Add(run);
+                _runStore.Insert(run);
                 _logger.LogDebug($"Import store created run {run.Worldname}.");
             }
         }

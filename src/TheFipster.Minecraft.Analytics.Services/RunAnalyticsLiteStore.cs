@@ -13,11 +13,19 @@ namespace TheFipster.Minecraft.Analytics.Services
         public RunAnalyticsLiteStore(IDatabaseHandler databaseHandler)
             => _collection = databaseHandler.GetCollection<RunAnalytics>();
 
-        public void Add(RunAnalytics analytics)
+        public void Insert(RunAnalytics analytics)
             => _collection.Insert(analytics);
 
         public void Update(RunAnalytics analytics)
             => _collection.Update(analytics);
+
+        public void Upsert(RunAnalytics analytics)
+        {
+            if (Exists(analytics.Worldname))
+                Update(analytics);
+            else
+                Insert(analytics);
+        }
 
         public bool Exists(string name)
             => _collection.Exists(x => x.Worldname == name);

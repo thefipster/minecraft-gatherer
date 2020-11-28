@@ -5,8 +5,9 @@ namespace TheFipster.Minecraft.Import.Abstractions
 {
     public interface IRunImportStore
     {
-        void Add(RunImport run);
-        void Update(RunImport run);
+        void Insert(RunImport import);
+        void Update(RunImport import);
+        void Upsert(RunImport import);
         bool Exists(string name);
         int Count();
         IEnumerable<RunImport> Get();

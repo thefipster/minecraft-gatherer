@@ -1,15 +1,14 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Import.Domain;
+using System.Linq;
+using TheFipster.Minecraft.Modules.Models;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
 {
     public class ImportIndexViewModel
     {
         public ImportIndexViewModel()
-        {
-            Runs = new List<RunImport>();
-        }
+            => Sync = Enumerable.Empty<WorldSync>();
 
-        public IEnumerable<RunImport> Runs { get; set; }
+        public IEnumerable<WorldSync> Sync { get; internal set; }
     }
 }

@@ -18,5 +18,6 @@ namespace TheFipster.Minecraft.Analytics.Domain
         public Outcomes Outcome { get; set; }
         public ICollection<PlayerAnalytics> Players { get; set; }
         public ICollection<DimensionInfo> Dimensions { get; set; }
+        public WorldInfo World { get; set; }
     }
 }

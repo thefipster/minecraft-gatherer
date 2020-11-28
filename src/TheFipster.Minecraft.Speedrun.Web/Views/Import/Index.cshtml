@@ -10,7 +10,7 @@
 </div>
 
 <div class="row">
-    @if (Model.Runs.Count() == 0)
+    @if (Model.Sync.Count() == 0)
     {
         <div class="col">
             <div class="card">
@@ -27,7 +27,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Found @Model.Runs.Count() worlds</h5>
+                    <h5 class="card-title">Found @Model.Sync.Count() worlds</h5>
                     @*<p class="card-text">Looks like @Model.Runs.Count(x => x.Validity.IsValid) worlds are valid.</p>*@
                     <a asp-controller="Runs" asp-action="All" class="btn btn-primary">Take me there!</a>
                 </div>

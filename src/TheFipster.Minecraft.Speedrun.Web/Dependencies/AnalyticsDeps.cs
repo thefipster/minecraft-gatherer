@@ -1,6 +1,7 @@
 ﻿using SimpleInjector;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Services;
+using TheFipster.Minecraft.Analytics.Services.Players;
 using TheFipster.Minecraft.Modules.Abstractions;
 using TheFipster.Minecraft.Modules.Components;
 
@@ -23,6 +24,11 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.RegisterDecorator<ITimingAnalyzer, TimingPlaytimeDecorator>();
 
             container.Register<IOutcomeAnalyzer, OutcomeAnalyzer>();
+
+            container.Register<IPlayerAnalyzer, PlayerAnalyzer>();
+            container.RegisterDecorator<IPlayerAnalyzer, PlayerStatisticsCounterDecorator>();
+
+            container.Register<IRunAnalyticsStore, RunAnalyticsLiteStore>();
 
             container.Register<IAnalyticsModule, AnalyticsModule>();
         }

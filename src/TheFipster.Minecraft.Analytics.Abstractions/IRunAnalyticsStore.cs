@@ -5,8 +5,9 @@ namespace TheFipster.Minecraft.Analytics.Abstractions
 {
     public interface IRunAnalyticsStore
     {
-        void Add(RunAnalytics run);
-        void Update(RunAnalytics run);
+        void Insert(RunAnalytics analytics);
+        void Update(RunAnalytics analytics);
+        void Upsert(RunAnalytics analytics);
         bool Exists(string name);
         int Count();
         IEnumerable<RunAnalytics> Get();

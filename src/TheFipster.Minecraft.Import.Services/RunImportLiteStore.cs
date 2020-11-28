@@ -13,11 +13,19 @@ namespace TheFipster.Minecraft.Import.Services
         public RunImportLiteStore(IDatabaseHandler databaseHandler)
             => _collection = databaseHandler.GetCollection<RunImport>();
 
-        public void Add(RunImport import)
+        public void Insert(RunImport import)
             => _collection.Insert(import);
 
         public void Update(RunImport import)
             => _collection.Update(import);
+
+        public void Upsert(RunImport import)
+        {
+            if (Exists(import.Worldname))
+                Update(import);
+            else
+                Insert(import);
+        }
 
         public bool Exists(string name)
             => _collection.Exists(x => x.Worldname == name);

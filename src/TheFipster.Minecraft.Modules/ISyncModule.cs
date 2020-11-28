@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Import.Domain;
+using TheFipster.Minecraft.Modules.Models;
 
 namespace TheFipster.Minecraft.Modules
 {
     public interface ISyncModule
     {
-        IEnumerable<RunImport> Synchronize(bool withForce = false);
+        IEnumerable<WorldSync> Synchronize(bool withForce = false);
     }
 }
