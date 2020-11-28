@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
-using TheFipster.Minecraft.Domain;
+using TheFipster.Minecraft.Abstraction;
 using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Domain;
 
 namespace TheFipster.Minecraft.Services
 {
@@ -15,13 +16,13 @@ namespace TheFipster.Minecraft.Services
         public PlayerConfigStore(IConfiguration config)
             => _config = config;
 
-        public Player GetPlayerById(string id)
+        public IPlayer GetPlayerById(string id)
             => GetPlayers().FirstOrDefault(x => x.Id == id);
 
-        public Player GetPlayerByName(string name)
+        public IPlayer GetPlayerByName(string name)
             => GetPlayers().FirstOrDefault(x => x.Name == name);
 
-        public IEnumerable<Player> GetPlayers()
+        public IEnumerable<IPlayer> GetPlayers()
         {
             var players = new List<Player>();
             var section = _config.GetSection(PlayerSectionName);

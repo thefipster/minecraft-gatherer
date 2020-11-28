@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TheFipster.Minecraft.Abstraction;
 using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Domain;
-using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
+using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
 {
     public class LineTeleportDecorator : ILogLineEventConverter
     {
         private readonly ILogLineEventConverter _component;
-        private readonly IEnumerable<Player> _players;
+        private readonly IEnumerable<IPlayer> _players;
 
         public LineTeleportDecorator(ILogLineEventConverter component, IPlayerStore playerStore)
         {
@@ -48,7 +48,7 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
             return destination;
         }
 
-        private Player extractPlayer(LogLine line)
+        private IPlayer extractPlayer(LogLine line)
         {
             foreach (var player in _players)
                 if (line.Message.Split(" ").Take(3).Any(x => x.Contains(player.Name)))

@@ -1,9 +1,9 @@
-﻿using TheFipster.Minecraft.Domain;
+﻿using TheFipster.Minecraft.Abstraction;
 
 namespace TheFipster.Minecraft.Abstractions
 {
     public interface IServerPropertiesReader
     {
-        ServerProperties Read();
+        IServerProperties Read();
     }
 }

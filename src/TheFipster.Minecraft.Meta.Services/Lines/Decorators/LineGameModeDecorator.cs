@@ -5,6 +5,7 @@ using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
+using TheFipster.Minecraft.Abstraction;
 
 namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
 {
@@ -50,7 +51,7 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
             return string.Empty;
         }
 
-        private Player extractPlayer(LogLine line)
+        private IPlayer extractPlayer(LogLine line)
         {
             foreach (var player in _playerStore.GetPlayers())
                 if (line.Message.Split(" ").Take(3).Any(x => x.Contains(player.Name)))

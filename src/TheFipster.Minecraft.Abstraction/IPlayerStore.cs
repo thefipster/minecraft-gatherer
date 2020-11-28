@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Domain;
+using TheFipster.Minecraft.Abstraction;
 
 namespace TheFipster.Minecraft.Abstractions
 {
     public interface IPlayerStore
     {
-        IEnumerable<Player> GetPlayers();
+        IEnumerable<IPlayer> GetPlayers();
 
-        Player GetPlayerByName(string name);
+        IPlayer GetPlayerByName(string name);
 
-        Player GetPlayerById(string id);
+        IPlayer GetPlayerById(string id);
     }
 }

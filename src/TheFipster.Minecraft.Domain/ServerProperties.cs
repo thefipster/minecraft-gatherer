@@ -1,6 +1,8 @@
-﻿namespace TheFipster.Minecraft.Domain
+﻿using TheFipster.Minecraft.Abstraction;
+
+namespace TheFipster.Minecraft.Domain
 {
-    public class ServerProperties
+    public class ServerProperties : IServerProperties
     {
         public long? LevelSeed { get; set; }
         public string GameMode { get; set; }

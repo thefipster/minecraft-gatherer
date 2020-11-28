@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstraction.csproj" />
+  </ItemGroup>
+
 </Project>

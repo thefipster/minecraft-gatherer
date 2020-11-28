@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using TheFipster.Minecraft.Abstraction;
+using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Domain.Exceptions;
-using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Services
 {
@@ -16,7 +17,7 @@ namespace TheFipster.Minecraft.Services
         public ServerPropertiesReader(IConfigService config)
             => _config = config;
 
-        public ServerProperties Read()
+        public IServerProperties Read()
         {
             var file = find();
             var properties = parse(file);
@@ -33,7 +34,7 @@ namespace TheFipster.Minecraft.Services
                 $"File {ServerPropertiesFilename} was not found in {_config.ServerLocation.FullName}");
         }
 
-        private ServerProperties parse(FileInfo file)
+        private IServerProperties parse(FileInfo file)
         {
             var lines = File.ReadAllLines(file.FullName);
             return new ServerProperties

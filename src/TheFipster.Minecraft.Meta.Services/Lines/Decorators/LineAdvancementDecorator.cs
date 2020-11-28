@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TheFipster.Minecraft.Abstraction;
 using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Domain;
-using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
+using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
 {
     public class LineAdvancementDecorator : ILogLineEventConverter
     {
         private readonly ILogLineEventConverter _component;
-        private readonly IEnumerable<Player> _players;
+        private readonly IEnumerable<IPlayer> _players;
 
         public LineAdvancementDecorator(ILogLineEventConverter component, IPlayerStore playerStore)
         {
@@ -62,7 +62,7 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
             return false;
         }
 
-        private bool findPlayer(LogLine line, out Player player)
+        private bool findPlayer(LogLine line, out IPlayer player)
         {
             foreach (var p in _players)
             {

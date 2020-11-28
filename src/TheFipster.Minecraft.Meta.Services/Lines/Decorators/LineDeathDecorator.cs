@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TheFipster.Minecraft.Abstraction;
 using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;
@@ -11,7 +11,7 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
     public class LineDeathDecorator : ILogLineEventConverter
     {
         private readonly ILogLineEventConverter _component;
-        private IEnumerable<Player> _players;
+        private IEnumerable<IPlayer> _players;
 
         public LineDeathDecorator(ILogLineEventConverter component, IPlayerStore playerStore)
         {
@@ -61,7 +61,7 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
             return events;
         }
 
-        private Player extractPlayer(LogLine line)
+        private IPlayer extractPlayer(LogLine line)
         {
             foreach (var player in _players)
                 if (line.Message.Split(" ").Take(3).Any(x => x.Contains(player.Name)))
