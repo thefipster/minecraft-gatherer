@@ -1,11 +1,11 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model RunInfo
+﻿@using TheFipster.Minecraft.Analytics.Domain
+@model RunAnalytics
 
 <div class="card border-secondary">
     <div class="card-header"><h2>Dimensions</h2></div>
     <div class="card-body">
         <ul class="list-group">
-            @foreach (var dimension in Model.World.Dimensions.OrderBy(x => x.Name))
+            @foreach (var dimension in Model.Dimensions.OrderBy(x => x.Name))
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>@dimension.Name</span>

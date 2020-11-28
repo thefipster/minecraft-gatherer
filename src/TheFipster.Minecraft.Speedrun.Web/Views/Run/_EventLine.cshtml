@@ -1,5 +1,5 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model GameEvent
+﻿@using TheFipster.Minecraft.Enhancer.Domain
+@model RunEvent
 
 <tr>
     <td>
@@ -9,12 +9,12 @@
         @Model.Type
     </td>
     <td>
-        @Model.Data
+        @Model.Value
     </td>
     <td>
-        @if (Model.Player != null)
+        @if (!string.IsNullOrWhiteSpace(Model.PlayerId))
         {
-            @await Html.PartialAsync("_PlayerAvatarSmall", Model.Player.Id)
+            @await Html.PartialAsync("_PlayerAvatarSmall", Model.PlayerId)
         }
     </td>
 </tr>
