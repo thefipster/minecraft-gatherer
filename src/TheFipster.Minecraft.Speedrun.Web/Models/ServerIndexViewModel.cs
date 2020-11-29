@@ -1,13 +1,11 @@
-﻿using TheFipster.Minecraft.Speedrun.Domain;
+﻿using TheFipster.Minecraft.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
     public class ServerIndexViewModel
     {
-        public ServerIndexViewModel()
-        {
-        }
+        public ServerIndexViewModel() { }
 
-        public ServerProperties ServerProperties { get; internal set; }
+        public IServerProperties ServerProperties { get; internal set; }
     }
 }

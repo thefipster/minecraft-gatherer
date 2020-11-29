@@ -1,5 +1,4 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model RunDetailViewModel
+﻿@model RunDetailViewModel
 
 <div class="card border-secondary">
     <div class="card-header">
@@ -8,42 +7,28 @@
     <div class="card-body">
         <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>Validity</span>
-                @if (Model.Run.Validity.IsValid)
-                {
-                    <span class="badge badge-primary">Looks good</span>
-                }
-                else
-                {
-                    <span class="badge badge-danger">Oh no</span>
-                }
+                <span>Outcome</span>
+                @await Html.PartialAsync("_OutcomeBadge", Model.Analytics.Outcome)
             </li>
-            @if (Model.Run.Outcome != null)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <span>Outcome</span>
-                    @await Html.PartialAsync("_OutcomeBadge", Model.Run.Outcome.State)
-                </li>
-            }
-            @if (Model.Run.Index != 0)
+            @if (Model.Analytics.Index != 0)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Index</span>
-                    <span class="badge badge-primary">@Model.Run.Index</span>
+                    <span class="badge badge-primary">@Model.Analytics.Index</span>
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>World</span>
-                <span class="badge badge-primary">@Model.Run.World.Name</span>
+                <span class="badge badge-primary">@Model.Analytics.World.Name</span>
             </li>
-            @if (Model.Timings.FinishedOn.HasValue)
+            @if (Model.Analytics.Timings.FinishedOn.HasValue)
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span data-toggle="tooltip" data-placement="right" title="Official timing from start to first person entering exit portal.">
                         Runtime
                         <i class="fas fa-question-circle help-bubble"></i>
                     </span>
-                    <span class="badge badge-primary">@(Model.Timings.RunTime)</span>
+                    <span class="badge badge-primary">@(Model.Analytics.Timings.RunTime)</span>
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -51,7 +36,7 @@
                     Playtime
                     <i class="fas fa-question-circle help-bubble"></i>
                 </span>
-                <span class="badge badge-primary">@Model.Timings.PlayTime</span>
+                <span class="badge badge-primary">@Model.Analytics.Timings.PlayTime</span>
             </li>
         </ul>
     </div>

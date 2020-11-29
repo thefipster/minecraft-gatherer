@@ -1,19 +1,22 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model RunInfo
+﻿@using TheFipster.Minecraft.Analytics.Domain
+@model RunAnalytics
 
 <tr>
     <td>
-        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
-            <strong>@($"#{Model.Index}")</strong>
+        @if (Model.Index != 0)
+        {
+            <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
+                <strong>@($"#{Model.Index}")</strong>
+            </a>
+        }
+    </td>
+    <td>
+        <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
+            @Model.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
         </a>
     </td>
     <td>
-        <a asp-controller="Run" asp-action="Index" asp-route-index="@Model.Index">
-            @Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
-        </a>
-    </td>
-    <td>
-        <time class="timeago" datetime="@Model.World.CreatedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
+        <time class="timeago" datetime="@Model.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
     </td>
     <td>
         @foreach (var player in Model.Players.OrderBy(x => x.Name))
@@ -22,6 +25,6 @@
         }
     </td>
     <td class="text-right">
-        @await Html.PartialAsync("_OutcomeBadge", Model.Outcome.State)
+        @await Html.PartialAsync("_OutcomeBadge", Model.Outcome)
     </td>
 </tr>

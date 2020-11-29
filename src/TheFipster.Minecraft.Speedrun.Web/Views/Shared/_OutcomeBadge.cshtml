@@ -1,4 +1,4 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
+﻿@using TheFipster.Minecraft.Analytics.Domain
 @model Outcomes
 @{
     var badgeClass = string.Empty;
@@ -16,22 +16,42 @@
             }
         case Outcomes.ResetStronghold:
             {
-                badgeClass = "badge-primary";
+                badgeClass = "badge-info";
                 break;
             }
         case Outcomes.ResetSearch:
+            {
+                badgeClass = "badge-primary";
+                break;
+            }
+        case Outcomes.ResetFortress:
             {
                 badgeClass = "badge-warning";
                 break;
             }
         case Outcomes.ResetNether:
             {
-                badgeClass = "badge-danger";
+                badgeClass = "badge-warning";
                 break;
             }
         case Outcomes.ResetSpawn:
             {
                 badgeClass = "badge-light";
+                break;
+            }
+        case Outcomes.Discarded:
+            {
+                badgeClass = "badge-dark";
+                break;
+            }
+        case Outcomes.Untouched:
+            {
+                badgeClass = "badge-danger";
+                break;
+            }
+        case Outcomes.Unknown:
+            {
+                badgeClass = "badge-danger";
                 break;
             }
     }

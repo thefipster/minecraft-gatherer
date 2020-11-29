@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TheFipster.Minecraft.Speedrun.Modules;
+using TheFipster.Minecraft.Modules;
 using TheFipster.Minecraft.Speedrun.Web.Models;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
@@ -25,10 +25,11 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 
         private ImportIndexViewModel importWorlds(bool force = false)
         {
-            var runs = _syncModule.Synchronize(force);
+            var sync = _syncModule.Synchronize(force);
+
             return new ImportIndexViewModel
             {
-                Runs = runs
+                Sync = sync
             };
         }
     }

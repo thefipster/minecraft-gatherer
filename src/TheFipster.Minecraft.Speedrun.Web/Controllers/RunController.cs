@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TheFipster.Minecraft.Speedrun.Services;
-using TheFipster.Minecraft.Speedrun.Web.Enhancer;
+using TheFipster.Minecraft.Extender.Abstractions;
 using TheFipster.Minecraft.Speedrun.Web.Models;
+using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
@@ -10,28 +10,24 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IRunFinder _runFinder;
         private readonly IQuickestEventEnhancer _quickestEventEnhancer;
         private readonly IPlayerEventEnhancer _playerEventEnhancer;
-        private readonly ITimingStore _timingStore;
 
         public RunController(
             IRunFinder runFinder,
             IQuickestEventEnhancer quickestEventEnhancer,
-            IPlayerEventEnhancer playerEventEnhancer,
-            ITimingStore timingStore)
+            IPlayerEventEnhancer playerEventEnhancer)
         {
             _runFinder = runFinder;
             _quickestEventEnhancer = quickestEventEnhancer;
             _playerEventEnhancer = playerEventEnhancer;
-            _timingStore = timingStore;
         }
 
-        public IActionResult Name(string worldName)
+        public IActionResult Name(string worldname)
         {
-            var run = _runFinder.GetByName(worldName);
+            var run = _runFinder.GetByName(worldname);
             var viewmodel = new RunDetailViewModel(run);
 
-            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run);
-            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run);
-            viewmodel.Timings = _timingStore.Get(run.Id);
+            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run.Import);
+            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run.Import);
 
             return View("Index", viewmodel);
         }
@@ -41,9 +37,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var run = _runFinder.GetByIndex(index);
             var viewmodel = new RunDetailViewModel(run);
 
-            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run);
-            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run);
-            viewmodel.Timings = _timingStore.Get(run.Id);
+            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run.Import);
+            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run.Import);
 
             return View(viewmodel);
         }

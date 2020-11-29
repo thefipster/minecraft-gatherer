@@ -1,55 +1,44 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Linq;
-using TheFipster.Minecraft.Speedrun.Modules;
-using TheFipster.Minecraft.Speedrun.Services;
+using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Modules.Abstractions;
+using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
     public class AdminController : Controller
     {
         private readonly IConfigService _config;
-        private readonly IRunStore _runStore;
+        private readonly IRunImportStore _importStore;
+        private readonly IRunAnalyticsStore _analyticsStore;
         private readonly IAnalyticsModule _analyticsModules;
-        private readonly ITimingStore _timingStore;
 
-        public AdminController(IConfigService config, IRunStore runStore, IAnalyticsModule analyticsModules, ITimingStore timingStore)
+        public AdminController(IConfigService config, IRunImportStore importStore, IRunAnalyticsStore analyticsStore, IAnalyticsModule analyticsModules)
         {
             _config = config;
-            _runStore = runStore;
+            _importStore = importStore;
+            _analyticsStore = analyticsStore;
             _analyticsModules = analyticsModules;
-            _timingStore = timingStore;
         }
 
         public IActionResult Index()
-        {
-            return View();
-        }
+            => View();
 
         public IActionResult ReIndex()
         {
-            var allRuns = _runStore.Get();
-            var counter = 1 + _config.InitialRunIndex;
-            foreach (var run in allRuns.OrderBy(x => x.World.CreatedOn))
-            {
-                run.Index = counter;
-                counter++;
-                _runStore.Update(run);
-            }
-
+            _analyticsStore.Index();
             return RedirectToAction("Index");
         }
 
         public IActionResult ReAnalyze()
         {
-            var runs = _runStore.Get();
-            foreach (var run in runs)
+            var imports = _importStore.Get();
+            foreach (var import in imports)
             {
-                var analysis = _analyticsModules.Analyze(run);
-                if (_timingStore.Exists(run.World.Name))
-                    _timingStore.Update(analysis.Timings);
-                else
-                    _timingStore.Add(analysis.Timings);
+                var analytics = _analyticsModules.Analyze(import);
+                _analyticsStore.Upsert(analytics);
             }
+
+            _analyticsStore.Index();
 
             return RedirectToAction("Index");
         }

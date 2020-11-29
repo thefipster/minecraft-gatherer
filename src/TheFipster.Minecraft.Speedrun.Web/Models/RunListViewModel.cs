@@ -1,28 +1,16 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Speedrun.Domain;
-using TheFipster.Minecraft.Speedrun.Domain.Analytics;
+using TheFipster.Minecraft.Analytics.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
 {
     public class RunListViewModel
     {
         public RunListViewModel()
-        {
-            Runs = new List<RunInfo>();
-            Timings = new List<TimingAnalytics>();
-        }
+            => Runs = new List<RunAnalytics>();
 
-        public RunListViewModel(IEnumerable<TimingAnalytics> timings) : this()
-        {
-            Timings = timings;
-        }
+        public RunListViewModel(IEnumerable<RunAnalytics> runs)
+            => Runs = runs;
 
-        public RunListViewModel(IList<RunInfo> runs) : this()
-        {
-            Runs = runs;
-        }
-
-        public IList<RunInfo> Runs { get; set; }
-        public IEnumerable<TimingAnalytics> Timings { get; internal set; }
+        public IEnumerable<RunAnalytics> Runs { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@using TheFipster.Minecraft.Speedrun.Domain.Analytics
+﻿@using TheFipster.Minecraft.Analytics.Domain
 @model TimingAnalytics
 @{
     var total = TimeSpan.Zero;
@@ -41,7 +40,6 @@
             @foreach (var timing in Model.Events.OrderBy(x => x.Start))
             {
                 total += timing.IsSubSplit ? TimeSpan.Zero : timing.Time;
-                subtotal += timing.Time;
 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span class="w-25">
@@ -58,7 +56,7 @@
                         }
                     </span>
                     <span class="w-25 text-center">@timing.Time.ToString(@"mm\:ss")</span>
-                    <span class="w-25 text-right">@(timing.IsSubSplit ? subtotal.ToString() : total.ToString())</span>
+                    <span class="w-25 text-right">@(timing.IsSubSplit ? string.Empty : total.ToString())</span>
                 </li>
             }
             @if (Model.FinishedOn.HasValue)

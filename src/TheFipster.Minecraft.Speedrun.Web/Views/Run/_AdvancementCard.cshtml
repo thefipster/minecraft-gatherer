@@ -1,5 +1,4 @@
-﻿@using TheFipster.Minecraft.Speedrun.Domain
-@model RunDetailViewModel
+﻿@model RunDetailViewModel
 
 <div class="card border-secondary">
     <div class="card-header"><h2>Quickest Advancements</h2></div>
@@ -9,17 +8,10 @@
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>
-                        @if (Model.Run.Timings.StartedOn.HasValue)
-                        {
-                            @(advancement.Time - Model.Run.Timings.StartedOn.Value)
-                        }
-                        else
-                        {
-                            @advancement.Time.ToString("HH:mm:ss")
-                        }
+                        @(advancement.Time - Model.Analytics.Timings.StartedOn)
                     </span>
                     <span>@advancement.Name</span>
-                    <img class="avatar-small" src="@($"/speedrun/img/players/{advancement.Player.Id}.png")" />
+                    <img class="avatar-small" src="@($"/speedrun/img/players/{advancement.PlayerId}.png")" />
                 </li>
             }
         </ul>
