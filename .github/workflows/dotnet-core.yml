@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Install dependencies
-      run: dotnet restore ./src/TheFipster.Minecraft.Gatherer.sln
+      run: dotnet restore ./src/speedrun_watcher.sln
     - name: Build
-      run: dotnet build --configuration Release --no-restore ./src/TheFipster.Minecraft.Gatherer.sln
+      run: dotnet build --configuration Release --no-restore ./src/speedrun_watcher.sln
     - name: Test
-      run: dotnet test --no-restore --verbosity normal ./src/TheFipster.Minecraft.Gatherer.sln
+      run: dotnet test --no-restore --verbosity normal ./src/speedrun_watcher.sln
