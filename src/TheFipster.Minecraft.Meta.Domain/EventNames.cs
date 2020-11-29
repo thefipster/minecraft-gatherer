@@ -41,6 +41,7 @@ namespace TheFipster.Minecraft.Enhancer.Domain
             public const string GotEnderEye = "Got Eye of Ender";
             public const string GotMushroomStew = "Got Mushroom Stew";
             public const string GotBow = "Got Bow";
+            public const string GotWitherSkull = "Got Wither Skull";
         }
 
         public class Biomes
@@ -243,6 +244,8 @@ namespace TheFipster.Minecraft.Enhancer.Domain
             { "has_iron_pickaxe", Advancements.IsntItIronPick },
             { "has_stone_pickaxe", Advancements.GettingAnUpgrade },
             { "mushroom_stew", Advancements.GotMushroomStew },
+            { "wither_skull", Advancements.GotWitherSkull },
+            { "has_wither_skeleton_skull", Advancements.GotWitherSkull },
             { "has_bow", Advancements.GotBow }
         };
 

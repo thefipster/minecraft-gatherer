@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Abstractions;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;
@@ -33,7 +32,8 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
             events.Add(new RunEvent(
                 EventTypes.SetTime,
                 line.Timestamp,
-                setTime));
+                setTime,
+                player.Id));
 
             return events;
         }
