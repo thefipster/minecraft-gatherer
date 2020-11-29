@@ -36,50 +36,6 @@ namespace TheFipster.Minecraft.Analytics.Services
                 return Outcomes.ResetStronghold;
 
             if (events.Any(x => x.Value == EventNames.Advancements.GotEnderEye))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 return Outcomes.ResetSearch;
 
             if (events.Any(x => x.Value == EventNames.Advancements.ATerribleFortress))

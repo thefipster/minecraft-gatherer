@@ -3,13 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Gatherer", "TheFipster.Minecraft.Gatherer\TheFipster.Minecraft.Gatherer.csproj", "{6A781008-CC7A-4F23-B9AD-3756ADA05B09}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedrun.Web", "TheFipster.Minecraft.Speedrun.Web\TheFipster.Minecraft.Speedrun.Web.csproj", "{FC5C1865-C181-4C47-BE48-ACB6B096E13F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedrun.Services", "TheFipster.Minecraft.Speedrun.Services\TheFipster.Minecraft.Speedrun.Services.csproj", "{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedrun.Domain", "TheFipster.Minecraft.Speedrun.Domain\TheFipster.Minecraft.Speedrun.Domain.csproj", "{2526CC70-93CD-43E7-A006-64AFFB2B0FB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{EC6D6CD2-D5DF-47D9-8FFC-6CC1B736136D}"
 	ProjectSection(SolutionItems) = preProject
@@ -17,14 +11,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{EC6D6CD2
 		..\.github\workflows\dotnet-core.yml = ..\.github\workflows\dotnet-core.yml
 		..\README.md = ..\README.md
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedrun.Modules", "TheFipster.Minecraft.Speedrun.Modules\TheFipster.Minecraft.Speedrun.Modules.csproj", "{7C788196-BE91-4E46-BB6C-6B5E931F07F9}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.LogTransformer", "TheFipster.Minecraft.LogTransformer\TheFipster.Minecraft.LogTransformer.csproj", "{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Gatherer.NbtConsole", "TheFipster.Minecraft.Gatherer.NbtConsole\TheFipster.Minecraft.Gatherer.NbtConsole.csproj", "{9375C34D-A5D8-4248-BE46-7F1B7FACF072}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Experiments", "Experiments", "{BF43BB5A-8EEE-4CA6-B608-277414026EC6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{ABFB7836-5252-413E-996E-59CA9F604AB4}"
 EndProject
@@ -43,8 +29,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Import", "Import", "{11D8F267-6E79-4E1E-B94E-D80119DEB625}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A015091A-2A27-461A-9F75-15E6B21A8F09}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legacy", "Legacy", "{D3CE86E3-2B44-4A9C-B3EE-BB85B1984503}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Abstractions", "TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstractions.csproj", "{E658DA68-27A8-4EC6-9700-2057A1CCF88D}"
 EndProject
@@ -66,19 +50,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Analyt
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extender", "Extender", "{268EA6D7-38C1-4DF9-9E1D-0553FC7D68E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Extender.Services", "TheFipster.Minecraft.Extender.Services\TheFipster.Minecraft.Extender.Services.csproj", "{9B29D25B-FA1D-4E73-BD73-275851668FD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Extender.Services", "TheFipster.Minecraft.Extender.Services\TheFipster.Minecraft.Extender.Services.csproj", "{9B29D25B-FA1D-4E73-BD73-275851668FD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Extender.Abstractions", "TheFipster.Minecraft.Extender.Abstractions\TheFipster.Minecraft.Extender.Abstractions.csproj", "{C54D4418-65AD-4CFE-8D29-D9BB9BD8640D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Extender.Abstractions", "TheFipster.Minecraft.Extender.Abstractions\TheFipster.Minecraft.Extender.Abstractions.csproj", "{C54D4418-65AD-4CFE-8D29-D9BB9BD8640D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Extender.Domain", "TheFipster.Minecraft.Extender.Domain\TheFipster.Minecraft.Extender.Domain.csproj", "{1CB3ACE7-60B1-4913-ADE9-CEFE8427F5F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Extender.Domain", "TheFipster.Minecraft.Extender.Domain\TheFipster.Minecraft.Extender.Domain.csproj", "{1CB3ACE7-60B1-4913-ADE9-CEFE8427F5F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Storage", "Storage", "{4E7EED5B-D490-48E4-B154-FD424F217481}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Storage.Abstractions", "TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj", "{46CBD35D-1093-42EC-BF90-DED29DE32467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Storage.Abstractions", "TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj", "{46CBD35D-1093-42EC-BF90-DED29DE32467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Storage.Services", "TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj", "{C9E41974-012A-4CC7-9BDC-5CDFF6ABB332}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Storage.Services", "TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj", "{C9E41974-012A-4CC7-9BDC-5CDFF6ABB332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Storage.Domain", "TheFipster.Minecraft.Storage.Domain\TheFipster.Minecraft.Storage.Domain.csproj", "{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Storage.Domain", "TheFipster.Minecraft.Storage.Domain\TheFipster.Minecraft.Storage.Domain.csproj", "{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,34 +70,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6A781008-CC7A-4F23-B9AD-3756ADA05B09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A781008-CC7A-4F23-B9AD-3756ADA05B09}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A781008-CC7A-4F23-B9AD-3756ADA05B09}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A781008-CC7A-4F23-B9AD-3756ADA05B09}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FC5C1865-C181-4C47-BE48-ACB6B096E13F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FC5C1865-C181-4C47-BE48-ACB6B096E13F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC5C1865-C181-4C47-BE48-ACB6B096E13F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC5C1865-C181-4C47-BE48-ACB6B096E13F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2526CC70-93CD-43E7-A006-64AFFB2B0FB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2526CC70-93CD-43E7-A006-64AFFB2B0FB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2526CC70-93CD-43E7-A006-64AFFB2B0FB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2526CC70-93CD-43E7-A006-64AFFB2B0FB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C788196-BE91-4E46-BB6C-6B5E931F07F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C788196-BE91-4E46-BB6C-6B5E931F07F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C788196-BE91-4E46-BB6C-6B5E931F07F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C788196-BE91-4E46-BB6C-6B5E931F07F9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9375C34D-A5D8-4248-BE46-7F1B7FACF072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9375C34D-A5D8-4248-BE46-7F1B7FACF072}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9375C34D-A5D8-4248-BE46-7F1B7FACF072}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9375C34D-A5D8-4248-BE46-7F1B7FACF072}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4373E17B-9F1F-4B1D-AE06-6AE589FDFF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4373E17B-9F1F-4B1D-AE06-6AE589FDFF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4373E17B-9F1F-4B1D-AE06-6AE589FDFF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -195,12 +155,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6A781008-CC7A-4F23-B9AD-3756ADA05B09} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
-		{AED9EBD8-EFB5-4212-BF6F-3BBEAA59AA77} = {D3CE86E3-2B44-4A9C-B3EE-BB85B1984503}
-		{2526CC70-93CD-43E7-A006-64AFFB2B0FB6} = {D3CE86E3-2B44-4A9C-B3EE-BB85B1984503}
-		{7C788196-BE91-4E46-BB6C-6B5E931F07F9} = {D3CE86E3-2B44-4A9C-B3EE-BB85B1984503}
-		{7989A1E3-3E6E-498F-ADC8-887F30B3DFE5} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
-		{9375C34D-A5D8-4248-BE46-7F1B7FACF072} = {BF43BB5A-8EEE-4CA6-B608-277414026EC6}
 		{4373E17B-9F1F-4B1D-AE06-6AE589FDFF0E} = {11D8F267-6E79-4E1E-B94E-D80119DEB625}
 		{4AF9BC91-3DB2-4FF3-968B-8856135CA819} = {11D8F267-6E79-4E1E-B94E-D80119DEB625}
 		{D19F6B28-0BD9-4E11-9EE8-98F4C8868ABA} = {11D8F267-6E79-4E1E-B94E-D80119DEB625}
