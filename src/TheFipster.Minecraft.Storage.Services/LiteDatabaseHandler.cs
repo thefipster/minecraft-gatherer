@@ -7,7 +7,7 @@ namespace TheFipster.Minecraft.Storage.Services
 {
     public class LiteDatabaseHandler : IDatabaseHandler
     {
-        private const string DatabaseFilename = "imports.litedb";
+        private const string DatabaseFilename = "runs.litedb";
         private const string DatabaseFolder = "database";
 
         private LiteDatabase _database;

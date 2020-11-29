@@ -10,7 +10,7 @@
             @(Model.Analytics.Index != 0 ? $"#{Model.Analytics.Index}" : string.Empty)
             <small>
                 played on
-                @Model.Analytics.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy at HH:mm")
+                @Model.Analytics.Timings.StartedOn.ToLocalTime().ToString("dd. MMM yyyy at HH:mm")
             </small>
         </h1>
     </div>

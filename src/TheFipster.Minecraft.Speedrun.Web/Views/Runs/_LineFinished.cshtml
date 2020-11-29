@@ -14,11 +14,11 @@
     </td>
     <td>
         <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
-            @Model.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("dd. MMM yyyy - HH:mm:ss")
+            @Model.Timings.StartedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
         </a>
     </td>
     <td>
-        <time class="timeago" datetime="@Model.Timings.StartedOn.ToLocalTime().AddHours(1).ToString("s")"></time>
+        <time class="timeago" datetime="@Model.Timings.StartedOn.ToLocalTime().ToString("s")"></time>
     </td>
     <td>
         @foreach (var player in Model.Players.OrderBy(x => x.Name))
