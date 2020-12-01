@@ -3,7 +3,7 @@ using TheFipster.Minecraft.Analytics.Domain;
 
 namespace TheFipster.Minecraft.Storage.Abstractions
 {
-    public interface IRunAnalyticsStore
+    public interface IAnalyticsStore
     {
         void Insert(RunAnalytics analytics);
         void Update(RunAnalytics analytics);

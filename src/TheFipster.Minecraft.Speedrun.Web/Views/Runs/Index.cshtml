@@ -25,9 +25,9 @@
     <div class="col">
         <table class="table table-hover">
             <tbody>
-                @foreach (var analytics in Model.Runs.OrderBy(x => x.Timings.RunTime))
+                @foreach (var run in Model.Runs.OrderBy(x => x.Runtime))
                 {
-                    @await Html.PartialAsync("_LineFinished", analytics, new ViewDataDictionary(ViewData) { { "Count", count } });
+                    @await Html.PartialAsync("_LineFinished", run, new ViewDataDictionary(ViewData) { { "Count", count } });
                     count++;
                 }
             </tbody>

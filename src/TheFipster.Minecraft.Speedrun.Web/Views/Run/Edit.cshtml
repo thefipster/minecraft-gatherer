@@ -1,0 +1,58 @@
+﻿@model RunEditViewModel
+@{
+    ViewData["Title"] = "Edit run on " + Model.Worldname;
+}
+
+<div class="row">
+    <div class="col">
+        <h1>
+            Edit Run on world @Model.Worldname
+        </h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <form asp-controller="Run" asp-action="Edited" asp-route-worldname="@Model.Worldname" method="post">
+            <div class="card border-secondary">
+                <div class="card-header"><h2>Links</h2></div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="youtubeLink" class="col-sm-2 col-form-label">Youtube Link</label>
+                        <div class="col-sm-10">
+                            <input asp-for="YoutubeLink" type="text" class="form-control-plaintext" id="youtubeLink" placeholder="https://www.youtube.com/watch?v=abcdefghijk" value="@Model.YoutubeLink">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="speedrunVerification" class="col-sm-2 col-form-label">Speedrun Link</label>
+                        <div class="col-sm-10">
+                            <input asp-for="SpeedrunLink" type="text" class="form-control-plaintext" id="speedrunLink" placeholder="https://www.speedrun.com/mc/run/abcdefghijk" value="@Model.SpeedrunLink">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-secondary">
+                <div class="card-header"><h2>Timings</h2></div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <label for="runtime" class="col-sm-2 col-form-label">Runtime</label>
+                        <div class="col-sm-10">
+                            <input asp-for="Runtime" type="text" class="form-control-plaintext" id="runtime" placeholder="01:23:45:678" value="@Model.Runtime">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <span></span>
+                <span>
+                    <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname" class="btn btn-outline-danger">Cancel</a>
+                    <button type="submit" class="btn btn-outline-info">Submit</button>
+                </span>
+            </div>
+        </form>
+    </div>
+</div>
+

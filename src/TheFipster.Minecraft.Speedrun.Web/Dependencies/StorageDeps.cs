@@ -10,8 +10,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
         {
             container.Register<IDatabaseHandler, LiteDatabaseHandler>(Lifestyle.Singleton);
 
-            container.Register<IRunImportStore, RunImportLiteStore>(Lifestyle.Scoped);
-            container.Register<IRunAnalyticsStore, RunAnalyticsLiteStore>(Lifestyle.Scoped);
+            container.Register<IImportStore, ImportLiteStore>(Lifestyle.Scoped);
+            container.Register<IAnalyticsStore, AnalyticsLiteStore>(Lifestyle.Scoped);
+            container.Register<IManualsStore, ManualsLiteStore>(Lifestyle.Scoped);
 
             container.Register<IRunFinder, RunFinder>(Lifestyle.Scoped);
         }

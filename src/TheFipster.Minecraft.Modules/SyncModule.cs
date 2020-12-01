@@ -12,17 +12,17 @@ namespace TheFipster.Minecraft.Modules
         private readonly IWorldLoaderModule _loader;
         private readonly IImportRunModule _importer;
         private readonly IEnhanceModule _enhancer;
-        private readonly IRunImportStore _importStore;
+        private readonly IImportStore _importStore;
         private readonly IAnalyticsModule _analytics;
-        private readonly IRunAnalyticsStore _analyticsStore;
+        private readonly IAnalyticsStore _analyticsStore;
 
         public SyncModule(
             IWorldLoaderModule worldLoaderModule,
             IImportRunModule importModule,
             IEnhanceModule enhanceModule,
-            IRunImportStore runImportStore,
+            IImportStore runImportStore,
             IAnalyticsModule analyticsModule,
-            IRunAnalyticsStore runAnalyticsStore)
+            IAnalyticsStore runAnalyticsStore)
         {
             _loader = worldLoaderModule;
             _importer = importModule;

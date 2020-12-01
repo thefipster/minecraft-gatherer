@@ -1,5 +1,5 @@
 ﻿@using TheFipster.Minecraft.Analytics.Domain
-@model IEnumerable<RunAnalytics>
+@model IEnumerable<RunHeaderViewModel>
 
 <div class="card border-secondary">
     <div class="card-header">
@@ -7,7 +7,7 @@
     </div>
     <div class="card-body">
         <ul class="list-group">
-            @foreach (var run in Model.OrderByDescending(x => x.World.CreatedOn))
+            @foreach (var run in Model.OrderByDescending(x => x.StartedOn))
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span class="w-33">
@@ -16,9 +16,9 @@
                         </a>
                     </span>
                     <span class="w-33 text-center">
-                        @foreach (var player in run.Players.OrderBy(x => x.Name))
+                        @foreach (var playerId in run.PlayerIds.OrderBy(x => x))
                         {
-                            @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
+                            @await Html.PartialAsync("_PlayerAvatarSmall", playerId)
                         }
                     </span>
                     <span class="w-33 text-right">

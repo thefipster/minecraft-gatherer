@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Storage.Abstractions;
@@ -8,15 +9,18 @@ namespace TheFipster.Minecraft.Storage.Services
 {
     public class RunFinder : IRunFinder
     {
-        private readonly IRunImportStore _importStore;
-        private readonly IRunAnalyticsStore _analyticsStore;
+        private readonly IImportStore _importStore;
+        private readonly IAnalyticsStore _analyticsStore;
+        private readonly IManualsStore _manualsStore;
 
         public RunFinder(
-            IRunImportStore importStore,
-            IRunAnalyticsStore analyticsStore)
+            IImportStore importStore,
+            IAnalyticsStore analyticsStore,
+            IManualsStore manualsStore)
         {
             _importStore = importStore;
             _analyticsStore = analyticsStore;
+            _manualsStore = manualsStore;
         }
 
         public IEnumerable<RunAnalytics> GetAll() => _analyticsStore
@@ -37,16 +41,35 @@ namespace TheFipster.Minecraft.Storage.Services
         {
             var run = new Run();
             run.Analytics = _analyticsStore.Get(index);
-            run.Import = _importStore.Get(run.Analytics.Worldname);
+            run = fillRun(run);
+
             return run;
         }
 
         public Run GetByName(string worldName)
         {
             var run = new Run();
-            run.Import = _importStore.Get(worldName);
             run.Analytics = _analyticsStore.Get(worldName);
+            run = fillRun(run);
+
             return run;
+        }
+
+        private Run fillRun(Run run)
+        {
+            run.Import = _importStore.Get(run.Analytics.Worldname);
+            run.Manuals = _manualsStore.Get(run.Analytics.Worldname);
+
+            if (run.Manuals != null)
+                adjustRuntime(run);
+
+            return run;
+        }
+
+        private static void adjustRuntime(Run run)
+        {
+            if (run.Manuals.RuntimeInMs.HasValue)
+                run.Analytics.Timings.RunTime = TimeSpan.FromMilliseconds(run.Manuals.RuntimeInMs.Value);
         }
     }
 }

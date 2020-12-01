@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using TheFipster.Minecraft.Extender.Abstractions;
+using TheFipster.Minecraft.Speedrun.Web.Converter;
 using TheFipster.Minecraft.Speedrun.Web.Models;
 using TheFipster.Minecraft.Storage.Abstractions;
 
@@ -11,22 +12,28 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     {
         private readonly IRunFinder _runFinder;
         private readonly IRunCounterEnhancer _runCounter;
+        private readonly IRunListConverter _listConverter;
 
-        public HomeController(IRunFinder runFinder, IRunCounterEnhancer runCounter)
+        public HomeController(
+            IRunFinder runFinder,
+            IRunCounterEnhancer runCounter,
+            IRunListConverter listConverter)
         {
             _runFinder = runFinder;
             _runCounter = runCounter;
+            _listConverter = listConverter;
         }
 
         public IActionResult Index()
         {
             var viewmodel = new HomeIndexViewModel();
 
-            viewmodel.LatestRuns = _runFinder
+            var runs = _runFinder
                 .GetStarted()
                 .OrderByDescending(x => x.Timings.StartedOn)
                 .Take(7);
 
+            viewmodel.LatestRuns = _listConverter.Convert(runs);
             viewmodel.RunCounts = _runCounter.Enhance();
 
             return View(viewmodel);
