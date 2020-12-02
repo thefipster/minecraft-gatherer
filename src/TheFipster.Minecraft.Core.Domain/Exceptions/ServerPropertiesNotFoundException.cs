@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TheFipster.Minecraft.Domain.Exceptions
+namespace TheFipster.Minecraft.Core.Domain.Exceptions
 {
     public class ServerPropertiesNotFoundException : Exception
     {

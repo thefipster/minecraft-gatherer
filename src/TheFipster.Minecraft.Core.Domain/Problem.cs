@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Minecraft.Domain
+﻿namespace TheFipster.Minecraft.Core.Domain
 {
     public class Problem
     {

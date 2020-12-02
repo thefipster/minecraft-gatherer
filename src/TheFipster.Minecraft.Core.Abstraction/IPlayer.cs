@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Minecraft.Abstractions
+﻿namespace TheFipster.Minecraft.Core.Abstractions
 {
     public interface IPlayer
     {

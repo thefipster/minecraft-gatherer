@@ -1,6 +1,6 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
-using TheFipster.Minecraft.Domain;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Enhancer.Domain;
 
 namespace TheFipster.Minecraft.Import.Domain

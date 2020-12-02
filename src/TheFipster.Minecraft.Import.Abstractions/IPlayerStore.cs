@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Domain;
+using TheFipster.Minecraft.Core.Domain;
 
-namespace TheFipster.Minecraft.Services.Abstractions
+namespace TheFipster.Minecraft.Core.Services.Abstractions
 {
     public interface IPlayerStore
     {

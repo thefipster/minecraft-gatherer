@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {

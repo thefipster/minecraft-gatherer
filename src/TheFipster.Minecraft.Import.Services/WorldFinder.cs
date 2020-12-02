@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
 using TheFipster.Minecraft.Import.Abstractions;
 
 namespace TheFipster.Minecraft.Import.Services

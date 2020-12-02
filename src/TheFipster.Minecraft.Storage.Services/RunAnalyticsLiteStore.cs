@@ -1,7 +1,7 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
-using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Storage.Abstractions;
 

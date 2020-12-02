@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Domain;
-using TheFipster.Minecraft.Domain.Exceptions;
+using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
+using TheFipster.Minecraft.Core.Domain.Exceptions;
 
-namespace TheFipster.Minecraft.Services
+namespace TheFipster.Minecraft.Core.Services
 {
     public class ServerPropertiesReader : IServerPropertiesReader
     {

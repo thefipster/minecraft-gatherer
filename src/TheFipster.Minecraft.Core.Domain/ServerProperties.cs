@@ -1,6 +1,6 @@
-﻿using TheFipster.Minecraft.Abstractions;
+﻿using TheFipster.Minecraft.Core.Abstractions;
 
-namespace TheFipster.Minecraft.Domain
+namespace TheFipster.Minecraft.Core.Domain
 {
     public class ServerProperties : IServerProperties
     {

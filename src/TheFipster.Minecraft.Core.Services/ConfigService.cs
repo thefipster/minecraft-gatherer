@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
-using TheFipster.Minecraft.Abstractions;
-using TheFipster.Minecraft.Domain;
+using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
 
-namespace TheFipster.Minecraft.Services
+namespace TheFipster.Minecraft.Core.Services
 {
     public class ConfigService : IConfigService
     {

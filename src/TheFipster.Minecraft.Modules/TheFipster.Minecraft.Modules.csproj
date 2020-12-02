@@ -9,12 +9,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Core.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Enhancer.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Import.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj" />
   </ItemGroup>
 
