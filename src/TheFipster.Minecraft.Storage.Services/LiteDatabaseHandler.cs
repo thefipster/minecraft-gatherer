@@ -24,5 +24,8 @@ namespace TheFipster.Minecraft.Storage.Services
 
         public ILiteCollection<T> GetCollection<T>()
             => _database.GetCollection<T>();
+
+        public ILiteCollection<T> GetCollection<T>(string name)
+            => _database.GetCollection<T>(name);
     }
 }

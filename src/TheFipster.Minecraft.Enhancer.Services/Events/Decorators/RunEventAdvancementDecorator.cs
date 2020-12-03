@@ -25,11 +25,15 @@ namespace TheFipster.Minecraft.Enhancer.Services.Decorators
                 {
                     if (EventNames.AdvancementTranslation.ContainsKey(achievement.Event))
                     {
-                        events.Add(new RunEvent(
-                            EventTypes.Advancement,
-                            achievement.Timestamp,
-                            EventNames.AdvancementTranslation[achievement.Event],
-                            playerId));
+                        var value = EventNames.AdvancementTranslation[achievement.Event];
+                        var runEvent = new RunEvent(
+                                EventTypes.Advancement,
+                                achievement.Timestamp,
+                                value,
+                                playerId);
+
+                        if (!events.Contains(runEvent))
+                            events.Add(runEvent);
                     }
                 }
             }

@@ -11,15 +11,15 @@ namespace TheFipster.Minecraft.Speedrun.Web
 {
     public class Startup
     {
-        public Container _container { get; }
+        private Container _container;
+        private IConfiguration _config;
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _config = configuration;
             _container = new Container();
         }
 
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -35,6 +35,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.RegisterEnhancer();
             _container.RegisterExtender();
             _container.RegisterAnalytics();
+            _container.RegisterMeta();
             _container.RegisterWeb();
         }
 
@@ -57,7 +58,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UsePathBase(Configuration["BasePath"]);
+            app.UsePathBase(_config["BasePath"]);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
