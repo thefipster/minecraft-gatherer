@@ -2,7 +2,7 @@
 
 namespace TheFipster.Minecraft.Storage.Abstractions
 {
-    public interface IDatabaseHandler
+    public interface ISyncDatabaseHandler
     {
         ILiteCollection<T> GetCollection<T>();
         ILiteCollection<T> GetCollection<T>(string name);

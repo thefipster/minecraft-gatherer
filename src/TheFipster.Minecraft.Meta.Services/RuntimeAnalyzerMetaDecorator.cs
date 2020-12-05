@@ -8,12 +8,12 @@ using TheFipster.Minecraft.Meta.Domain;
 
 namespace TheFipster.Minecraft.Meta.Services
 {
-    public class RuntimeMetaDecorator : ITimingAnalyzer
+    public class RuntimeAnalyzerMetaDecorator : ITimingAnalyzer
     {
         private readonly ITimingAnalyzer _component;
         private readonly IRuntimeWriter _runtimeWriter;
 
-        public RuntimeMetaDecorator(
+        public RuntimeAnalyzerMetaDecorator(
             ITimingAnalyzer timingAnalyzer,
             IRuntimeWriter runtimeWriter)
         {

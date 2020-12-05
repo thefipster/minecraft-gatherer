@@ -1,46 +1,32 @@
 ﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Modules
 {
     public class ImportModule : IImportRunModule
     {
-        private readonly ILogFinder _logFinder;
-        private readonly ILogParser _logParser;
-        private readonly ILogTrimmer _logTrimmer;
+        private readonly ILogLoader _logLoader;
         private readonly IDimensionLoader _dimensionLoader;
-        private readonly IAchievementExtractor _achievementExtractor;
-        private readonly IStatsExtractor _statsExtractor;
-        private readonly IPlayerNbtReader _playerNbtReader;
-        private readonly IImportStore _runStore;
+        private readonly IAchievementLoader _achievementLoader;
+        private readonly IStatsLoader _statsLoader;
+        private readonly IPlayerNbtLoader _playerNbtLoader;
 
         private readonly ILogger<ImportModule> _logger;
 
         public ImportModule(
-            ILogFinder logFinder,
-            ILogParser logParser,
-            ILogTrimmer logTrimmer,
+            ILogLoader logLoader,
             IDimensionLoader dimensionLoader,
-            IAchievementExtractor achievementExtractor,
-            IStatsExtractor statsExtractor,
-            IPlayerNbtReader playerNbtReader,
-            IImportStore runImportStore,
+            IAchievementLoader achievementLoader,
+            IStatsLoader statsLoader,
+            IPlayerNbtLoader playerNbtLoader,
             ILogger<ImportModule> logger)
         {
-            _logFinder = logFinder;
-            _logParser = logParser;
-            _logTrimmer = logTrimmer;
+            _logLoader = logLoader;
             _dimensionLoader = dimensionLoader;
-            _achievementExtractor = achievementExtractor;
-            _statsExtractor = statsExtractor;
-            _playerNbtReader = playerNbtReader;
-            _runStore = runImportStore;
+            _achievementLoader = achievementLoader;
+            _statsLoader = statsLoader;
+            _playerNbtLoader = playerNbtLoader;
             _logger = logger;
         }
 
@@ -49,46 +35,14 @@ namespace TheFipster.Minecraft.Modules
             _logger.LogInformation($"Import started for world {world.Name}.");
 
             var run = new RunImport(world);
-            run.Dimensions = _dimensionLoader.Load(run.World);
-            run.Stats = _statsExtractor.Extract(run.World);
-            run.Achievements = _achievementExtractor.Extract(run.World);
-            run.Logs = gatherLogs(run);
-            run.EndScreens = _playerNbtReader.Read(run.World);
+            run.Dimensions = _dimensionLoader.Load(world);
+            run.Stats = _statsLoader.Load(world);
+            run.Achievements = _achievementLoader.Load(world);
+            run.Logs = _logLoader.Load(run);
+            run.EndScreens = _playerNbtLoader.Load(world);
 
             _logger.LogInformation($"Import finished for world {world.Name}.");
             return run;
-        }
-
-        private void saveToStorage(RunImport run)
-        {
-            if (_runStore.Exists(run.World.Name))
-            {
-                _runStore.Update(run);
-                _logger.LogDebug($"Import store updated run {run.Worldname}.");
-            }
-            else
-            {
-                _runStore.Insert(run);
-                _logger.LogDebug($"Import store created run {run.Worldname}.");
-            }
-        }
-
-        private IEnumerable<LogLine> gatherLogs(RunImport run)
-        {
-            try
-            {
-                var allLogs = _logFinder.Find(run.World.CreatedOn).ToList();
-                var parsedLogs = _logParser.Read(allLogs, run.World.CreatedOn);
-                var orderedLogs = parsedLogs.OrderBy(x => x.Timestamp);
-                var trimmedLog = _logTrimmer.Trim(parsedLogs, run.World);
-                return trimmedLog;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogDebug(ex, $"Run Load: Reading logs failed.");
-                run.Problems.Add(new Problem("Logs are not readable.", ex.Message));
-                return Enumerable.Empty<LogLine>();
-            }
         }
     }
 }

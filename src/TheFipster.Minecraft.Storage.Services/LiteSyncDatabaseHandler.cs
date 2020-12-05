@@ -5,14 +5,14 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Storage.Services
 {
-    public class LiteDatabaseHandler : IDatabaseHandler
+    public class LiteSyncDatabaseHandler : ISyncDatabaseHandler
     {
-        private const string DatabaseFilename = "runs.litedb";
+        private const string DatabaseFilename = "sync.litedb";
         private const string DatabaseFolder = "database";
 
         private LiteDatabase _database;
 
-        public LiteDatabaseHandler(IConfigService config)
+        public LiteSyncDatabaseHandler(IConfigService config)
         {
             var databaseFilepath = Path.Combine(
                 config.DataLocation.FullName,

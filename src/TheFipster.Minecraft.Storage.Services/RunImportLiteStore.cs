@@ -9,7 +9,7 @@ namespace TheFipster.Minecraft.Storage.Services
     {
         private ILiteCollection<RunImport> _collection;
 
-        public ImportLiteStore(IDatabaseHandler databaseHandler)
+        public ImportLiteStore(ISyncDatabaseHandler databaseHandler)
             => _collection = databaseHandler.GetCollection<RunImport>();
 
         public void Insert(RunImport import)

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using TheFipster.Minecraft.Extender.Abstractions;
+using TheFipster.Minecraft.Manual.Abstractions;
 using TheFipster.Minecraft.Manual.Domain;
 using TheFipster.Minecraft.Speedrun.Web.Models;
 using TheFipster.Minecraft.Storage.Abstractions;
@@ -12,18 +13,21 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IRunFinder _runFinder;
         private readonly IQuickestEventEnhancer _quickestEventEnhancer;
         private readonly IPlayerEventEnhancer _playerEventEnhancer;
-        private readonly IManualsStore _manualsStore;
+        private readonly IManualsWriter _manualsWriter;
+        private readonly IManualsReader _manualsReader;
 
         public RunController(
             IRunFinder runFinder,
             IQuickestEventEnhancer quickestEventEnhancer,
             IPlayerEventEnhancer playerEventEnhancer,
-            IManualsStore manualsStore)
+            IManualsWriter manualsWriter,
+            IManualsReader manualsReader)
         {
             _runFinder = runFinder;
             _quickestEventEnhancer = quickestEventEnhancer;
             _playerEventEnhancer = playerEventEnhancer;
-            _manualsStore = manualsStore;
+            _manualsWriter = manualsWriter;
+            _manualsReader = manualsReader;
         }
 
         [HttpGet("world/{worldname}")]
@@ -53,10 +57,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         [HttpGet("world/{worldname}/edit")]
         public IActionResult Edit(string worldname)
         {
-            RunManuals manuals;
-            if (_manualsStore.Exists(worldname))
-                manuals = _manualsStore.Get(worldname);
-            else
+            RunManuals manuals = _manualsReader.Get(worldname);
+            if (manuals == null)
                 manuals = new RunManuals(worldname);
 
             var viewmodel = new RunEditViewModel(manuals);
@@ -66,17 +68,12 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         [HttpPost("world/{worldname}/edit")]
         public IActionResult Edited(RunEditViewModel model)
         {
-            RunManuals manuals;
-            if (_manualsStore.Exists(model.Worldname))
-                manuals = _manualsStore.Get(model.Worldname);
-            else
-                manuals = new RunManuals(model.Worldname);
-
+            var manuals = new RunManuals(model.Worldname);
             manuals.YoutubeLink = model.YoutubeLink;
             manuals.SpeedrunLink = model.SpeedrunLink;
             manuals.RuntimeInMs = parseRuntime(model.Runtime);
 
-            _manualsStore.Upsert(manuals);
+            _manualsWriter.Upsert(manuals);
 
             return RedirectToAction("Edit", new { worldname = model.Worldname });
         }

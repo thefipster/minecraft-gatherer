@@ -1,24 +1,25 @@
 ﻿using LiteDB;
+using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Meta.Abstractions;
 using TheFipster.Minecraft.Meta.Domain;
 using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Meta.Services
 {
-    public class RuntimeWriter : IRuntimeWriter
+    public class OutcomeWriter : IOutcomeWriter
     {
-        private ILiteCollection<RunMeta<int>> _collection;
+        private ILiteCollection<RunMeta<Outcomes>> _collection;
 
-        public RuntimeWriter(ISyncDatabaseHandler databaseHandler)
-            => _collection = databaseHandler.GetCollection<RunMeta<int>>("MetaRuntime");
+        public OutcomeWriter(ISyncDatabaseHandler databaseHandler)
+            => _collection = databaseHandler.GetCollection<RunMeta<Outcomes>>("MetaOutcomes");
 
-        public void Insert(RunMeta<int> meta)
+        public void Insert(RunMeta<Outcomes> meta)
             => _collection.Insert(meta);
 
-        public void Update(RunMeta<int> meta)
+        public void Update(RunMeta<Outcomes> meta)
             => _collection.Update(meta);
 
-        public void Upsert(RunMeta<int> meta)
+        public void Upsert(RunMeta<Outcomes> meta)
         {
             if (Exists(meta.Worldname))
                 Update(meta);

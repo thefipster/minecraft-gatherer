@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Manual.Abstractions;
 using TheFipster.Minecraft.Storage.Abstractions;
 using TheFipster.Minecraft.Storage.Domain;
 
@@ -11,16 +12,16 @@ namespace TheFipster.Minecraft.Storage.Services
     {
         private readonly IImportStore _importStore;
         private readonly IAnalyticsStore _analyticsStore;
-        private readonly IManualsStore _manualsStore;
+        private readonly IManualsReader _manualsReader;
 
         public RunFinder(
             IImportStore importStore,
             IAnalyticsStore analyticsStore,
-            IManualsStore manualsStore)
+            IManualsReader manualsReader)
         {
             _importStore = importStore;
             _analyticsStore = analyticsStore;
-            _manualsStore = manualsStore;
+            _manualsReader = manualsReader;
         }
 
         public IEnumerable<RunAnalytics> GetAll() => _analyticsStore
@@ -58,7 +59,7 @@ namespace TheFipster.Minecraft.Storage.Services
         private Run fillRun(Run run)
         {
             run.Import = _importStore.Get(run.Analytics.Worldname);
-            run.Manuals = _manualsStore.Get(run.Analytics.Worldname);
+            run.Manuals = _manualsReader.Get(run.Analytics.Worldname);
 
             if (run.Manuals != null)
                 adjustRuntime(run);

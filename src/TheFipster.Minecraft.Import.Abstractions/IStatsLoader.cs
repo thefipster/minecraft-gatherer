@@ -3,8 +3,8 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Import.Abstractions
 {
-    public interface IAchievementExtractor
+    public interface IStatsLoader
     {
-        Dictionary<string, ICollection<Achievement>> Extract(WorldInfo world);
+        Dictionary<string, Stats> Load(WorldInfo world);
     }
 }

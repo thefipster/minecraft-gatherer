@@ -10,6 +10,6 @@
         BlazeRod,
         Search,
         Stronghold,
-        End
+        TheEnd
     }
 }

@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="LiteDB" Version="5.0.9" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj" />
   </ItemGroup>

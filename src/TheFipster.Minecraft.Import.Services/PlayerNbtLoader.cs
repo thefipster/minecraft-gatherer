@@ -6,11 +6,11 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Import.Services
 {
-    public class PlayerNbtReader : IPlayerNbtReader
+    public class PlayerNbtLoader : IPlayerNbtLoader
     {
         private const string PlayerDataFolder = "playerdata";
 
-        public ICollection<string> Read(WorldInfo world)
+        public ICollection<string> Load(WorldInfo world)
         {
             var playerDataPath = Path.Combine(world.Path, PlayerDataFolder);
             var dataDir = new DirectoryInfo(playerDataPath);

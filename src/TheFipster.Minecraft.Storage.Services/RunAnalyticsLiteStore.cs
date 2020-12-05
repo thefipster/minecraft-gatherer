@@ -12,7 +12,7 @@ namespace TheFipster.Minecraft.Storage.Services
         private ILiteCollection<RunAnalytics> _collection;
         private readonly int _initialIndex;
 
-        public AnalyticsLiteStore(IDatabaseHandler databaseHandler, IConfigService configService)
+        public AnalyticsLiteStore(ISyncDatabaseHandler databaseHandler, IConfigService configService)
         {
             _collection = databaseHandler.GetCollection<RunAnalytics>();
             _initialIndex = configService.InitialRunIndex;

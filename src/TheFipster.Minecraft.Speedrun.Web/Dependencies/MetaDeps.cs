@@ -10,8 +10,12 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
         public static void RegisterMeta(this Container container)
         {
             container.Register<IRuntimeWriter, RuntimeWriter>();
+            container.Register<ITimingWriter, TimingWriter>();
+            container.Register<IOutcomeWriter, OutcomeWriter>();
 
-            container.RegisterDecorator<ITimingAnalyzer, RuntimeMetaDecorator>();
+            container.RegisterDecorator<ITimingAnalyzer, RuntimeAnalyzerMetaDecorator>();
+            container.RegisterDecorator<ITimingAnalyzer, TimingAnalyzerMetaDecorator>();
+            container.RegisterDecorator<IOutcomeAnalyzer, OutcomeAnalyzerMetaDecorator>();
         }
     }
 }

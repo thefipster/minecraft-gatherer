@@ -6,14 +6,14 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Import.Services
 {
-    public class StatsExtractor : IStatsExtractor
+    public class StatsLoader : IStatsLoader
     {
         private readonly IStatsFinder _statsFinder;
 
-        public StatsExtractor(IStatsFinder statsFinder)
+        public StatsLoader(IStatsFinder statsFinder)
             => _statsFinder = statsFinder;
 
-        public Dictionary<string, Stats> Extract(WorldInfo world)
+        public Dictionary<string, Stats> Load(WorldInfo world)
         {
             var allStats = new Dictionary<string, Stats>();
             var files = _statsFinder.Find(world);

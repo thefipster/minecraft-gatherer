@@ -10,18 +10,16 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Import.Services
 {
-    public class AchievementExtractor : IAchievementExtractor
+    public class AchievementLoader : IAchievementLoader
     {
         private const string AchievementFolder = "advancements";
 
         private readonly IConfigService _config;
 
-        public AchievementExtractor(IConfigService config)
-        {
-            _config = config;
-        }
+        public AchievementLoader(IConfigService config)
+            => _config = config;
 
-        public Dictionary<string, ICollection<Achievement>> Extract(WorldInfo world)
+        public Dictionary<string, ICollection<Achievement>> Load(WorldInfo world)
         {
             var playerAchievements = new Dictionary<string, ICollection<Achievement>>();
 

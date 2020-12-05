@@ -3,8 +3,8 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Import.Abstractions
 {
-    public interface IPlayerNbtReader
+    public interface IPlayerNbtLoader
     {
-        ICollection<string> Read(WorldInfo world);
+        ICollection<string> Load(WorldInfo world);
     }
 }
