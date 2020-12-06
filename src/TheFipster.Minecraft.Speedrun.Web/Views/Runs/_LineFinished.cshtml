@@ -1,7 +1,19 @@
-﻿@using TheFipster.Minecraft.Analytics.Domain
-@model RunAnalytics
+﻿@model RunHeaderViewModel
+@{
+    var runtime = Model.Runtime.Value.TotalHours >= 1
+        ? Model.Runtime.Value.ToString(@"hh\:mm\:ss\:fff")
+        : Model.Runtime.Value.ToString(@"mm\:ss\:fff");
+}
 
 <tr>
+    <td class="text-right">
+        @if (!string.IsNullOrWhiteSpace(Model.SpeedrunLink))
+        {
+            <a href="@Model.SpeedrunLink">
+                <span class="text-success"><i class="fas fa-award fa-lg"></i></span>
+            </a>
+        }
+    </td>
     <td>
         <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
             <strong>@($"{ViewData["Count"]}.")</strong>
@@ -14,19 +26,36 @@
     </td>
     <td>
         <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
-            @Model.Timings.StartedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+            @Model.StartedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
         </a>
     </td>
     <td>
-        <time class="timeago" datetime="@Model.Timings.StartedOn.ToLocalTime().ToString("s")"></time>
+        <time class="timeago" datetime="@Model.StartedOn.ToLocalTime().ToString("s")"></time>
     </td>
     <td>
-        @foreach (var player in Model.Players.OrderBy(x => x.Name))
+        @foreach (var playerId in Model.PlayerIds.OrderBy(x => x))
         {
-            @await Html.PartialAsync("_PlayerAvatarSmall", player.Id)
+            @await Html.PartialAsync("_PlayerAvatarSmall", playerId)
         }
     </td>
     <td class="text-right">
-        <span class="badge badge-primary">@(Model.Timings.RunTime)</span>
+        @if (Model.RuntimeOverride)
+        {
+            @runtime
+        }
+        else
+        {
+            <span class="text-light">
+                @runtime
+            </span>
+        }
+    </td>
+    <td class="text-right">
+        @if (!string.IsNullOrWhiteSpace(Model.YoutubeLink))
+        {
+            <a href="@Model.YoutubeLink">
+                <span class="text-danger"><i class="fab fa-youtube fa-lg"></i></span>
+            </a>
+        }
     </td>
 </tr>

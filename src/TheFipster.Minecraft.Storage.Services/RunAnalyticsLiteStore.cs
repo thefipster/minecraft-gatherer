@@ -7,12 +7,12 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Storage.Services
 {
-    public class RunAnalyticsLiteStore : IRunAnalyticsStore
+    public class AnalyticsLiteStore : IAnalyticsStore
     {
         private ILiteCollection<RunAnalytics> _collection;
         private readonly int _initialIndex;
 
-        public RunAnalyticsLiteStore(IDatabaseHandler databaseHandler, IConfigService configService)
+        public AnalyticsLiteStore(IDatabaseHandler databaseHandler, IConfigService configService)
         {
             _collection = databaseHandler.GetCollection<RunAnalytics>();
             _initialIndex = configService.InitialRunIndex;

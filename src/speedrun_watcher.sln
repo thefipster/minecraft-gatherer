@@ -20,9 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Import
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Import.Domain", "TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj", "{D19F6B28-0BD9-4E11-9EE8-98F4C8868ABA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Domain", "TheFipster.Minecraft.Domain\TheFipster.Minecraft.Domain.csproj", "{5D51E022-3F28-41F8-B5D3-88E92FE0B44F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Core.Domain", "TheFipster.Minecraft.Domain\TheFipster.Minecraft.Core.Domain.csproj", "{5D51E022-3F28-41F8-B5D3-88E92FE0B44F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Services", "TheFipster.Minecraft.Services\TheFipster.Minecraft.Services.csproj", "{179B0756-527D-4FFC-9F9A-14FDAC292A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Core.Services", "TheFipster.Minecraft.Services\TheFipster.Minecraft.Core.Services.csproj", "{179B0756-527D-4FFC-9F9A-14FDAC292A5C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Modules", "TheFipster.Minecraft.Modules\TheFipster.Minecraft.Modules.csproj", "{297FA755-F333-4EBB-A275-91286C10F629}"
 EndProject
@@ -30,15 +30,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Import", "Import", "{11D8F2
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A015091A-2A27-461A-9F75-15E6B21A8F09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Abstractions", "TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Abstractions.csproj", "{E658DA68-27A8-4EC6-9700-2057A1CCF88D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Core.Abstractions", "TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj", "{E658DA68-27A8-4EC6-9700-2057A1CCF88D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enhance", "Enhance", "{05D343F2-5B2E-413F-BA67-9130A4115000}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Domain", "TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj", "{28A49D42-8122-478F-B68C-08D8AE6834B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Domain", "TheFipster.Minecraft.Enhancer.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj", "{28A49D42-8122-478F-B68C-08D8AE6834B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Services", "TheFipster.Minecraft.Meta.Services\TheFipster.Minecraft.Enhancer.Services.csproj", "{38027A83-233E-4102-A006-D94641B116CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Services", "TheFipster.Minecraft.Enhancer.Services\TheFipster.Minecraft.Enhancer.Services.csproj", "{38027A83-233E-4102-A006-D94641B116CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Abstractions", "TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj", "{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Enhancer.Abstractions", "TheFipster.Minecraft.Enhancer.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj", "{90D4CD87-2A69-4D4F-B253-2CD01A6825F4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Analytics", "Analytics", "{9068CA33-CE18-4283-B5C4-68349B39B37E}"
 EndProject
@@ -63,6 +63,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Storage.Services", "TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj", "{C9E41974-012A-4CC7-9BDC-5CDFF6ABB332}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Storage.Domain", "TheFipster.Minecraft.Storage.Domain\TheFipster.Minecraft.Storage.Domain.csproj", "{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Manual", "Manual", "{DA3485E3-27B4-4C91-B466-ABB2ACEE8731}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Manual.Domain", "TheFipster.Minecraft.Manual.Domain\TheFipster.Minecraft.Manual.Domain.csproj", "{199EF215-B278-484F-AFBF-845BC1484FE6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Meta", "Meta", "{752CFD70-481A-489E-9A9F-E03586197522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Meta.Abstractions", "TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Meta.Abstractions.csproj", "{46B45283-04EF-4EB2-A209-6B3D9775110B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Meta.Domain", "TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Meta.Domain.csproj", "{95982DD9-0783-4209-A4FF-40378DA9EDE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Meta.Services", "TheFipster.Minecraft.Meta.Services\TheFipster.Minecraft.Meta.Services.csproj", "{7EFAFFAB-2644-4B28-A970-D81B184DD2B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -150,6 +162,22 @@ Global
 		{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199EF215-B278-484F-AFBF-845BC1484FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199EF215-B278-484F-AFBF-845BC1484FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199EF215-B278-484F-AFBF-845BC1484FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199EF215-B278-484F-AFBF-845BC1484FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46B45283-04EF-4EB2-A209-6B3D9775110B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46B45283-04EF-4EB2-A209-6B3D9775110B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46B45283-04EF-4EB2-A209-6B3D9775110B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46B45283-04EF-4EB2-A209-6B3D9775110B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95982DD9-0783-4209-A4FF-40378DA9EDE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95982DD9-0783-4209-A4FF-40378DA9EDE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95982DD9-0783-4209-A4FF-40378DA9EDE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95982DD9-0783-4209-A4FF-40378DA9EDE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EFAFFAB-2644-4B28-A970-D81B184DD2B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EFAFFAB-2644-4B28-A970-D81B184DD2B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EFAFFAB-2644-4B28-A970-D81B184DD2B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EFAFFAB-2644-4B28-A970-D81B184DD2B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -180,6 +208,12 @@ Global
 		{46CBD35D-1093-42EC-BF90-DED29DE32467} = {4E7EED5B-D490-48E4-B154-FD424F217481}
 		{C9E41974-012A-4CC7-9BDC-5CDFF6ABB332} = {4E7EED5B-D490-48E4-B154-FD424F217481}
 		{5CDDE60E-9D19-4D85-8AC6-8533BB2940CC} = {4E7EED5B-D490-48E4-B154-FD424F217481}
+		{DA3485E3-27B4-4C91-B466-ABB2ACEE8731} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
+		{199EF215-B278-484F-AFBF-845BC1484FE6} = {DA3485E3-27B4-4C91-B466-ABB2ACEE8731}
+		{752CFD70-481A-489E-9A9F-E03586197522} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
+		{46B45283-04EF-4EB2-A209-6B3D9775110B} = {752CFD70-481A-489E-9A9F-E03586197522}
+		{95982DD9-0783-4209-A4FF-40378DA9EDE0} = {752CFD70-481A-489E-9A9F-E03586197522}
+		{7EFAFFAB-2644-4B28-A970-D81B184DD2B8} = {752CFD70-481A-489E-9A9F-E03586197522}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A72F90A-5712-4E05-B847-A2A60419ABB8}

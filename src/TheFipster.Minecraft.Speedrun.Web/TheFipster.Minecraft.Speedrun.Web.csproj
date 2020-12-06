@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <AssemblyVersion>0.2.0.0</AssemblyVersion>
-    <FileVersion>0.2.0.0</FileVersion>
+    <AssemblyVersion>0.2.1.0</AssemblyVersion>
+    <FileVersion>0.2.1.0</FileVersion>
     <PackageId>Minecraft Speedrun Watcher</PackageId>
-    <Version>0.2.0</Version>
+    <Version>0.2.1</Version>
     <Authors>Felix Reisch</Authors>
     <Company />
     <Product>Minecraft Speedrun Watcher</Product>
@@ -30,12 +30,12 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Extender.Domain\TheFipster.Minecraft.Extender.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Extender.Services\TheFipster.Minecraft.Extender.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Services\TheFipster.Minecraft.Import.Services.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Meta.Services\TheFipster.Minecraft.Enhancer.Services.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Enhancer.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Enhancer.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Enhancer.Services\TheFipster.Minecraft.Enhancer.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Modules\TheFipster.Minecraft.Modules.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Services\TheFipster.Minecraft.Services.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Services\TheFipster.Minecraft.Core.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj" />
   </ItemGroup>
 

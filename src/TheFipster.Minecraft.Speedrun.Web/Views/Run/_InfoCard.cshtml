@@ -28,7 +28,14 @@
                         Runtime
                         <i class="fas fa-question-circle help-bubble"></i>
                     </span>
-                    <span class="badge badge-primary">@(Model.Analytics.Timings.RunTime)</span>
+                    @if (Model.Analytics.Timings.RunTime.TotalHours >= 1)
+                    {
+                        @Model.Analytics.Timings.RunTime.ToString(@"hh\:mm\:ss\:fff")
+                    }
+                    else
+                    {
+                        @Model.Analytics.Timings.RunTime.ToString(@"mm\:ss\:fff")
+                    }
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -36,8 +43,16 @@
                     Playtime
                     <i class="fas fa-question-circle help-bubble"></i>
                 </span>
-                <span class="badge badge-primary">@Model.Analytics.Timings.PlayTime</span>
+                <span>@Model.Analytics.Timings.PlayTime</span>
             </li>
+            @if (Model.Manuals != null && !string.IsNullOrEmpty(Model.Manuals.YoutubeLink))
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Youtube
+                    <a href="@Model.Manuals.YoutubeLink" target="_blank" class="btn btn-outline-info btn-sm">watch</a>
+                </li>
+            }
+
         </ul>
     </div>
 </div>

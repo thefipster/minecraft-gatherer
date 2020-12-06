@@ -5,11 +5,11 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Storage.Services
 {
-    public class RunImportLiteStore : IRunImportStore
+    public class ImportLiteStore : IImportStore
     {
         private ILiteCollection<RunImport> _collection;
 
-        public RunImportLiteStore(IDatabaseHandler databaseHandler)
+        public ImportLiteStore(IDatabaseHandler databaseHandler)
             => _collection = databaseHandler.GetCollection<RunImport>();
 
         public void Insert(RunImport import)

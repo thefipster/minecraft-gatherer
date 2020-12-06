@@ -18,7 +18,7 @@ namespace TheFipster.Minecraft.Modules
         private readonly IAchievementExtractor _achievementExtractor;
         private readonly IStatsExtractor _statsExtractor;
         private readonly IPlayerNbtReader _playerNbtReader;
-        private readonly IRunImportStore _runStore;
+        private readonly IImportStore _runStore;
 
         private readonly ILogger<ImportModule> _logger;
 
@@ -30,7 +30,7 @@ namespace TheFipster.Minecraft.Modules
             IAchievementExtractor achievementExtractor,
             IStatsExtractor statsExtractor,
             IPlayerNbtReader playerNbtReader,
-            IRunImportStore runImportStore,
+            IImportStore runImportStore,
             ILogger<ImportModule> logger)
         {
             _logFinder = logFinder;

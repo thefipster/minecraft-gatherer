@@ -73,3 +73,8 @@ a, a:visited {
 .help-bubble {
     margin-left: 5px;
 }
+
+.form-control-plaintext {
+    border: 1px solid #adb5bd !important;
+    padding: 5px;
+}

@@ -4,10 +4,10 @@
     {
         Spawn,
         Nether,
+        Fortress,
+        BlazeRod,
         Search,
         Stronghold,
-        TheEnd,
-        BlazeRod,
-        Fortress
+        TheEnd
     }
 }

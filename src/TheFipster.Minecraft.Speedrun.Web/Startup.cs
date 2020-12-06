@@ -35,6 +35,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.RegisterEnhancer();
             _container.RegisterExtender();
             _container.RegisterAnalytics();
+            _container.RegisterWeb();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

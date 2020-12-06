@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Manual.Domain\TheFipster.Minecraft.Manual.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Domain\TheFipster.Minecraft.Storage.Domain.csproj" />
   </ItemGroup>
 

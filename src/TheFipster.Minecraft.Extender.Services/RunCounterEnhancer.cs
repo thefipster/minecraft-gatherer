@@ -9,9 +9,9 @@ namespace TheFipster.Minecraft.Extender.Services
 {
     public class RunCounterEnhancer : IRunCounterEnhancer
     {
-        private readonly IRunAnalyticsStore _analyticsStore;
+        private readonly IAnalyticsStore _analyticsStore;
 
-        public RunCounterEnhancer(IRunAnalyticsStore analyticsStore)
+        public RunCounterEnhancer(IAnalyticsStore analyticsStore)
             => _analyticsStore = analyticsStore;
 
         public RunCounts Enhance()
