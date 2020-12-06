@@ -13,14 +13,14 @@ namespace TheFipster.Minecraft.Modules
 {
     public class WorldLoaderModule : IWorldLoaderModule
     {
-        private readonly IWorldFinder _worldFinder;
+        private readonly IWorldSearcher _worldFinder;
         private readonly IWorldLoader _worldLoader;
         private readonly IImportStore _runImportStore;
         private readonly IServerProperties _serverProperties;
         private readonly ILogger<WorldLoaderModule> _logger;
 
         public WorldLoaderModule(
-            IWorldFinder worldFinder,
+            IWorldSearcher worldFinder,
             IWorldLoader worldLoader,
             IImportStore runStore,
             IServerPropertiesReader serverPropReader,

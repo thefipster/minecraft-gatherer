@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\img\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

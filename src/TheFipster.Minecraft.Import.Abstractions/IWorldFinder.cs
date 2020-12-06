@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 
 namespace TheFipster.Minecraft.Import.Abstractions
 {
     public interface IWorldFinder
     {
-        IEnumerable<DirectoryInfo> Find();
+        FileSystemInfo Find(string worldname);
     }
 }
