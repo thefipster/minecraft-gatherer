@@ -24,7 +24,8 @@ namespace TheFipster.Minecraft.Enhancer.Services.Decorators
             {
                 var lineEvents = _lineConverter.Convert(line);
                 foreach (var lineEvent in lineEvents)
-                    events.Add(lineEvent);
+                    if (!events.Contains(lineEvent))
+                        events.Add(lineEvent);
             }
 
             return events;

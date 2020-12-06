@@ -11,12 +11,12 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IRunFinder _runFinder;
-        private readonly IRunCounterEnhancer _runCounter;
+        private readonly IRunCounterExtender _runCounter;
         private readonly IRunListConverter _listConverter;
 
         public HomeController(
             IRunFinder runFinder,
-            IRunCounterEnhancer runCounter,
+            IRunCounterExtender runCounter,
             IRunListConverter listConverter)
         {
             _runFinder = runFinder;
@@ -34,7 +34,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
                 .Take(7);
 
             viewmodel.LatestRuns = _listConverter.Convert(runs);
-            viewmodel.RunCounts = _runCounter.Enhance();
+            viewmodel.RunCounts = _runCounter.Extend();
 
             return View(viewmodel);
         }

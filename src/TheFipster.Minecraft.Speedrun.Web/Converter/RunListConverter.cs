@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Manual.Abstractions;
 using TheFipster.Minecraft.Speedrun.Web.Models;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Converter
 {
     public class RunListConverter : IRunListConverter
     {
-        private readonly IManualsStore _manualsStore;
+        private readonly IManualsReader _manualsReader;
 
-        public RunListConverter(IManualsStore manualsStore)
+        public RunListConverter(IManualsReader manualsReader)
         {
-            _manualsStore = manualsStore;
+            _manualsReader = manualsReader;
         }
 
         public ICollection<RunHeaderViewModel> Convert(IEnumerable<RunAnalytics> analytics)
         {
-            var manuals = _manualsStore.Get();
+            var manuals = _manualsReader.Get();
 
             var list = new List<RunHeaderViewModel>();
             foreach (var run in analytics)

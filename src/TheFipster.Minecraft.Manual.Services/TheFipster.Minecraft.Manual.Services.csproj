@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>

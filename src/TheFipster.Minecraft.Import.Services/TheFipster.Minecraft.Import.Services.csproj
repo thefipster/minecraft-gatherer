@@ -6,11 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="Cyotek.Data.Nbt" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheFipster.Minecraft.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Services.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Core.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Import.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

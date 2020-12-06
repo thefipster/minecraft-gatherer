@@ -1,9 +1,9 @@
 ﻿using SimpleInjector;
-using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Services;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Services;
 using TheFipster.Minecraft.Modules;
-using TheFipster.Minecraft.Services;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
@@ -13,21 +13,22 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
         {
             container.Register<IStatsFinder, StatsFinder>();
             container.Register<IWorldFinder, WorldFinder>();
-            container.Register<ILogFinder, LogFinder>();
 
             container.Register<IWorldLoader, WorldLoader>();
 
             container.Register<IDimensionLoader, DimensionLoader>();
 
+            container.Register<ILogFinder, LogFinder>();
             container.Register<ILogParser, LogParser>();
             container.Register<ILogTrimmer, LogTrimmer>();
+            container.Register<ILogLoader, LogLoader>();
 
-            container.Register<IStatsExtractor, StatsExtractor>();
-            container.Register<IAchievementExtractor, AchievementExtractor>();
+            container.Register<IStatsLoader, StatsLoader>();
+            container.Register<IAchievementLoader, AchievementLoader>();
 
             container.Register<IServerPropertiesReader, ServerPropertiesReader>();
 
-            container.Register<IPlayerNbtReader, PlayerNbtReader>();
+            container.Register<IPlayerNbtLoader, PlayerNbtLoader>();
 
             container.Register<IWorldLoaderModule, WorldLoaderModule>();
             container.Register<IImportRunModule, ImportModule>();

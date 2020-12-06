@@ -27,5 +27,21 @@ namespace TheFipster.Minecraft.Enhancer.Domain
         public string Value { get; set; }
 
         public override string ToString() => $"{Timestamp:yyyy-MM-dd HH:mm:ss} - {Type} - {Value} - {PlayerId}";
+
+        public override int GetHashCode()
+            => Type.GetHashCode() * 29
+                + Timestamp.GetHashCode() * 43
+                + PlayerId.GetHashCode() * 87
+                + Value.GetHashCode() * 37;
+
+        public override bool Equals(object obj)
+        {
+            var meta = obj as RunEvent;
+            return meta != null
+                && meta.Type == Type
+                && meta.Value == Value
+                && (meta.Timestamp - Timestamp).TotalSeconds < 2
+                && meta.PlayerId == PlayerId;
+        }
     }
 }

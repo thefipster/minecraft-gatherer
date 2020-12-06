@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj" />
   </ItemGroup>
 

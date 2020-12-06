@@ -37,7 +37,7 @@ namespace TheFipster.Minecraft.Analytics.Services
             var gameEvent = ValidEvents
                 .Where(x => x.Type == EventTypes.Advancement)
                 .OrderBy(x => x.Timestamp)
-                .FirstOrDefault(x => x.Value == EventNames.Advancements.GotBlazePowder);
+                .FirstOrDefault(x => x.Value == EventNames.Advancements.GotEnderEye);
 
             if (gameEvent != null)
             {

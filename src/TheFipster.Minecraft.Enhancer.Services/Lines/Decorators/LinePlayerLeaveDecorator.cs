@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;

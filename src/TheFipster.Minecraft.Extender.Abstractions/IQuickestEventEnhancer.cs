@@ -4,9 +4,9 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Extender.Abstractions
 {
-    public interface IQuickestEventEnhancer
+    public interface IQuickestEventExtender
     {
-        IEnumerable<FirstEvent> Enhance(RunImport run);
+        IEnumerable<FirstEvent> Extend(RunImport run);
 
     }
 }

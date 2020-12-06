@@ -1,7 +1,7 @@
 ﻿using LiteDB;
 using System.Collections.Generic;
 using System.Linq;
-using TheFipster.Minecraft.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Storage.Abstractions;
 
@@ -12,7 +12,7 @@ namespace TheFipster.Minecraft.Storage.Services
         private ILiteCollection<RunAnalytics> _collection;
         private readonly int _initialIndex;
 
-        public AnalyticsLiteStore(IDatabaseHandler databaseHandler, IConfigService configService)
+        public AnalyticsLiteStore(ISyncDatabaseHandler databaseHandler, IConfigService configService)
         {
             _collection = databaseHandler.GetCollection<RunAnalytics>();
             _initialIndex = configService.InitialRunIndex;

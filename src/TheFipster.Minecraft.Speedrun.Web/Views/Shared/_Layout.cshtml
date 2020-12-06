@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Christian Speedrunning</title>
     <link rel="stylesheet" href="~/lib/darkly/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/github-calendar-heatmap/css/calendar_yearview_blocks.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/custom.css" />
     <script src="https://kit.fontawesome.com/2e8f3797c1.js" crossorigin="anonymous"></script>
@@ -25,6 +26,9 @@
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Runs" asp-action="Index">Runs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Stats" asp-action="Index">Stats</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Admin" asp-action="Index">Operations</a>
@@ -60,6 +64,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-timeago/jquery.timeago.js"></script>
+    <script src="~/lib/github-calendar-heatmap/js/calendar_yearview_blocks.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script type="text/javascript">
         $(function () {
