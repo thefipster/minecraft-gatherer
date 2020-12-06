@@ -17,18 +17,18 @@ namespace TheFipster.Minecraft.Import.Services
             if (tryLoadOverworld(worldFolder, out var overworld))
                 dimensions.Add(overworld);
 
-            if (tryLoadDimension(worldFolder, "Nether", "DIM-1", out var nether))
+            if (tryLoadDimension(worldFolder, Dimensions.Nether, out var nether))
                 dimensions.Add(nether);
 
-            if (tryLoadDimension(worldFolder, "The End", "DIM1", out var theend))
-                dimensions.Add(theend);
+            if (tryLoadDimension(worldFolder, Dimensions.TheEnd, out var theEnd))
+                dimensions.Add(theEnd);
 
             return dimensions;
         }
 
         private bool tryLoadOverworld(DirectoryInfo worldFolder, out DimensionInfo overworld)
         {
-            overworld = new DimensionInfo("Overworld");
+            overworld = new DimensionInfo(Dimensions.Overworld);
 
             var regionFolder = worldFolder.GetDirectories("region");
             if (regionFolder.Any())
@@ -44,11 +44,12 @@ namespace TheFipster.Minecraft.Import.Services
             return false;
         }
 
-        private bool tryLoadDimension(DirectoryInfo worldFolder, string dimensionName, string dimensionFolder, out DimensionInfo dimension)
+        private bool tryLoadDimension(DirectoryInfo worldFolder, Dimensions dimensionType, out DimensionInfo dimension)
         {
-            dimension = new DimensionInfo(dimensionName);
+            dimension = new DimensionInfo(dimensionType);
 
-            var folder = worldFolder.GetDirectories(dimensionFolder);
+            var folderName = DimensionTranslations.Items[dimensionType].Folder;
+            var folder = worldFolder.GetDirectories(folderName);
             if (!folder.Any())
                 return false;
 
