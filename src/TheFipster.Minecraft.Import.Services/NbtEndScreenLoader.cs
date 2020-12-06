@@ -6,7 +6,7 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Import.Services
 {
-    public class PlayerNbtLoader : IPlayerNbtLoader
+    public class NbtEndScreenLoader : INbtEndScreenLoader
     {
         private const string PlayerDataFolder = "playerdata";
 
