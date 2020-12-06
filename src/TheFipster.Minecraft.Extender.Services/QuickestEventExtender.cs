@@ -7,9 +7,9 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Extender.Services
 {
-    public class QuickestEventEnhancer : IQuickestEventEnhancer
+    public class QuickestEventExtender : IQuickestEventExtender
     {
-        public IEnumerable<FirstEvent> Enhance(RunImport run)
+        public IEnumerable<FirstEvent> Extend(RunImport run)
         {
             if (run.Logs == null)
                 return Enumerable.Empty<FirstEvent>();

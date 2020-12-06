@@ -7,14 +7,14 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Extender.Services
 {
-    public class RunCounterEnhancer : IRunCounterEnhancer
+    public class RunCounterExtender : IRunCounterExtender
     {
         private readonly IAnalyticsStore _analyticsStore;
 
-        public RunCounterEnhancer(IAnalyticsStore analyticsStore)
+        public RunCounterExtender(IAnalyticsStore analyticsStore)
             => _analyticsStore = analyticsStore;
 
-        public RunCounts Enhance()
+        public RunCounts Extend()
         {
             var analytics = _analyticsStore.Get();
             var runCount = new RunCounts();

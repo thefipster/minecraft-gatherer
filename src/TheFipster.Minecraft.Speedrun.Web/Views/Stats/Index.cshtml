@@ -1,7 +1,34 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Stats";
 }
 
-<h1>Index</h1>
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "Stats/Heatmap"
+            }).then(function (data) {
+                $('#Heatmap').calendar_yearview_blocks({
+                    data: JSON.stringify(data),
+                    colors: {
+                        'default': '#424949',
+                        'at least 50': '#A93226',
+                        'at least 30': '#E67E22',
+                        'at least 20': '#F1C40F',
+                        'at least 10': '#2ECC71',
+                        'at least 5': '#3498DB',
+                        'at least 1': '#566573',
+                    },
+                    stylize_today: true,
+                    always_show_tooltip: true
+                });
+            });
+        });
+    </script>
+}
+
+<h1>Attempts</h1>
+
+<div id="Heatmap"></div>
 

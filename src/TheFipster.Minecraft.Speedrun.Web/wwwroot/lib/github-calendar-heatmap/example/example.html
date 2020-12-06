@@ -1,0 +1,185 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Calendar Yearview with Blocks Examples</title>
+<link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script type="text/javascript" src="../js/calendar_yearview_blocks.js"></script>
+    <link href="../css/calendar_yearview_blocks.css" media="all" rel="stylesheet"/>
+
+    <script type="text/javascript">
+
+        /* START DEMO PURPOSES */
+        // Format string
+        if (!String.prototype.formatString) {
+            String.prototype.formatString = function () {
+                var args = arguments;
+                return this.replace(/{(\d+)}/g, function (match, number) {
+                    return typeof args[number] !== 'undefined'
+                        ? args[number]
+                        : match
+                        ;
+                });
+            };
+        }
+        // If the number less than 10, add a zero before it
+        var prettyNumber = function (number) {
+            return number < 10 ? '0' + number.toString() : number = number.toString();
+        };
+
+        var getDisplayDate = function (date_obj) {
+            var pretty_month = prettyNumber(date_obj.getMonth() + 1);
+            var pretty_date = prettyNumber(date_obj.getDate());
+            return "{0}-{1}-{2}".formatString(date_obj.getFullYear(), pretty_month, pretty_date);
+        };
+
+        // Generate random number between min and max
+        function randomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) + min);
+        }
+
+        function getRandomData(min, max, items) {
+            var return_object = {};
+
+            var entries = randomInt(min, max);
+            for (var i = 0; i < entries; i++) {
+                var day = new Date();
+
+                var previous_date = randomInt(0, 365);
+                day.setDate(day.getDate() - previous_date);
+
+                var display_date = getDisplayDate(day);
+                return_object[display_date] = {};
+                return_object[display_date].items = [];
+                var random_elements = randomInt(1,3);
+                for (var j=0; j < random_elements; j++) {
+                    var random_item = items[randomInt(0,items.length-1)];
+                    if (!return_object[display_date].items.includes(random_item)) {
+                        return_object[display_date].items.push(random_item);
+                    }
+                }
+
+            }
+            console.log(return_object);
+            return JSON.stringify(return_object);
+
+        }
+        /* END DEMO PURPOSES */
+
+        $(document).ready(function () {
+
+            $('#calendar_yearview_blocks_chart_1').calendar_yearview_blocks({
+                //data: '{"2020-08-01": {"items": ["banana", "apple"]}, "2020-05-05": {"items": ["apple"]}, "2020-05-01": {"items": ["banana"]}, "2020-05-03": {"items": ["banana", "apple", "orange"]}, "2020-05-22": {"items": ["banana", "apple", "orange", "pear"]}}',
+                data: getRandomData(10, 40, ["banana", "apple", "orange", "pear"]),
+                start_monday: true,
+                always_show_tooltip: true,
+                month_names: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sept', 'okt', 'nov', 'dec'],
+                day_names: ['ma', 'wo', 'vr', 'zo'],
+                colors: {
+                    'default': '#eeeeee', // Default color
+                    'apple': 'green',
+                    'banana': 'yellow',
+                    'orange': 'orange',
+                    'pear': 'lightgreen'
+                }
+            });
+
+            $('#calendar_yearview_blocks_chart_2').calendar_yearview_blocks({
+                data: getRandomData(20, 80, ["rain", "sunshine", "fog", "thunder", "hail"]),
+                start_monday: false,
+                always_show_tooltip: false,
+                month_names: ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+                day_names: ['mo', 'wed', 'fri'],
+                colors: {
+                    'default': '#eeeeee', // Default color
+                    'rain': 'lightblue',
+                    'sunshine': 'lightyellow',
+                    'fog': 'gray',
+                    'thunder': 'brown',
+                    'hail': 'white'
+                },
+                stylize_today: true
+            });
+
+        });
+
+    </script>
+</head>
+
+<style type="text/css">
+    .seperate {
+        height: 20px;
+    }
+
+    body {
+        font-family: 'Roboto Condensed';
+    }
+    .container { margin: 150px auto; max-width: 960px; }
+</style>
+
+<body><div id="jquery-script-menu">
+<div class="jquery-script-center">
+<ul>
+<li><a href="https://www.jqueryscript.net/chart-graph/github-calendar-heatmap.html">Download This Plugin</a></li>
+<li><a href="https://www.jqueryscript.net/">Back To jQueryScript.Net</a></li>
+</ul><div id="carbon-block"></div>
+<div class="jquery-script-ads"><script type="text/javascript"><!--
+google_ad_client = "ca-pub-2783044520727903";
+/* jQuery_demo */
+google_ad_slot = "2780937993";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script></div>
+<div class="jquery-script-clear"></div>
+</div>
+</div>
+    <div class="container">
+    <h1>Calendar Yearview with Blocks Examples</h1>
+    <div id="calendar_yearview_blocks_chart_1"></div>
+    <div class="seperate"></div>
+    <div id="calendar_yearview_blocks_chart_2"></div>
+    <div class="seperate"></div>
+
+    <br />
+    &gt;&gt; Click info: <div id="moreinfo">(Hover or click an item to get more information)</div>
+
+    <br />
+
+</div>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script>
+try {
+  fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' })).then(function(response) {
+    return true;
+  }).catch(function(e) {
+    var carbonScript = document.createElement("script");
+    carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+    carbonScript.id = "_carbonads_js";
+    document.getElementById("carbon-block").appendChild(carbonScript);
+  });
+} catch (error) {
+  console.log(error);
+}
+</script>
+</body>
+</html>

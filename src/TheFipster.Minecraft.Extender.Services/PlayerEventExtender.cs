@@ -6,9 +6,9 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Extender.Services
 {
-    public class PlayerEventEnhancer : IPlayerEventEnhancer
+    public class PlayerEventExtender : IPlayerEventExtender
     {
-        public Dictionary<string, IEnumerable<RunEvent>> Enhance(RunImport run)
+        public Dictionary<string, IEnumerable<RunEvent>> Extend(RunImport run)
         {
             var players = new Dictionary<string, IEnumerable<RunEvent>>();
 

@@ -11,15 +11,15 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     public class RunController : Controller
     {
         private readonly IRunFinder _runFinder;
-        private readonly IQuickestEventEnhancer _quickestEventEnhancer;
-        private readonly IPlayerEventEnhancer _playerEventEnhancer;
+        private readonly IQuickestEventExtender _quickestEventEnhancer;
+        private readonly IPlayerEventExtender _playerEventEnhancer;
         private readonly IManualsWriter _manualsWriter;
         private readonly IManualsReader _manualsReader;
 
         public RunController(
             IRunFinder runFinder,
-            IQuickestEventEnhancer quickestEventEnhancer,
-            IPlayerEventEnhancer playerEventEnhancer,
+            IQuickestEventExtender quickestEventEnhancer,
+            IPlayerEventExtender playerEventEnhancer,
             IManualsWriter manualsWriter,
             IManualsReader manualsReader)
         {
@@ -36,8 +36,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var run = _runFinder.GetByName(worldname);
             var viewmodel = new RunDetailViewModel(run);
 
-            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run.Import);
-            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run.Import);
+            viewmodel.FirstAdvancement = _quickestEventEnhancer.Extend(run.Import);
+            viewmodel.PlayerEvents = _playerEventEnhancer.Extend(run.Import);
 
             return View("Index", viewmodel);
         }
@@ -48,8 +48,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var run = _runFinder.GetByIndex(index);
             var viewmodel = new RunDetailViewModel(run);
 
-            viewmodel.FirstAdvancement = _quickestEventEnhancer.Enhance(run.Import);
-            viewmodel.PlayerEvents = _playerEventEnhancer.Enhance(run.Import);
+            viewmodel.FirstAdvancement = _quickestEventEnhancer.Extend(run.Import);
+            viewmodel.PlayerEvents = _playerEventEnhancer.Extend(run.Import);
 
             return View(viewmodel);
         }

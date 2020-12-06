@@ -8,7 +8,7 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Meta.Services
 {
-    public class OutcomeFinder : IOutomeFinder
+    public class OutcomeFinder : IOutcomeFinder
     {
         private ILiteCollection<RunMeta<Outcomes>> _collection;
 

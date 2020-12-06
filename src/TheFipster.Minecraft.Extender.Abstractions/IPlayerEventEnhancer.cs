@@ -4,8 +4,8 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Extender.Abstractions
 {
-    public interface IPlayerEventEnhancer
+    public interface IPlayerEventExtender
     {
-        Dictionary<string, IEnumerable<RunEvent>> Enhance(RunImport run);
+        Dictionary<string, IEnumerable<RunEvent>> Extend(RunImport run);
     }
 }

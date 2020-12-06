@@ -8,9 +8,10 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
     {
         public static void RegisterExtender(this Container container)
         {
-            container.Register<IPlayerEventEnhancer, PlayerEventEnhancer>();
-            container.Register<IQuickestEventEnhancer, QuickestEventEnhancer>();
-            container.Register<IRunCounterEnhancer, RunCounterEnhancer>();
+            container.Register<IPlayerEventExtender, PlayerEventExtender>();
+            container.Register<IQuickestEventExtender, QuickestEventExtender>();
+            container.Register<IRunCounterExtender, RunCounterExtender>();
+            container.Register<IAttemptHeatmapExtender, AttemptHeatmapExtender>();
         }
     }
 }

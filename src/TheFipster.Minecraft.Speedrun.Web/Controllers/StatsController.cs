@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using TheFipster.Minecraft.Extender.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
     public class StatsController : Controller
     {
+        private readonly IAttemptHeatmapExtender _attemptHeatmapExtender;
+
+        public StatsController(IAttemptHeatmapExtender attemptHeatmapExtender)
+            => _attemptHeatmapExtender = attemptHeatmapExtender;
+
         public IActionResult Index()
+            => View();
+
+        public JsonResult Heatmap()
         {
-            return View();
+            var heatmap = _attemptHeatmapExtender.Extend();
+            return Json(heatmap);
         }
     }
 }

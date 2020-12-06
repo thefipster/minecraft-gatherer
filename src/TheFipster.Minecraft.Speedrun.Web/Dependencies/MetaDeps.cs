@@ -12,6 +12,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IRuntimeWriter, RuntimeWriter>();
             container.Register<ITimingWriter, TimingWriter>();
             container.Register<IOutcomeWriter, OutcomeWriter>();
+            container.Register<IOutcomeFinder, OutcomeFinder>();
 
             container.RegisterDecorator<ITimingAnalyzer, RuntimeAnalyzerMetaDecorator>();
             container.RegisterDecorator<ITimingAnalyzer, TimingAnalyzerMetaDecorator>();
