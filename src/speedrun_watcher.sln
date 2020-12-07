@@ -83,11 +83,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Manual
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Overview", "Overview", "{AE59527B-C7F9-42C1-B2C1-DEC5E7279A9D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Overview.Services", "TheFipster.Minecraft.Overview.Services\TheFipster.Minecraft.Overview.Services.csproj", "{ECB381B2-69CB-4CCE-92E4-ACAC07904052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Services", "TheFipster.Minecraft.Overview.Services\TheFipster.Minecraft.Overview.Services.csproj", "{ECB381B2-69CB-4CCE-92E4-ACAC07904052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Overview.Domain", "TheFipster.Minecraft.Overview.Domain\TheFipster.Minecraft.Overview.Domain.csproj", "{56F16705-8299-4BD1-AADA-919BB257A2FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Domain", "TheFipster.Minecraft.Overview.Domain\TheFipster.Minecraft.Overview.Domain.csproj", "{56F16705-8299-4BD1-AADA-919BB257A2FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Overview.Abstractions", "TheFipster.Minecraft.Overview.Abstractions\TheFipster.Minecraft.Overview.Abstractions.csproj", "{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Abstractions", "TheFipster.Minecraft.Overview.Abstractions\TheFipster.Minecraft.Overview.Abstractions.csproj", "{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Tasks", "TheFipster.Minecraft.Tasks\TheFipster.Minecraft.Tasks.csproj", "{C2F0CFB9-2738-4723-B537-F225305C4E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -211,6 +213,10 @@ Global
 		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
