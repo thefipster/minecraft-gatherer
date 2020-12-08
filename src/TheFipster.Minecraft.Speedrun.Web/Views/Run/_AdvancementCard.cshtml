@@ -11,7 +11,7 @@
                         @(advancement.Time - Model.Analytics.Timings.StartedOn)
                     </span>
                     <span>@advancement.Name</span>
-                    <img class="avatar-small" src="@($"/speedrun/img/players/{advancement.PlayerId}.png")" />
+                    @await Html.PartialAsync("_PlayerAvatarSmall", advancement.PlayerId)
                 </li>
             }
         </ul>

@@ -89,7 +89,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overvi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Abstractions", "TheFipster.Minecraft.Overview.Abstractions\TheFipster.Minecraft.Overview.Abstractions.csproj", "{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Tasks", "TheFipster.Minecraft.Tasks\TheFipster.Minecraft.Tasks.csproj", "{C2F0CFB9-2738-4723-B537-F225305C4E10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.HostedServices", "TheFipster.Minecraft.Tasks\TheFipster.Minecraft.HostedServices.csproj", "{C2F0CFB9-2738-4723-B537-F225305C4E10}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -40,12 +40,11 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Core.Services\TheFipster.Minecraft.Core.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj" />
-    <ProjectReference Include="..\TheFipster.Minecraft.Tasks\TheFipster.Minecraft.Tasks.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Tasks\TheFipster.Minecraft.HostedServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\img\mobs\" />
-    <Folder Include="wwwroot\img\players\" />
   </ItemGroup>
 
   <ItemGroup>
