@@ -10,7 +10,7 @@ namespace TheFipster.Minecraft.Modules
         private readonly IDimensionLoader _dimensionLoader;
         private readonly IAchievementLoader _achievementLoader;
         private readonly IStatsLoader _statsLoader;
-        private readonly IPlayerNbtLoader _playerNbtLoader;
+        private readonly INbtEndScreenLoader _playerNbtLoader;
 
         private readonly ILogger<ImportModule> _logger;
 
@@ -19,7 +19,7 @@ namespace TheFipster.Minecraft.Modules
             IDimensionLoader dimensionLoader,
             IAchievementLoader achievementLoader,
             IStatsLoader statsLoader,
-            IPlayerNbtLoader playerNbtLoader,
+            INbtEndScreenLoader playerNbtLoader,
             ILogger<ImportModule> logger)
         {
             _logLoader = logLoader;

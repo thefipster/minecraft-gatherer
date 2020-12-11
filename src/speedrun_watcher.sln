@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Speedr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Files", "Files", "{EC6D6CD2-D5DF-47D9-8FFC-6CC1B736136D}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		..\.gitignore = ..\.gitignore
 		..\.github\workflows\dotnet-core.yml = ..\.github\workflows\dotnet-core.yml
 		..\README.md = ..\README.md
@@ -76,9 +77,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Meta.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Import.Abstractions", "TheFipster.Minecraft.Import.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj", "{DD16FBE2-7D02-426B-86C1-75DB340D314A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Manual.Services", "TheFipster.Minecraft.Manual.Services\TheFipster.Minecraft.Manual.Services.csproj", "{41C9130F-3156-41A6-BD93-4143A7E23F91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Manual.Services", "TheFipster.Minecraft.Manual.Services\TheFipster.Minecraft.Manual.Services.csproj", "{41C9130F-3156-41A6-BD93-4143A7E23F91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheFipster.Minecraft.Manual.Abstractions", "TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj", "{52D0C168-F798-4774-89C9-5305027E5616}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Manual.Abstractions", "TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj", "{52D0C168-F798-4774-89C9-5305027E5616}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

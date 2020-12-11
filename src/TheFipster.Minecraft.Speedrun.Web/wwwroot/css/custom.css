@@ -78,3 +78,31 @@ a, a:visited {
     border: 1px solid #adb5bd !important;
     padding: 5px;
 }
+
+@media (min-width: 576px) {
+    #Heatmap svg {
+        transform-origin: top left;
+        transform: scale(0.7);
+    }
+}
+
+@media (min-width: 768px) {
+    #Heatmap svg {
+        transform-origin: top left;
+        transform: scale(0.9);
+    }
+}
+
+@media (min-width: 992px) {
+    #Heatmap svg {
+        transform-origin: top left;
+        transform: scale(1.2);
+    }
+}
+
+@media (min-width: 1200px) {
+    #Heatmap svg {
+        transform-origin: top left;
+        transform: scale(1.5);
+    }
+}
