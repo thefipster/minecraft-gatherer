@@ -15,7 +15,6 @@ namespace TheFipster.Minecraft.Enhancer.Domain
         public long HurtTimestamp { get; set; }
         public long SleepTimer { get; set; }
         public int AbsorptionAmount { get; set; }
-        public double FallDistance { get; set; }
         public long DeathTime { get; set; }
         public int XpSeed { get; set; }
         public int XpTotal { get; set; }

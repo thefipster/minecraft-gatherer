@@ -35,9 +35,6 @@ namespace TheFipster.Minecraft.Enhancer.Services
                 var absorptionAmount = jObj.SelectToken("$..AbsorptionAmount").Value<int>();
                 nbtPlayer.AbsorptionAmount = absorptionAmount;
 
-                var fallDistance = jObj.SelectToken("$..FallDistance").Value<double>();
-                nbtPlayer.FallDistance = fallDistance;
-
                 var deathTime = jObj.SelectToken("$..DeathTime").Value<long>();
                 nbtPlayer.DeathTime = deathTime;
 
