@@ -14,12 +14,41 @@
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Index</span>
-                    <span class="badge badge-primary">@Model.Analytics.Index</span>
+                    <span>@Model.Analytics.Index</span>
                 </li>
             }
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>World</span>
-                <span class="badge badge-primary">@Model.Analytics.World.Name</span>
+                <span>@Model.Analytics.World.Name</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Seed</span>
+                <span>@Model.Import.LevelNbt.Seed</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Difficulty</span>
+                <span>
+                    @if (Model.Import.LevelNbt.IsHardcore)
+                    {
+                        <span class="badge badge-danger badge-pill">Hardcore</span>
+                    }
+                    else if (Model.Import.LevelNbt.Difficulty == TheFipster.Minecraft.Core.Domain.Difficulty.Hard)
+                    {
+                        <span class="badge badge-warning badge-pill">@Model.Import.LevelNbt.Difficulty</span>
+                    }
+                    else if (Model.Import.LevelNbt.Difficulty == TheFipster.Minecraft.Core.Domain.Difficulty.Normal)
+                    {
+                        <span class="badge badge-success badge-pill">@Model.Import.LevelNbt.Difficulty</span>
+                    }
+                    else if (Model.Import.LevelNbt.Difficulty == TheFipster.Minecraft.Core.Domain.Difficulty.Easy)
+                    {
+                        <span class="badge badge-info badge-pill">@Model.Import.LevelNbt.Difficulty</span>
+                    }
+                    else if (Model.Import.LevelNbt.Difficulty == TheFipster.Minecraft.Core.Domain.Difficulty.Peaceful)
+                    {
+                        <span class="badge badge-light badge-pill">@Model.Import.LevelNbt.Difficulty</span>
+                    }
+                </span>
             </li>
             @if (Model.Analytics.Timings.FinishedOn.HasValue)
             {
@@ -49,7 +78,7 @@
             {
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Youtube
-                    <a href="@Model.Manuals.YoutubeLink" target="_blank" class="btn btn-outline-info btn-sm">watch</a>
+                    <a href="@Model.Manuals.YoutubeLink" target="_blank" class="btn btn-outline-danger btn-sm">watch</a>
                 </li>
             }
 
