@@ -32,6 +32,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.RegisterDecorator<IPlayerFinder, PlayerFinderEndScreenDecorator>();
             container.RegisterDecorator<IPlayerFinder, PlayerFinderStatsDecorator>();
 
+            container.Register<INbtLevelConverter, NbtLevelConverter>();
+            container.Register<INbtPlayerConverter, NbtPlayerConverter>();
+
             container.Register<IEnhanceModule, EnhanceModule>();
         }
     }

@@ -15,6 +15,7 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Enhancer.Abstractions\TheFipster.Minecraft.Enhancer.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Import.Services\TheFipster.Minecraft.Import.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj" />
   </ItemGroup>
 

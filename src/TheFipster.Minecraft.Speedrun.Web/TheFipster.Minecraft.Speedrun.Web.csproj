@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>latest</LangVersion>
-    <AssemblyVersion>0.2.1.0</AssemblyVersion>
-    <FileVersion>0.2.1.0</FileVersion>
+    <AssemblyVersion>0.2.2.0</AssemblyVersion>
+    <FileVersion>0.2.2.0</FileVersion>
     <PackageId>Minecraft Speedrun Watcher</PackageId>
-    <Version>0.2.1</Version>
+    <Version>0.2.2</Version>
     <Authors>Felix Reisch</Authors>
     <Company />
     <Product>Minecraft Speedrun Watcher</Product>
@@ -40,15 +40,14 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Abstractions\TheFipster.Minecraft.Import.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Core.Services\TheFipster.Minecraft.Core.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Services\TheFipster.Minecraft.Storage.Services.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Tasks\TheFipster.Minecraft.HostedServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\img\mobs\" />
-    <Folder Include="wwwroot\img\players\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\img\logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>

@@ -81,6 +81,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Manual
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Manual.Abstractions", "TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj", "{52D0C168-F798-4774-89C9-5305027E5616}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Overview", "Overview", "{AE59527B-C7F9-42C1-B2C1-DEC5E7279A9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Services", "TheFipster.Minecraft.Overview.Services\TheFipster.Minecraft.Overview.Services.csproj", "{ECB381B2-69CB-4CCE-92E4-ACAC07904052}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Domain", "TheFipster.Minecraft.Overview.Domain\TheFipster.Minecraft.Overview.Domain.csproj", "{56F16705-8299-4BD1-AADA-919BB257A2FB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.Overview.Abstractions", "TheFipster.Minecraft.Overview.Abstractions\TheFipster.Minecraft.Overview.Abstractions.csproj", "{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TheFipster.Minecraft.HostedServices", "TheFipster.Minecraft.Tasks\TheFipster.Minecraft.HostedServices.csproj", "{C2F0CFB9-2738-4723-B537-F225305C4E10}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "TheFipster.Minecraft.Tools", "TheFipster.Minecraft.Tools\TheFipster.Minecraft.Tools.pyproj", "{6C095C2F-8481-405C-BD38-D235ED65A62E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +203,24 @@ Global
 		{52D0C168-F798-4774-89C9-5305027E5616}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52D0C168-F798-4774-89C9-5305027E5616}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52D0C168-F798-4774-89C9-5305027E5616}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECB381B2-69CB-4CCE-92E4-ACAC07904052}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECB381B2-69CB-4CCE-92E4-ACAC07904052}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECB381B2-69CB-4CCE-92E4-ACAC07904052}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECB381B2-69CB-4CCE-92E4-ACAC07904052}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56F16705-8299-4BD1-AADA-919BB257A2FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56F16705-8299-4BD1-AADA-919BB257A2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56F16705-8299-4BD1-AADA-919BB257A2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56F16705-8299-4BD1-AADA-919BB257A2FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F0CFB9-2738-4723-B537-F225305C4E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C095C2F-8481-405C-BD38-D235ED65A62E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C095C2F-8481-405C-BD38-D235ED65A62E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -228,6 +258,10 @@ Global
 		{DD16FBE2-7D02-426B-86C1-75DB340D314A} = {11D8F267-6E79-4E1E-B94E-D80119DEB625}
 		{41C9130F-3156-41A6-BD93-4143A7E23F91} = {DA3485E3-27B4-4C91-B466-ABB2ACEE8731}
 		{52D0C168-F798-4774-89C9-5305027E5616} = {DA3485E3-27B4-4C91-B466-ABB2ACEE8731}
+		{AE59527B-C7F9-42C1-B2C1-DEC5E7279A9D} = {ABFB7836-5252-413E-996E-59CA9F604AB4}
+		{ECB381B2-69CB-4CCE-92E4-ACAC07904052} = {AE59527B-C7F9-42C1-B2C1-DEC5E7279A9D}
+		{56F16705-8299-4BD1-AADA-919BB257A2FB} = {AE59527B-C7F9-42C1-B2C1-DEC5E7279A9D}
+		{113398FE-7DDA-4EAE-B271-B3571C9ECFC1} = {AE59527B-C7F9-42C1-B2C1-DEC5E7279A9D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4A72F90A-5712-4E05-B847-A2A60419ABB8}

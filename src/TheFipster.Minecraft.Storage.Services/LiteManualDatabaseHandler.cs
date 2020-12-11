@@ -1,5 +1,4 @@
 ﻿using LiteDB;
-using System.IO;
 using TheFipster.Minecraft.Core.Abstractions;
 using TheFipster.Minecraft.Storage.Abstractions;
 
@@ -8,24 +7,16 @@ namespace TheFipster.Minecraft.Storage.Services
     public class LiteManualDatabaseHandler : IManualDatabaseHandler
     {
         private const string DatabaseFilename = "manual.litedb";
-        private const string DatabaseFolder = "database";
 
-        private LiteDatabase _database;
+        private readonly LiteDatabaseHandler _handler;
 
         public LiteManualDatabaseHandler(IConfigService config)
-        {
-            var databaseFilepath = Path.Combine(
-                config.DataLocation.FullName,
-                DatabaseFolder,
-                DatabaseFilename);
-
-            _database = new LiteDatabase(databaseFilepath);
-        }
+            => _handler = new LiteDatabaseHandler(config, DatabaseFilename);
 
         public ILiteCollection<T> GetCollection<T>()
-            => _database.GetCollection<T>();
+            => _handler.Database.GetCollection<T>();
 
         public ILiteCollection<T> GetCollection<T>(string name)
-            => _database.GetCollection<T>(name);
+            => _handler.Database.GetCollection<T>(name);
     }
 }

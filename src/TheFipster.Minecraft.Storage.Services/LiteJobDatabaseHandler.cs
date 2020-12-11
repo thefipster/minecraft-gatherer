@@ -4,13 +4,13 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Storage.Services
 {
-    public class LiteSyncDatabaseHandler : ISyncDatabaseHandler
+    public class LiteJobDatabaseHandler : ISyncDatabaseHandler
     {
-        private const string DatabaseFilename = "sync.litedb";
+        private const string DatabaseFilename = "jobs.litedb";
 
         private readonly LiteDatabaseHandler _handler;
 
-        public LiteSyncDatabaseHandler(IConfigService config)
+        public LiteJobDatabaseHandler(IConfigService config)
             => _handler = new LiteDatabaseHandler(config, DatabaseFilename);
 
         public ILiteCollection<T> GetCollection<T>()
