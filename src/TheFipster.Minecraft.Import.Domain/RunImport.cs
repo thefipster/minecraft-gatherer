@@ -36,5 +36,6 @@ namespace TheFipster.Minecraft.Import.Domain
         public ICollection<Problem> Problems { get; set; }
         public ICollection<RunEvent> Events { get; set; }
         public ICollection<string> PlayerIds { get; set; }
+        public NbtData NbtData { get; set; }
     }
 }

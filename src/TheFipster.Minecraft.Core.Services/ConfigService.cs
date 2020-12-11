@@ -21,10 +21,15 @@ namespace TheFipster.Minecraft.Core.Services
             _paths = new ServerPaths();
             _config.GetSection(LocationSection).Bind(_paths);
 
-            ServerLocation = checkExistance(_paths.Server);
-            LogLocation = checkExistance(_paths.Logs);
+            ServerLocation = checkExistance(_paths.Server) as DirectoryInfo;
+            LogLocation = checkExistance(_paths.Logs) as DirectoryInfo;
+            PythonLocation = checkExistance(_paths.Python) as FileInfo;
+            NbtConverterLocation = checkExistance(_paths.NbtConverter) as FileInfo;
+            OverviewerLocation = checkExistance(_paths.Overviewer) as FileInfo;
+
             TempLocation = ensureExistance(_paths.Temp);
             DataLocation = ensureExistance(_paths.Data);
+
             InitialRunIndex = ensureInt(InitialRunIndexKey);
         }
 
@@ -32,17 +37,20 @@ namespace TheFipster.Minecraft.Core.Services
         public DirectoryInfo LogLocation { get; }
         public DirectoryInfo TempLocation { get; }
         public DirectoryInfo DataLocation { get; }
-
+        public FileInfo PythonLocation { get; }
+        public FileInfo NbtConverterLocation { get; }
+        public FileInfo OverviewerLocation { get; }
         public int InitialRunIndex { get; }
 
-        private DirectoryInfo checkExistance(string path)
+        private FileSystemInfo checkExistance(string path)
         {
-            var dir = new DirectoryInfo(path);
+            if (Directory.Exists(path))
+                return new DirectoryInfo(path);
 
-            if (!dir.Exists)
-                throw new DirectoryNotFoundException($"{path} doesn't exist.");
+            if (File.Exists(path))
+                return new FileInfo(path);
 
-            return dir;
+            throw new DirectoryNotFoundException($"{path} doesn't exist.");
         }
 
         private DirectoryInfo ensureExistance(string path)

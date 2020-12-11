@@ -8,6 +8,9 @@ namespace TheFipster.Minecraft.Core.Abstractions
         DirectoryInfo LogLocation { get; }
         DirectoryInfo TempLocation { get; }
         DirectoryInfo DataLocation { get; }
+        FileInfo PythonLocation { get; }
+        FileInfo NbtConverterLocation { get; }
+        FileInfo OverviewerLocation { get; }
         int InitialRunIndex { get; }
     }
 }

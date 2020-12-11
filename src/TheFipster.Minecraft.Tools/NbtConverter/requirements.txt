@@ -1,0 +1,2 @@
+nbtlib
+numpy==1.19.3

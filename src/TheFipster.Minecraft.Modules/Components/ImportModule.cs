@@ -11,7 +11,7 @@ namespace TheFipster.Minecraft.Modules
         private readonly IAchievementLoader _achievementLoader;
         private readonly IStatsLoader _statsLoader;
         private readonly INbtEndScreenLoader _playerNbtLoader;
-
+        private readonly INbtLoader _nbtLoader;
         private readonly ILogger<ImportModule> _logger;
 
         public ImportModule(
@@ -20,6 +20,7 @@ namespace TheFipster.Minecraft.Modules
             IAchievementLoader achievementLoader,
             IStatsLoader statsLoader,
             INbtEndScreenLoader playerNbtLoader,
+            INbtLoader nbtLoader,
             ILogger<ImportModule> logger)
         {
             _logLoader = logLoader;
@@ -27,6 +28,7 @@ namespace TheFipster.Minecraft.Modules
             _achievementLoader = achievementLoader;
             _statsLoader = statsLoader;
             _playerNbtLoader = playerNbtLoader;
+            _nbtLoader = nbtLoader;
             _logger = logger;
         }
 
@@ -40,6 +42,7 @@ namespace TheFipster.Minecraft.Modules
             run.Achievements = _achievementLoader.Load(world);
             run.Logs = _logLoader.Load(run);
             run.EndScreens = _playerNbtLoader.Load(world);
+            run.NbtData = _nbtLoader.Load(world);
 
             _logger.LogInformation($"Import finished for world {world.Name}.");
             return run;

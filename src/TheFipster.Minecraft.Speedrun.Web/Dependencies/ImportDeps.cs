@@ -30,7 +30,12 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IAchievementLoader, AchievementLoader>();
             container.Register<IDimensionLoader, DimensionLoader>();
             container.Register<IServerPropertiesReader, ServerPropertiesReader>();
+
             container.Register<INbtEndScreenLoader, NbtEndScreenLoader>();
+            container.Register<INbtLoader, NbtLoader>();
+            container.RegisterDecorator<INbtLoader, NbtLevelDecorator>();
+            container.RegisterDecorator<INbtLoader, NbtPlayerDecorator>();
+
 
             container.Register<IWorldLoaderModule, WorldLoaderModule>();
             container.Register<IImportRunModule, ImportModule>();

@@ -9,8 +9,7 @@ namespace TheFipster.Minecraft.HostedServices
     public class HelloWorldService : IHostedService, IDisposable
     {
         private readonly ILogger<HelloWorldService> _logger;
-
-        private Timer _timer;
+        private readonly Timer _timer;
 
         public HelloWorldService(ILogger<HelloWorldService> logger)
         {
