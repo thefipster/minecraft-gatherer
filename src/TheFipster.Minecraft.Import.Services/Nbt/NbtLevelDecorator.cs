@@ -24,6 +24,8 @@ namespace TheFipster.Minecraft.Import.Services
             var data = _component.Load(world);
 
             var levelPath = Path.Combine(_config.ServerLocation.FullName, world.Name, LevelNbtFilename);
+            if (!File.Exists(levelPath))
+                return data;
 
             var converter = new Process();
             converter.StartInfo.RedirectStandardOutput = true;
