@@ -4,4 +4,8 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Core.Domain\TheFipster.Minecraft.Core.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

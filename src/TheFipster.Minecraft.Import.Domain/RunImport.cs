@@ -17,6 +17,7 @@ namespace TheFipster.Minecraft.Import.Domain
             Problems = new List<Problem>();
             Events = new List<RunEvent>();
             PlayerIds = new List<string>();
+            PlayerNbts = new List<NbtPlayer>();
         }
         public RunImport(WorldInfo worldInfo) : this()
         {
@@ -37,5 +38,7 @@ namespace TheFipster.Minecraft.Import.Domain
         public ICollection<RunEvent> Events { get; set; }
         public ICollection<string> PlayerIds { get; set; }
         public NbtData NbtData { get; set; }
+        public NbtLevel LevelNbt { get; set; }
+        public ICollection<NbtPlayer> PlayerNbts { get; set; }
     }
 }

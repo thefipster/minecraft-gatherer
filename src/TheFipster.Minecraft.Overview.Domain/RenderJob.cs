@@ -1,4 +1,4 @@
-﻿using TheFipster.Minecraft.Import.Domain;
+﻿using TheFipster.Minecraft.Core.Domain;
 
 namespace TheFipster.Minecraft.Overview.Domain
 {
