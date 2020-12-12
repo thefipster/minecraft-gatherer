@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleInjector;
-using TheFipster.Minecraft.HostedServices;
 using TheFipster.Minecraft.Speedrun.Web.Dependencies;
 
 namespace TheFipster.Minecraft.Speedrun.Web
@@ -38,8 +37,6 @@ namespace TheFipster.Minecraft.Speedrun.Web
             _container.RegisterManuals();
             _container.RegisterMeta();
             _container.RegisterWeb();
-
-            services.AddHostedService<HelloWorldService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
