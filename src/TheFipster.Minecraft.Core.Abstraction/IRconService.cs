@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TheFipster.Minecraft.Core.Services
+namespace TheFipster.Minecraft.Core.Abstractions
 {
-    public class MojangService
+    public interface IRconService
     {
-
     }
 }
