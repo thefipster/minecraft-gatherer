@@ -79,6 +79,10 @@ a, a:visited {
     padding: 5px;
 }
 
+.player-head {
+    margin-bottom: 20px;
+}
+
 @media (min-width: 576px) {
     #Heatmap svg {
         transform-origin: top left;

@@ -7,6 +7,7 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
+    [Route("operations")]
     [Authorize]
     public class AdminController : Controller
     {
@@ -36,6 +37,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             _worldDeleter = worldDeleter;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var analytics = _analyticsStore.Get();
@@ -44,12 +46,14 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             return View(viewmodel);
         }
 
+        [HttpGet("reindex")]
         public IActionResult ReIndex()
         {
             _analyticsStore.Index();
             return RedirectToAction("Index");
         }
 
+        [HttpGet("reanalyze")]
         public IActionResult ReAnalyze()
         {
             var imports = _importStore.Get();

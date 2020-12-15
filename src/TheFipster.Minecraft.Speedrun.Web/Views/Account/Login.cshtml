@@ -4,10 +4,17 @@
 }
 
 
-<h2>Login</h2>
+<div class="jumbotron text-center">
+    @await Html.PartialAsync("_RandomMobImage")
+    <h1 class="display-4">Hello christian speedrunner!</h1>
+    <p class="lead text-muted">
+        Looks like you aren't logged in. To login just use your Mojang Account, if you are whitelisted on the server you are good to go.
+    </p>
+</div>
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col"></div>
+    <div class="col-md-auto">
         <form method="post" asp-controller="Account" asp-action="Login">
             <input type="hidden" asp-for="ReturnUrl" value="@ViewData["ReturnUrl"]" />
             <div class="form-group">
@@ -25,4 +32,5 @@
             </div>
         </form>
     </div>
+    <div class="col"></div>
 </div>  

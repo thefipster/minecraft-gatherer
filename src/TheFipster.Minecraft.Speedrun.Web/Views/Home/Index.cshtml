@@ -1,6 +1,7 @@
 ﻿@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home";
+    var playerId = Guid.Parse(Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value).ToString();
 }
 
 @section Scripts {
@@ -29,8 +30,8 @@
 }
 
 <div class="jumbotron text-center">
-    @await Html.PartialAsync("_RandomMobImage")
-    <h1 class="display-4">Hello christian speedrunner!</h1>
+    <img class="player-head" src="@($"https://cravatar.eu/avatar/{playerId}/150")" />
+    <h1 class="display-4">Hi @Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value</h1>
 </div>
 
 <div class="row">
