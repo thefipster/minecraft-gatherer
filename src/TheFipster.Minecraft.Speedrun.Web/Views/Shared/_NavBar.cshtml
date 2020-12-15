@@ -1,4 +1,8 @@
-﻿<nav class="navbar navbar-expand-md navbar-toggleable-md fixed-top navbar-dark border-bottom box-shadow mb-3">
+﻿@{
+    var playerId = Guid.Parse(Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value).ToString();
+}
+
+<nav class="navbar navbar-expand-md navbar-toggleable-md fixed-top navbar-dark border-bottom box-shadow mb-3">
     <div class="container">
         <a class="navbar-brand" asp-controller="Home" asp-action="Index">
             <img src="/speedrun/img/logo.png" width="30" height="30">
@@ -20,7 +24,7 @@
             <ul class="navbar-nav text-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        @await Html.PartialAsync("_PlayerAvatarSmall", Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value)
+                        <img src="@($"https://cravatar.eu/avatar/{playerId}/24.png")" />
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" asp-controller="Account" asp-action="IndexById" asp-route-id="@Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value">

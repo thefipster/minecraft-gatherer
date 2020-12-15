@@ -8,7 +8,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: "Stats/Heatmap"
+                url: "@Url.Action("Heatmap", "Stats")"
             }).then(function (data) {
                 $('#Heatmap').calendar_yearview_blocks({
                     data: JSON.stringify(data),
