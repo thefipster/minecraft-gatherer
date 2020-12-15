@@ -33,7 +33,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var runs = _runFinder
                 .GetStarted()
                 .OrderByDescending(x => x.Timings.StartedOn)
-                .Take(7);
+                .Take(8);
 
             viewmodel.LatestRuns = _listConverter.Convert(runs);
             viewmodel.RunCounts = _runCounter.Extend();

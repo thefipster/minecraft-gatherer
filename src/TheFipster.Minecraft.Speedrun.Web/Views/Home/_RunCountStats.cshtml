@@ -17,6 +17,15 @@
                 </span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span class="w-50">Actually started</span>
+                <span class="w-25 text-right">
+                    @Model.Started
+                </span>
+                <span class="w-25 text-right">
+                    <span class="badge badge-light">@Math.Round(100.0 * Model.Started / Model.Attempts, 1)%</span>
+                </span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="w-50">Reached the Nether</span>
                 <span class="w-25 text-right">
                     @Model.Nether

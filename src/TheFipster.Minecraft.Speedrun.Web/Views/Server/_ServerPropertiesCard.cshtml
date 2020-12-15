@@ -12,7 +12,11 @@
                 <span class="badge badge-primary">@Model.LevelName</span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <span>View Distance</span>
+                <span>Motd</span>
+                <span class="badge badge-primary">@Model.MessageOfTheDay</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Render Distance</span>
                 <span class="badge badge-primary">@Model.ViewDistance chunks</span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -28,28 +32,35 @@
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>Difficulty</span>
-                @switch (Model.Difficulty)
+                @if (Model.IsHardcore)
                 {
-                    case "peaceful":
-                        {
-                            <span class="badge badge-danger">@Model.Difficulty</span>
-                            break;
-                        }
-                    case "easy":
-                        {
-                            <span class="badge badge-success">@Model.Difficulty</span>
-                            break;
-                        }
-                    case "normal":
-                        {
-                            <span class="badge badge-primary">@Model.Difficulty</span>
-                            break;
-                        }
-                    case "hard":
-                        {
-                            <span class="badge badge-warning">@Model.Difficulty</span>
-                            break;
-                        }
+                    <span class="badge badge-danger">@Model.Difficulty</span>
+                }
+                else
+                {
+                    @switch (Model.Difficulty)
+                    {
+                        case "peaceful":
+                            {
+                                <span class="badge badge-info">@Model.Difficulty</span>
+                                break;
+                            }
+                        case "easy":
+                            {
+                                <span class="badge badge-success">@Model.Difficulty</span>
+                                break;
+                            }
+                        case "normal":
+                            {
+                                <span class="badge badge-primary">@Model.Difficulty</span>
+                                break;
+                            }
+                        case "hard":
+                            {
+                                <span class="badge badge-warning">@Model.Difficulty</span>
+                                break;
+                            }
+                    }
                 }
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -77,6 +88,17 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>Broadcast Console</span>
                 @if (Model.IsConsoleBroadcastEnabled)
+                {
+                    <span class="badge badge-primary">on</span>
+                }
+                else
+                {
+                    <span class="badge badge-danger">off</span>
+                }
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>Whitelist</span>
+                @if (Model.IsWhitelisted)
                 {
                     <span class="badge badge-primary">on</span>
                 }

@@ -24,6 +24,9 @@ namespace TheFipster.Minecraft.Extender.Services
                 if (analytic.Timings.PlayTime != TimeSpan.Zero)
                     runCount.Attempts++;
 
+                if (analytic.Players.Count() > 1)
+                    runCount.Started++;
+
                 if (analytic.Timings.Events.Any(x => x.Section == RunSections.Spawn))
                     runCount.Nether++;
 

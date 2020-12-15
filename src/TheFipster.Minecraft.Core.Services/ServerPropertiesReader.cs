@@ -42,6 +42,8 @@ namespace TheFipster.Minecraft.Core.Services
                 GameMode = getString(lines, "gamemode"),
                 IsConsoleBroadcastEnabled = getBool(lines, "broadcast-console-to-ops"),
                 IsHardcore = getBool(lines, "hardcore"),
+                IsPvp = getBool(lines, "pvp"),
+                IsWhitelisted = getBool(lines, "white-list"),
                 IsOnlineMode = getBool(lines, "online-mode"),
                 IsSpawnNpcEnabled = getBool(lines, "spawn-npcs"),
                 IsSpawnAnimalsEnabled = getBool(lines, "spawn-animals"),

@@ -9,5 +9,6 @@
         public int Nether { get; set; }
         public int Fortresses { get; set; }
         public int Attempts { get; set; }
+        public int Started { get; set; }
     }
 }
