@@ -12,54 +12,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-toggleable-md fixed-top navbar-dark border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">
-                    <img src="/speedrun/img/logo.png" width="30" height="30">
-                    Christian Speedrunning
-                </a>
-                @if (Context.User.Identity.IsAuthenticated)
-                {
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="navbar-collapse collapse">
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Runs" asp-action="Index">Runs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Operations</a>
-                            </li>
-                        </ul>
-                        <ul class="navbar-nav text-right">
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @await Html.PartialAsync("_PlayerAvatarSmall", Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value)
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" asp-controller="Account" asp-action="IndexById" asp-route-id="@Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value">
-                                        @Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value
-                                    </a>
-                                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    @($"v {System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Minor}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Build}")
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="https://github.com/thefipster/minecraft-gatherer/releases" target="_blank">See what's new</a>
-                                    <a class="dropdown-item" href="https://github.com/thefipster/minecraft-gatherer/issues/new" target="_blank">File an issue</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                }
-            </div>
-        </nav>
+        @await Html.PartialAsync("_NavBar");
     </header>
     <div class="container app">
         <main role="main" class="pb-3">

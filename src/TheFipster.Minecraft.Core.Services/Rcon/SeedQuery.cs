@@ -9,8 +9,6 @@ namespace TheFipster.Minecraft.Core.Services.Rcon
 
         private readonly IRconService _rconService;
 
-        public SeedQuery() { }
-
         public SeedQuery(IRconService rconService)
             => _rconService = rconService;
 

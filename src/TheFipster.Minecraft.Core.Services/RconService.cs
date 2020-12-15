@@ -70,7 +70,7 @@ namespace TheFipster.Minecraft.Core.Services
         private void setupRcon()
         {
             var ips = Dns.GetHostAddresses(_config.Hostname);
-            var ip = ips.FirstOrDefault();
+            var ip = ips.FirstOrDefault(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
 
             if (ip == null)
                 throw new Exception("Couldn't resolve rcon hostname to ip.");
@@ -104,7 +104,7 @@ namespace TheFipster.Minecraft.Core.Services
 
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }
