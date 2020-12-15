@@ -94,6 +94,11 @@ a, a:visited {
 }
 
 @media (min-width: 992px) {
+    #Heatmap {
+        height: 140px;
+    }
+
+    
     #Heatmap svg {
         transform-origin: top left;
         transform: scale(1.2);
@@ -101,6 +106,10 @@ a, a:visited {
 }
 
 @media (min-width: 1200px) {
+    #Heatmap{
+        height: 180px;
+    }
+
     #Heatmap svg {
         transform-origin: top left;
         transform: scale(1.5);

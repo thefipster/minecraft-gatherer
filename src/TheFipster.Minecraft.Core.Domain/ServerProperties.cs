@@ -1,8 +1,6 @@
-﻿using TheFipster.Minecraft.Core.Abstractions;
-
-namespace TheFipster.Minecraft.Core.Domain
+﻿namespace TheFipster.Minecraft.Core.Domain
 {
-    public class ServerProperties : IServerProperties
+    public class ServerProperties
     {
         public long? LevelSeed { get; set; }
         public string GameMode { get; set; }

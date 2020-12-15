@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Modules.Abstractions;
@@ -6,6 +7,7 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IImportStore _importStore;

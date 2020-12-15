@@ -13,6 +13,26 @@
     <div class="col-sm-6">
         <div class="card">
             <div class="card-body">
+                <h5 class="card-title">Synchronize</h5>
+                <p class="card-text">Imports all world folders on the server that aren't imported yet. Currently loaded world will not be touched!</p>
+                <a asp-controller="Import" asp-action="Index" class="btn btn-primary">Synchronize Worlds</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Server</h5>
+                <p class="card-text">Check the properties of the server</p>
+                <a asp-controller="Server" asp-action="Index" class="btn btn-primary">See Server Properties</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
                 <h5 class="card-title">Re-Index</h5>
                 <p class="card-text">Iterates through every run in the database and checks if the run index is correct. If not it gets corrected.</p>
                 <a asp-controller="Admin" asp-action="ReIndex" class="btn btn-primary">Calculate Indexes</a>

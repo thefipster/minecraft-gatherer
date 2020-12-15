@@ -1,6 +1,4 @@
-﻿using TheFipster.Minecraft.Core.Abstractions;
-
-namespace TheFipster.Minecraft.Core.Domain
+﻿namespace TheFipster.Minecraft.Core.Domain
 {
     public class Player : IPlayer
     {

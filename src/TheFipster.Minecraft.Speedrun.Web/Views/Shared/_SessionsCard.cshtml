@@ -1,9 +1,4 @@
-﻿
-@{
-    ViewData["Title"] = "Stats";
-}
-
-@section Scripts {
+﻿@section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
@@ -28,17 +23,11 @@
     </script>
 }
 
-<div class="row">
-    <div class="col">
-        <h1>Statistics</h1>
+<div class="card border-secondary">
+    <div class="card-header">
+        <h2>Sessions</h2>
     </div>
-</div>
-
-
-<div class="row">
-    <div class="col">
-        <h2>Attempts</h2>
+    <div class="card-body">
         <div id="Heatmap"></div>
     </div>
 </div>
-

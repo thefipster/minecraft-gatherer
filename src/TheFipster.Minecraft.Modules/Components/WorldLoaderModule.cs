@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Core.Domain.Exceptions;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
@@ -16,7 +17,7 @@ namespace TheFipster.Minecraft.Modules
         private readonly IWorldSearcher _worldFinder;
         private readonly IWorldLoader _worldLoader;
         private readonly IImportStore _runImportStore;
-        private readonly IServerProperties _serverProperties;
+        private readonly ServerProperties _serverProperties;
         private readonly ILogger<WorldLoaderModule> _logger;
 
         public WorldLoaderModule(

@@ -3,11 +3,13 @@ using TheFipster.Minecraft.Core.Abstractions;
 
 namespace TheFipster.Minecraft.Core.Services.Rcon
 {
-    public class SeedQuery
+    public class SeedQuery : ISeedQuery
     {
         private const string SeedCommand = "seed";
 
         private readonly IRconService _rconService;
+
+        public SeedQuery() { }
 
         public SeedQuery(IRconService rconService)
             => _rconService = rconService;

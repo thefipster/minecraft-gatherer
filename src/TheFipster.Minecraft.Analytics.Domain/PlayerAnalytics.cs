@@ -1,4 +1,4 @@
-﻿using TheFipster.Minecraft.Core.Abstractions;
+﻿using TheFipster.Minecraft.Core.Domain;
 
 namespace TheFipster.Minecraft.Analytics.Domain
 {

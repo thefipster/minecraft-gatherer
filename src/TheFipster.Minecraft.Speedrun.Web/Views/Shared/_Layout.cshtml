@@ -28,19 +28,28 @@
                             <a class="nav-link" asp-controller="Runs" asp-action="Index">Runs</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Stats" asp-action="Index">Stats</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" asp-controller="Admin" asp-action="Index">Operations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Server" asp-action="Index">Server</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Import" asp-action="Index">Sync</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav text-right">
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @await Html.PartialAsync("_PlayerAvatarSmall", Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value)
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item">@Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value</a>
+                                    <a class="dropdown-item" asp-controller="Account" asp-action="Logout">Logout</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @($"v {System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Major}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Minor}.{System.Reflection.Assembly.GetEntryAssembly().GetName().Version.Build}")

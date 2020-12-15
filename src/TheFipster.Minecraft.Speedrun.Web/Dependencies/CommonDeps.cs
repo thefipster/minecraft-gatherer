@@ -10,6 +10,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
         {
             container.Register<IConfigService, ConfigService>(Lifestyle.Singleton);
             container.Register<IPlayerStore, PlayerConfigStore>(Lifestyle.Singleton);
+            container.Register<IMojangService, MojangService>(Lifestyle.Singleton);
+            container.Register<IAuthService, AuthService>(Lifestyle.Singleton);
+
         }
     }
 }

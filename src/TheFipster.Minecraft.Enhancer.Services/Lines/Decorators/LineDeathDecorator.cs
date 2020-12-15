@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Enhancer.Abstractions;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;
@@ -10,7 +11,7 @@ namespace TheFipster.Minecraft.Enhancer.Services.Lines.Decorators
     public class LineDeathDecorator : ILogLineEventConverter
     {
         private readonly ILogLineEventConverter _component;
-        private IEnumerable<IPlayer> _players;
+        private readonly IEnumerable<IPlayer> _players;
 
         public LineDeathDecorator(ILogLineEventConverter component, IPlayerStore playerStore)
         {
