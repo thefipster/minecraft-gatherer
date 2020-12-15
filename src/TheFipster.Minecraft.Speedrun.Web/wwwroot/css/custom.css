@@ -79,6 +79,10 @@ a, a:visited {
     padding: 5px;
 }
 
+.player-head {
+    margin-bottom: 20px;
+}
+
 @media (min-width: 576px) {
     #Heatmap svg {
         transform-origin: top left;
@@ -94,6 +98,11 @@ a, a:visited {
 }
 
 @media (min-width: 992px) {
+    #Heatmap {
+        height: 140px;
+    }
+
+    
     #Heatmap svg {
         transform-origin: top left;
         transform: scale(1.2);
@@ -101,6 +110,10 @@ a, a:visited {
 }
 
 @media (min-width: 1200px) {
+    #Heatmap{
+        height: 180px;
+    }
+
     #Heatmap svg {
         transform-origin: top left;
         transform: scale(1.5);

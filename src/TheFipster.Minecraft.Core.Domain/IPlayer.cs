@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Minecraft.Core.Abstractions
+﻿namespace TheFipster.Minecraft.Core.Domain
 {
     public interface IPlayer
     {

@@ -10,9 +10,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         public StatsController(IAttemptHeatmapExtender attemptHeatmapExtender)
             => _attemptHeatmapExtender = attemptHeatmapExtender;
 
-        public IActionResult Index()
-            => View();
-
         public JsonResult Heatmap()
         {
             var heatmap = _attemptHeatmapExtender.Extend();

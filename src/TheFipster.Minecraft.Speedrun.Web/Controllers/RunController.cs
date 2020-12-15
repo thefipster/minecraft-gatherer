@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using TheFipster.Minecraft.Extender.Abstractions;
 using TheFipster.Minecraft.Manual.Abstractions;
@@ -8,6 +9,7 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
+    [Authorize]
     public class RunController : Controller
     {
         private readonly IRunFinder _runFinder;

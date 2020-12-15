@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TheFipster.Minecraft.Core.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
+    [Authorize]
     public class ServerController : Controller
     {
         private readonly IServerPropertiesReader _serverPropertiesReader;

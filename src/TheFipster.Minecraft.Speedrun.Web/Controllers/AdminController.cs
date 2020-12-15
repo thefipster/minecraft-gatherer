@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Modules.Abstractions;
@@ -6,6 +7,8 @@ using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
+    [Route("operations")]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly IImportStore _importStore;
@@ -34,6 +37,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             _worldDeleter = worldDeleter;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             var analytics = _analyticsStore.Get();
@@ -42,12 +46,14 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             return View(viewmodel);
         }
 
+        [HttpGet("reindex")]
         public IActionResult ReIndex()
         {
             _analyticsStore.Index();
             return RedirectToAction("Index");
         }
 
+        [HttpGet("reanalyze")]
         public IActionResult ReAnalyze()
         {
             var imports = _importStore.Get();

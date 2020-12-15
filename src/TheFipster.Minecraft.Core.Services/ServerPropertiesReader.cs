@@ -16,7 +16,7 @@ namespace TheFipster.Minecraft.Core.Services
         public ServerPropertiesReader(IConfigService config)
             => _config = config;
 
-        public IServerProperties Read()
+        public ServerProperties Read()
         {
             var file = find();
             var properties = parse(file);
@@ -33,7 +33,7 @@ namespace TheFipster.Minecraft.Core.Services
                 $"File {ServerPropertiesFilename} was not found in {_config.ServerLocation.FullName}");
         }
 
-        private IServerProperties parse(FileInfo file)
+        private ServerProperties parse(FileInfo file)
         {
             var lines = File.ReadAllLines(file.FullName);
             return new ServerProperties

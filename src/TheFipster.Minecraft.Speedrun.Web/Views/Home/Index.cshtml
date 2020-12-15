@@ -1,11 +1,37 @@
 ﻿@model HomeIndexViewModel
 @{
     ViewData["Title"] = "Home";
+    var playerId = Guid.Parse(Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value).ToString();
+}
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "Stats/Heatmap"
+            }).then(function (data) {
+                $('#Heatmap').calendar_yearview_blocks({
+                    data: JSON.stringify(data),
+                    colors: {
+                        'default': '#424949',
+                        'at least 50': '#A93226',
+                        'at least 30': '#E67E22',
+                        'at least 20': '#F1C40F',
+                        'at least 10': '#2ECC71',
+                        'at least 5': '#3498DB',
+                        'at least 1': '#566573',
+                    },
+                    stylize_today: true,
+                    always_show_tooltip: true
+                });
+            });
+        });
+    </script>
 }
 
 <div class="jumbotron text-center">
-    @await Html.PartialAsync("_RandomMobImage")
-    <h1 class="display-4">Hello christian speedrunner!</h1>
+    <img class="player-head" src="@($"https://cravatar.eu/avatar/{playerId}/150")" />
+    <h1 class="display-4">Hi @Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value</h1>
 </div>
 
 <div class="row">
@@ -36,5 +62,11 @@
 
     <div class="col-sm-12 col-md-6">
         @await Html.PartialAsync("_RunCountStats", Model.RunCounts)
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        @await Html.PartialAsync("_SessionsCard")
     </div>
 </div>

@@ -1,0 +1,21 @@
+﻿@model AccountIndexViewModel
+@{
+    ViewData["Title"] = Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value;
+    var playerId = Guid.Parse(Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value).ToString();
+}
+
+<div class="jumbotron text-center">
+    <img class="player-head" src="@($"https://cravatar.eu/avatar/{playerId}/150")" />
+    <h1 class="display-4">Hi @Context.User.Claims.First(x => x.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value</h1>
+</div>
+
+<div class="row">
+    <div class="col">
+        <p>cool that you are here... ehm.... honestly I wasn't quite ready for this... so I have not much to show... other than you have so far attempted @Model.Attemps runs.</p>
+    </div>
+</div>
+
+
+
+
+

@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TheFipster.Minecraft.Modules;
 using TheFipster.Minecraft.Speedrun.Web.Models;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
+    [Authorize]
     public class ImportController : Controller
     {
         private readonly ISyncModule _syncModule;
