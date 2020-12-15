@@ -1,7 +1,7 @@
 ﻿@using TheFipster.Minecraft.Core.Domain
 @model RunDetailViewModel
 @{
-    var playerParam = (Player)ViewData["Player"];
+    var playerParam = (IPlayer)ViewData["Player"];
     var player = Model.Analytics.Players.First(x => x.Id == playerParam.Id);
 }
 

@@ -15,11 +15,11 @@ namespace TheFipster.Minecraft.Core.Services
     {
         public const string RconConfigSection = "Rcon";
 
-        private readonly ILogger<RconService> _logger;
+        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
         private RconConfig _config;
         private RCON _rcon;
 
-        static SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+        private readonly ILogger<RconService> _logger;
 
         public RconService(IConfiguration config, ILogger<RconService> logger)
         {
@@ -106,6 +106,7 @@ namespace TheFipster.Minecraft.Core.Services
             }
             catch (Exception ex)
             {
+                _logger.LogWarning(ex, "RCON connection failed.");
                 return false;
             }
         }
