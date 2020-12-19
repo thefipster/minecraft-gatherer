@@ -5,6 +5,7 @@ using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Services;
 using TheFipster.Minecraft.Import.Services.World;
 using TheFipster.Minecraft.Modules;
+using TheFipster.Minecraft.Modules.Decorators;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
@@ -38,7 +39,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 
 
             container.Register<IWorldLoaderModule, WorldLoaderModule>();
-            container.Register<IImportRunModule, ImportModule>();
+            container.Register<IImportModule, ImportModule>();
+            container.RegisterDecorator<IImportModule, ImportArchiveDecorator>();
             container.Register<ISyncModule, SyncModule>();
         }
     }

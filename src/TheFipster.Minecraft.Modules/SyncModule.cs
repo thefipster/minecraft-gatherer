@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Modules.Abstractions;
@@ -10,7 +11,7 @@ namespace TheFipster.Minecraft.Modules
     public class SyncModule : ISyncModule
     {
         private readonly IWorldLoaderModule _loader;
-        private readonly IImportRunModule _importer;
+        private readonly IImportModule _importer;
         private readonly IEnhanceModule _enhancer;
         private readonly IImportStore _importStore;
         private readonly IAnalyticsModule _analytics;
@@ -18,7 +19,7 @@ namespace TheFipster.Minecraft.Modules
 
         public SyncModule(
             IWorldLoaderModule worldLoaderModule,
-            IImportRunModule importModule,
+            IImportModule importModule,
             IEnhanceModule enhanceModule,
             IImportStore runImportStore,
             IAnalyticsModule analyticsModule,
@@ -47,6 +48,11 @@ namespace TheFipster.Minecraft.Modules
             _analyticsStore.Index();
 
             return sync;
+        }
+
+        private void archiveWorld(WorldInfo world)
+        {
+            
         }
 
         private RunImport importWorld(WorldInfo world)

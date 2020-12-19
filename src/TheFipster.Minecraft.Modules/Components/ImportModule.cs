@@ -4,7 +4,7 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Modules
 {
-    public class ImportModule : IImportRunModule
+    public class ImportModule : IImportModule
     {
         private readonly ILogLoader _logLoader;
         private readonly IDimensionLoader _dimensionLoader;
@@ -12,6 +12,7 @@ namespace TheFipster.Minecraft.Modules
         private readonly IStatsLoader _statsLoader;
         private readonly INbtEndScreenLoader _playerNbtLoader;
         private readonly INbtLoader _nbtLoader;
+        private readonly IWorldArchivist _archivist;
         private readonly ILogger<ImportModule> _logger;
 
         public ImportModule(
@@ -21,6 +22,7 @@ namespace TheFipster.Minecraft.Modules
             IStatsLoader statsLoader,
             INbtEndScreenLoader playerNbtLoader,
             INbtLoader nbtLoader,
+            IWorldArchivist archivist,
             ILogger<ImportModule> logger)
         {
             _logLoader = logLoader;

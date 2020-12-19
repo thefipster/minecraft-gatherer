@@ -11,8 +11,9 @@ namespace TheFipster.Minecraft.Import.Services.World
     {
         private const string ArchiveFoldername = "archive";
 
-        private readonly DirectoryInfo serverFolder;
-        private readonly DirectoryInfo archiveFolder;
+        private readonly DirectoryInfo _serverFolder;
+        private readonly DirectoryInfo _tempFolder;
+        private readonly DirectoryInfo _archiveFolder;
 
         private readonly IWorldDeleter _deleter;
 
@@ -20,22 +21,23 @@ namespace TheFipster.Minecraft.Import.Services.World
         {
             _deleter = deleter;
 
-            serverFolder = config.ServerLocation;
+            _serverFolder = config.ServerLocation;
+            _tempFolder = config.TempLocation;
 
             var archivePath = Path.Combine(config.DataLocation.FullName, ArchiveFoldername);
-            archiveFolder = new DirectoryInfo(archivePath);
-            if (!archiveFolder.Exists)
-                archiveFolder.Create();
+            _archiveFolder = new DirectoryInfo(archivePath);
+            if (!_archiveFolder.Exists)
+                _archiveFolder.Create();
         }
 
         public FileInfo Compress(string worldname)
         {
-            var worldPath = Path.Combine(serverFolder.FullName, worldname);
+            var worldPath = Path.Combine(_serverFolder.FullName, worldname);
 
             if (!Directory.Exists(worldPath))
                 throw new WorldNotExistsException(worldname, worldPath);
 
-            var archivePath = Path.Combine(archiveFolder.FullName, $"{worldname}.zip");
+            var archivePath = Path.Combine(_archiveFolder.FullName, $"{worldname}.zip");
             if (File.Exists(archivePath))
                 File.Delete(archivePath);
 
@@ -48,11 +50,11 @@ namespace TheFipster.Minecraft.Import.Services.World
 
         public DirectoryInfo Decompress(string worldname)
         {
-            var archivePath = Path.Combine(archiveFolder.FullName, $"{worldname}.zip");
+            var archivePath = Path.Combine(_archiveFolder.FullName, $"{worldname}.zip");
             if (!File.Exists(archivePath))
                 throw new WorldNotExistsException(worldname, archivePath);
 
-            var worldPath = Path.Combine(serverFolder.FullName, worldname);
+            var worldPath = Path.Combine(_tempFolder.FullName, ArchiveFoldername, worldname);
             _deleter.Delete(worldname);
 
             ZipFile.ExtractToDirectory(archivePath, worldPath);
@@ -60,6 +62,11 @@ namespace TheFipster.Minecraft.Import.Services.World
                 throw new Exception("Decompression faild.");
 
             return new DirectoryInfo(worldPath);
+        }
+
+        public void Delete(string worldname)
+        {
+
         }
     }
 }

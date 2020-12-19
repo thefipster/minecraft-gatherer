@@ -2,7 +2,7 @@
 
 namespace TheFipster.Minecraft.Modules
 {
-    public interface IImportRunModule
+    public interface IImportModule
     {
         RunImport Import(WorldInfo world);
     }
