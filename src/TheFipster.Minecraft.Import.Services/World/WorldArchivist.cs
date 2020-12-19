@@ -63,10 +63,5 @@ namespace TheFipster.Minecraft.Import.Services.World
 
             return new DirectoryInfo(worldPath);
         }
-
-        public void Delete(string worldname)
-        {
-
-        }
     }
 }

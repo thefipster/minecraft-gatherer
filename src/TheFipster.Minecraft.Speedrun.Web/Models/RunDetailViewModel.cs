@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Extender.Domain;
@@ -15,6 +16,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
             Import = run.Import;
             Analytics = run.Analytics;
             Manuals = run.Manuals;
+            Locations = run.Locations.Keys.ToList();
         }
 
         public IEnumerable<FirstEvent> FirstAdvancement { get; internal set; }
@@ -23,5 +25,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
         public RunImport Import { get; internal set; }
         public RunAnalytics Analytics { get; internal set; }
         public RunManuals Manuals { get; internal set; }
+        public IEnumerable<Locations> Locations { get; }
     }
 }

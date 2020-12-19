@@ -3,5 +3,7 @@
     public interface IWorldDeleter
     {
         void Delete(string worldname);
+
+        void Rename(string worldname);
     }
 }

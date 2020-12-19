@@ -7,11 +7,13 @@ namespace TheFipster.Minecraft.Modules.Decorators
     {
         private readonly IImportModule _component;
         private readonly IWorldArchivist _worldArchivist;
+        private readonly IWorldDeleter _deleter;
 
-        public ImportArchiveDecorator(IImportModule component, IWorldArchivist worldArchivist)
+        public ImportArchiveDecorator(IImportModule component, IWorldArchivist archivist, IWorldDeleter deleter)
         {
             _component = component;
-            _worldArchivist = worldArchivist;
+            _worldArchivist = archivist;
+            _deleter = deleter;
         }
 
         public RunImport Import(WorldInfo world)
@@ -19,6 +21,7 @@ namespace TheFipster.Minecraft.Modules.Decorators
             var import = _component.Import(world);
 
             _worldArchivist.Compress(world.Name);
+            _deleter.Rename(world.Name);
 
             return import;
         }

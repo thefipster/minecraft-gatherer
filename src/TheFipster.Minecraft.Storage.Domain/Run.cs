@@ -1,4 +1,6 @@
-﻿using TheFipster.Minecraft.Analytics.Domain;
+﻿using System.Collections.Generic;
+using System.IO;
+using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Manual.Domain;
 
@@ -9,5 +11,7 @@ namespace TheFipster.Minecraft.Storage.Domain
         public RunImport Import { get; set; }
         public RunAnalytics Analytics { get; set; }
         public RunManuals Manuals { get; set; }
+
+        public Dictionary<Locations, FileSystemInfo> Locations { get; set; }
     }
 }
