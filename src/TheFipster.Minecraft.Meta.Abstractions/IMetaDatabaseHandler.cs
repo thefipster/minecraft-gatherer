@@ -1,8 +1,8 @@
 ﻿using LiteDB;
 
-namespace TheFipster.Minecraft.Storage.Abstractions
+namespace TheFipster.Minecraft.Meta.Abstractions
 {
-    public interface ISyncDatabaseHandler
+    public interface IMetaDatabaseHandler
     {
         ILiteCollection<T> GetCollection<T>();
         ILiteCollection<T> GetCollection<T>(string name);

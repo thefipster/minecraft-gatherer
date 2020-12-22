@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Core.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Meta.Abstractions\TheFipster.Minecraft.Meta.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Meta.Domain\TheFipster.Minecraft.Meta.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Storage.Abstractions\TheFipster.Minecraft.Storage.Abstractions.csproj" />

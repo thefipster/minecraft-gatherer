@@ -2,15 +2,14 @@
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Meta.Abstractions;
 using TheFipster.Minecraft.Meta.Domain;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Meta.Services
 {
     public class OutcomeWriter : IOutcomeWriter
     {
-        private ILiteCollection<RunMeta<Outcomes>> _collection;
+        private readonly ILiteCollection<RunMeta<Outcomes>> _collection;
 
-        public OutcomeWriter(ISyncDatabaseHandler databaseHandler)
+        public OutcomeWriter(IMetaDatabaseHandler databaseHandler)
             => _collection = databaseHandler.GetCollection<RunMeta<Outcomes>>("MetaOutcomes");
 
         public void Insert(RunMeta<Outcomes> meta)

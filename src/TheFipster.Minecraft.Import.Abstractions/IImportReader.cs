@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using TheFipster.Minecraft.Import.Domain;
 
-namespace TheFipster.Minecraft.Storage.Abstractions
+namespace TheFipster.Minecraft.Import.Abstractions
 {
-    public interface IImportStore
+    public interface IImportReader
     {
-        void Insert(RunImport import);
-        void Update(RunImport import);
-        void Upsert(RunImport import);
         bool Exists(string name);
+
         int Count();
+
         IEnumerable<RunImport> Get();
+
         RunImport Get(string name);
     }
 }

@@ -11,6 +11,12 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
     {
         public static void RegisterAnalytics(this Container container)
         {
+            container.Register<IAnalyticsDatabaseHandler, LiteAnalyticsDatabaseHandler>(Lifestyle.Singleton);
+
+            container.Register<IAnalyticsReader, AnalyticsReader>(Lifestyle.Scoped);
+            container.Register<IAnalyticsWriter, AnalyticsWriter>(Lifestyle.Scoped);
+            container.Register<IRunIndexer, RunIndexer>(Lifestyle.Scoped);
+
             container.Register<ITimingAnalyzer, TimingAnalyser>();
             container.RegisterDecorator<ITimingAnalyzer, TimingStartDecorator>();
             container.RegisterDecorator<ITimingAnalyzer, TimingFinishDecorator>();

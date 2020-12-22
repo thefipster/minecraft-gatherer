@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Linq;
+using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Extender.Abstractions;
 using TheFipster.Minecraft.Extender.Domain;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Extender.Services
 {
     public class RunCounterExtender : IRunCounterExtender
     {
-        private readonly IAnalyticsStore _analyticsStore;
+        private readonly IAnalyticsReader _analyticsReader;
 
-        public RunCounterExtender(IAnalyticsStore analyticsStore)
-            => _analyticsStore = analyticsStore;
+        public RunCounterExtender(IAnalyticsReader analyticsReader)
+            => _analyticsReader = analyticsReader;
 
         public RunCounts Extend()
         {
-            var analytics = _analyticsStore.Get();
+            var analytics = _analyticsReader.Get();
             var runCount = new RunCounts();
 
             foreach (var analytic in analytics)
             {
+                if (analytic.Outcome == Outcomes.Unknown
+                    || analytic.Outcome == Outcomes.Untouched)
+                    continue;
+
                 if (analytic.Timings.PlayTime != TimeSpan.Zero)
                     runCount.Attempts++;
 

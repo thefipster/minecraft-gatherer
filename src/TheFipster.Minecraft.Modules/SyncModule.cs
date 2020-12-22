@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Modules.Abstractions;
 using TheFipster.Minecraft.Modules.Models;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Modules
 {
@@ -13,24 +13,27 @@ namespace TheFipster.Minecraft.Modules
         private readonly IWorldLoaderModule _loader;
         private readonly IImportModule _importer;
         private readonly IEnhanceModule _enhancer;
-        private readonly IImportStore _importStore;
+        private readonly IImportWriter _importWriter;
         private readonly IAnalyticsModule _analytics;
-        private readonly IAnalyticsStore _analyticsStore;
+        private readonly IAnalyticsWriter _analyticsWriter;
+        private readonly IRunIndexer _runIndexer;
 
         public SyncModule(
             IWorldLoaderModule worldLoaderModule,
             IImportModule importModule,
             IEnhanceModule enhanceModule,
-            IImportStore runImportStore,
+            IImportWriter importWriter,
             IAnalyticsModule analyticsModule,
-            IAnalyticsStore runAnalyticsStore)
+            IAnalyticsWriter analyticsWriter,
+            IRunIndexer runIndexer)
         {
             _loader = worldLoaderModule;
             _importer = importModule;
             _enhancer = enhanceModule;
             _analytics = analyticsModule;
-            _importStore = runImportStore;
-            _analyticsStore = runAnalyticsStore;
+            _importWriter = importWriter;
+            _analyticsWriter = analyticsWriter;
+            _runIndexer = runIndexer;
         }
 
         public IEnumerable<WorldSync> Synchronize(bool withForce = false)
@@ -45,28 +48,23 @@ namespace TheFipster.Minecraft.Modules
                 sync.Add(new WorldSync(import, analytics));
             }
 
-            _analyticsStore.Index();
+            _runIndexer.Index();
 
             return sync;
-        }
-
-        private void archiveWorld(WorldInfo world)
-        {
-            
         }
 
         private RunImport importWorld(WorldInfo world)
         {
             var import = _importer.Import(world);
             import = _enhancer.Enhance(import);
-            _importStore.Upsert(import);
+            _importWriter.Upsert(import);
             return import;
         }
 
         private RunAnalytics analyzeRun(RunImport import)
         {
             var analytics = _analytics.Analyze(import);
-            _analyticsStore.Upsert(analytics);
+            _analyticsWriter.Upsert(analytics);
             return analytics;
         }
     }
