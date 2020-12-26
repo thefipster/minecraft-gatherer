@@ -4,6 +4,6 @@ namespace TheFipster.Minecraft.Overview.Abstractions
 {
     public interface IMapRenderer
     {
-        RenderResult Render(string worldname);
+        RenderResult Render(string worldname, string worldFolder, string outputFolder);
     }
 }

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using TheFipster.Minecraft.Core.Abstractions;
-using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Overview.Abstractions;
 using TheFipster.Minecraft.Overview.Domain;
 
@@ -16,29 +14,24 @@ namespace TheFipster.Minecraft.Overview.Services
 
         private readonly string _pythonExecutable;
         private readonly string _overviewerFile;
-        private readonly string _renderPath;
         private readonly string _tempPath;
 
-        private readonly IWorldFinder _finder;
 
-        public OverviewerRenderer(IConfigService config, IWorldFinder worldFinder)
+        public OverviewerRenderer(IConfigService config)
         {
             _pythonExecutable = config.PythonLocation.FullName;
             _overviewerFile = config.OverviewerLocation.FullName;
-            _renderPath = Path.Combine(config.DataLocation.FullName, OverviewerFolder);
             _tempPath = Path.Combine(config.TempLocation.FullName, OverviewerFolder);
-
-            _finder = worldFinder;
         }
 
-        public RenderResult Render(string worldname)
+        public RenderResult Render(string worldname, string worldFolder, string outputFolder)
         {
             var result = new RenderResult(worldname);
 
             try
             {
                 result.StartedOn = DateTime.UtcNow;
-                var configFilepath = createRenderConfig(worldname);
+                var configFilepath = createRenderConfig(worldname, worldFolder, outputFolder);
                 var stdout = runOverviewer(configFilepath);
                 result.EndedOn = DateTime.UtcNow;
 
@@ -55,16 +48,9 @@ namespace TheFipster.Minecraft.Overview.Services
             return result;
         }
 
-        private string createRenderConfig(string worldname)
+        private string createRenderConfig(string worldname, string input, string output)
         {
             var template = readTemplate();
-
-            var location = _finder.Locate(worldname).OfType<DirectoryInfo>().FirstOrDefault();
-            if (location == null)
-                throw new Exception("World couldn't be located for map rendering.");
-
-            var input = location.FullName;
-            var output = Path.Combine(_renderPath, worldname);
 
             var config = string.Format(template, input, output);
             var configPath = Path.Combine(_tempPath, $"{worldname}.ovc");
