@@ -65,14 +65,15 @@ namespace TheFipster.Minecraft.Speedrun.Web.Services
 
         private void execute()
         {
-            var job = _queue.Peak();
+            var job = _queue.Dequeue();
             if (job == null)
                 return;
 
             _logger.LogInformation($"Rendering map for world {job.Worldname}");
+            _queue.Active = job;
             var renderer = _container.GetInstance<IMapRenderModule>();
             renderer.Render(job);
-            _queue.Remove(job.Worldname);
+            _queue.Active = null;
             _logger.LogInformation($"Completed map for world {job.Worldname}");
         }
 

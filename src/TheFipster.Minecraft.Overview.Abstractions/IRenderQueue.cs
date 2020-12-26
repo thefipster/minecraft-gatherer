@@ -7,7 +7,7 @@ namespace TheFipster.Minecraft.Overview.Abstractions
     {
         void Enqueue(RenderJob job);
         IEnumerable<RenderJob> PeakAll();
-        RenderJob Peak();
-        void Remove(string worldname);
+        RenderJob Dequeue();
+        RenderJob Active { get; set; }
     }
 }

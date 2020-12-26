@@ -7,13 +7,15 @@ namespace TheFipster.Minecraft.Overview.Services
 {
     public class RenderQueue : IRenderQueue
     {
-        private ICollection<RenderJob> _jobs;
+        private readonly ICollection<RenderJob> _jobs;
 
         public RenderQueue()
             => _jobs = new List<RenderJob>();
 
         public IEnumerable<RenderJob> PeakAll()
             => _jobs.ToList();
+
+        public RenderJob Active { get; set; }
 
         public void Enqueue(RenderJob job)
         {
@@ -35,21 +37,15 @@ namespace TheFipster.Minecraft.Overview.Services
             }
         }
 
-        public void Remove(string worldname)
+        public RenderJob Dequeue()
         {
             lock (_jobs)
             {
-                var job = _jobs.FirstOrDefault(x => x.Worldname == worldname);
+                var job = _jobs.OrderByDescending(x => x.Priority).FirstOrDefault();
                 if (job != null)
                     _jobs.Remove(job);
-            }
-        }
 
-        public RenderJob Peak()
-        {
-            lock (_jobs)
-            {
-                return _jobs.OrderByDescending(x => x.Priority).FirstOrDefault();
+                return job;
             }
         }
     }

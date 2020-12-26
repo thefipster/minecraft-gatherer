@@ -54,8 +54,18 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Run Actions</h5>
-                <p class="card-text">Perform actions on any individual run as pleased. This includes manual input, map generation, reanalyze and so on...<p>
-                    <a asp-controller="Admin" asp-action="Runs" class="btn btn-primary">Let me fiddle with the runs</a>
+                <p class="card-text">Perform actions on any individual run as pleased. This currently includes manual input and map generation.<p>
+                    <a asp-controller="Admin" asp-action="Runs" class="btn btn-primary">Show the runs</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Render Jobs</h5>
+                <p class="card-text">See whats currently rendering, what will be rendered and everything that was already rendered.<p>
+                    <a asp-controller="Admin" asp-action="RenderJobs" class="btn btn-primary">Whats going on</a>
             </div>
         </div>
     </div>

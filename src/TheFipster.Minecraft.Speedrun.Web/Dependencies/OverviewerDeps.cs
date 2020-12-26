@@ -15,6 +15,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 
             container.Register<IResultReader, ResultReader>(Lifestyle.Scoped);
             container.Register<IResultWriter, ResultWriter>(Lifestyle.Scoped);
+            container.Register<IRenderStateReader, RenderStateReader>(Lifestyle.Scoped);
 
             container.Register<IMapRenderer, OverviewerRenderer>();
             container.Register<IJobPrioritizer, JobPrioritizer>();

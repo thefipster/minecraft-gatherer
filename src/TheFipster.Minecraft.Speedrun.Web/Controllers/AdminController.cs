@@ -5,6 +5,7 @@ using System.Linq;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Modules.Abstractions;
+using TheFipster.Minecraft.Overview.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
@@ -24,6 +25,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IWorldLoader _worldLoader;
         private readonly IWorldDeleter _worldDeleter;
         private readonly IMapRenderModule _mapRenderer;
+        private readonly IRenderQueue _renderQueue;
 
         public AdminController(
             IImportReader importReader,
@@ -35,7 +37,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             IWorldArchivist worldArchivist,
             IWorldLoader worldLoader,
             IWorldDeleter worldDeleter,
-            IMapRenderModule mapRenderer)
+            IMapRenderModule mapRenderer,
+            IRenderQueue renderQueue)
         {
             _importReader = importReader;
             _analyticsReader = analyticsReader;
@@ -47,6 +50,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             _worldLoader = worldLoader;
             _worldDeleter = worldDeleter;
             _mapRenderer = mapRenderer;
+            _renderQueue = renderQueue;
         }
 
         [HttpGet]
@@ -152,6 +156,18 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         {
             _mapRenderer.CreateJob(worldname);
             return RedirectToAction("Runs");
+        }
+
+        [HttpGet("jobs")]
+        public IActionResult RenderJobs()
+        {
+            var viewmodel = new AdminRenderJobsViewModel();
+
+            viewmodel.Results = _mapRenderer.GetResults();
+            viewmodel.Jobs = _renderQueue.PeakAll();
+            viewmodel.Active = _renderQueue.Active;
+
+            return View(viewmodel);
         }
     }
 }

@@ -9,5 +9,6 @@
         public string Python { get; set; }
         public string Overviewer { get; set; }
         public string NbtConverter { get; set; }
+        public string OverviewerUrl { get; set; }
     }
 }

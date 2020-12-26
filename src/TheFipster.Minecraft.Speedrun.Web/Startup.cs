@@ -48,8 +48,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
                 _container.RegisterOverviewer();
                 _container.RegisterWeb();
 
-                options.AddHostedService<HelloWorldService>()
-                       .AddHostedService<WorldRenderService>()
+                options.AddHostedService<WorldRenderService>()
                        .AddAspNetCore()
                        .AddControllerActivation();
             });

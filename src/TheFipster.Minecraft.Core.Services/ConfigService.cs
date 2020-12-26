@@ -30,6 +30,9 @@ namespace TheFipster.Minecraft.Core.Services
             TempLocation = ensureExistance(_paths.Temp);
             DataLocation = ensureExistance(_paths.Data);
 
+            Uri.TryCreate(_paths.OverviewerUrl, UriKind.Absolute, out var url);
+            OverviewerUrl = url;
+
             InitialRunIndex = ensureInt(InitialRunIndexKey);
         }
 
@@ -40,6 +43,7 @@ namespace TheFipster.Minecraft.Core.Services
         public FileInfo PythonLocation { get; }
         public FileInfo NbtConverterLocation { get; }
         public FileInfo OverviewerLocation { get; }
+        public Uri OverviewerUrl { get; }
         public int InitialRunIndex { get; }
 
         private FileSystemInfo checkExistance(string path)

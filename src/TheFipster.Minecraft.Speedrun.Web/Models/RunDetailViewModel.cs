@@ -5,6 +5,7 @@ using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Extender.Domain;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Manual.Domain;
+using TheFipster.Minecraft.Overview.Domain;
 using TheFipster.Minecraft.Storage.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Models
@@ -26,5 +27,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
         public RunAnalytics Analytics { get; internal set; }
         public RunManuals Manuals { get; internal set; }
         public IEnumerable<Locations> Locations { get; }
+        public RenderState MapRender { get; internal set; }
+        public string OverviewerUrl { get; internal set; }
     }
 }

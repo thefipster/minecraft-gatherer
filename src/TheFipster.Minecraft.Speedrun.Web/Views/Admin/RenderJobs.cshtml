@@ -1,0 +1,89 @@
+﻿@model AdminRenderJobsViewModel
+@{
+    ViewData["Title"] = "Render Ops";
+}
+
+<div class="jumbotron text-center">
+    <img class="rounded greetings-mob" height="150" width="150" src="/speedrun/img/blocks/crafting_table.png" />
+    <h1 class="display-4">Render Operations</h1>
+    <p class="lead">See whats going on with the overviewer rendering jobs.</p>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header"><h2>Active</h2></div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @if (Model.Active == null)
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>nothing</span>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>@Model.Active.Worldname</span>
+                        </li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header"><h2>Queue</h2></div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @if (Model.Jobs.Any())
+                    {
+                        @foreach (var job in Model.Jobs.OrderByDescending(x => x.Priority))
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@job.Worldname</span>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>nothing</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header"><h2>Finished</h2></div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @if (Model.Results.Any())
+                    {
+                        @foreach (var result in Model.Results.OrderByDescending(x => x.EndedOn))
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <span>@result.Worldname</span>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>nothing</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
