@@ -12,16 +12,45 @@ namespace TheFipster.Minecraft.Overview.Services
         public RenderQueue()
             => _jobs = new List<RenderJob>();
 
+        public IEnumerable<RenderJob> PeakAll()
+            => _jobs.ToList();
+
         public void Enqueue(RenderJob job)
         {
             lock (_jobs)
-                _jobs.Add(job);
+            {
+                var duplicate = _jobs.FirstOrDefault(x => x.Worldname == job.Worldname);
+                if (duplicate != null)
+                {
+                    if (duplicate.Priority < job.Priority)
+                    {
+                        _jobs.Remove(duplicate);
+                        _jobs.Add(job);
+                    }
+                }
+                else
+                {
+                    _jobs.Add(job);
+                }
+            }
         }
 
-        public RenderJob Dequeue()
+        public void Remove(string worldname)
         {
             lock (_jobs)
+            {
+                var job = _jobs.FirstOrDefault(x => x.Worldname == worldname);
+                if (job != null)
+                    _jobs.Remove(job);
+            }
+        }
+
+        public RenderJob Peak()
+        {
+            lock (_jobs)
+            {
                 return _jobs.OrderByDescending(x => x.Priority).FirstOrDefault();
+            }
         }
     }
 }

@@ -3,10 +3,10 @@ using TheFipster.Minecraft.Overview.Domain;
 
 namespace TheFipster.Minecraft.Overview.Abstractions
 {
-    public interface IJobReader
+    public interface IResultReader
     {
-        IEnumerable<RenderJob> Get();
-        RenderJob Get(string worldname);
+        IEnumerable<RenderResult> Get();
+        RenderResult Get(string worldname);
         int Count();
         bool Exists(string worldname);
     }

@@ -13,9 +13,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IOverviewerDatabaseHandler, LiteOverviewerDatabaseHandler>(Lifestyle.Singleton);
             container.Register<IRenderQueue, RenderQueue>(Lifestyle.Singleton);
 
-            container.Register<IJobReader, JobReader>(Lifestyle.Scoped);
-            container.Register<IJobWriter, JobWriter>(Lifestyle.Scoped);
-            container.Register<IJobHandler, JobHandler>(Lifestyle.Scoped);
+            container.Register<IResultReader, ResultReader>(Lifestyle.Scoped);
+            container.Register<IResultWriter, ResultWriter>(Lifestyle.Scoped);
 
             container.Register<IMapRenderer, OverviewerRenderer>();
             container.Register<IJobPrioritizer, JobPrioritizer>();

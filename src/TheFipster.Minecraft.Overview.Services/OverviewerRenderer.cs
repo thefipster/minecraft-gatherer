@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using TheFipster.Minecraft.Core.Abstractions;
 using TheFipster.Minecraft.Overview.Abstractions;
@@ -10,7 +11,8 @@ namespace TheFipster.Minecraft.Overview.Services
 {
     public class OverviewerRenderer : IMapRenderer
     {
-        private string OverviewerFolder = "overviewer";
+        private const string OverviewerFolder = "overviewer";
+        private const string ConfigTemplateName = "config-template.txt";
 
         private readonly string _pythonExecutable;
         private readonly string _overviewerFile;
@@ -52,7 +54,9 @@ namespace TheFipster.Minecraft.Overview.Services
         {
             var template = readTemplate();
 
-            var config = string.Format(template, input, output);
+            input = input.Replace("\\", "/");
+            output = output.Replace("\\", "/");
+            var config = template.Replace("{{input}}", input).Replace("{{output}}", output);
             var configPath = Path.Combine(_tempPath, $"{worldname}.ovc");
 
             File.WriteAllText(configPath, config);
@@ -63,8 +67,19 @@ namespace TheFipster.Minecraft.Overview.Services
         {
             var converter = new Process();
             converter.StartInfo.RedirectStandardOutput = true;
-            converter.StartInfo.FileName = _pythonExecutable;
-            converter.StartInfo.Arguments = $"{_overviewerFile} --config={configFilepath}";
+
+            if (IsLinux)
+            {
+                converter.StartInfo.FileName = _pythonExecutable;
+                converter.StartInfo.Arguments = $"{_overviewerFile} --config={configFilepath}";
+            }
+            else
+            {
+                converter.StartInfo.FileName = _overviewerFile;
+                converter.StartInfo.Arguments = $"--config={configFilepath}";
+            }
+
+
             converter.Start();
 
             var stdout = converter.StandardOutput.ReadToEnd();
@@ -75,9 +90,11 @@ namespace TheFipster.Minecraft.Overview.Services
         private string readTemplate()
         {
             var assembly = Assembly.GetAssembly(GetType());
-            var resourceName = "config-template.txt";
 
             string template = string.Empty;
+
+            string resourceName = assembly.GetManifestResourceNames()
+                .Single(str => str.EndsWith(ConfigTemplateName));
 
             using (Stream stream = assembly.GetManifestResourceStream(resourceName))
             using (StreamReader reader = new StreamReader(stream))
@@ -86,6 +103,15 @@ namespace TheFipster.Minecraft.Overview.Services
             }
 
             return template;
+        }
+
+        private bool IsLinux
+        {
+            get
+            {
+                int p = (int)Environment.OSVersion.Platform;
+                return (p == 4) || (p == 6) || (p == 128);
+            }
         }
     }
 }

@@ -10,28 +10,31 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
     {
         public RunHeaderViewModel() { }
 
-        public RunHeaderViewModel(RunAnalytics run, RunManuals manual)
+        public RunHeaderViewModel(RunAnalytics analytics)
         {
-            Worldname = run.Worldname;
-            Index = run.Index;
-            PlayerIds = run.Players.Select(x => x.Id);
-            Outcome = run.Outcome;
+            if (analytics == null)
+                throw new ArgumentNullException(nameof(analytics), "Analytics data is null.");
 
-            if (run.Outcome == Outcomes.Finished)
-                Runtime = run.Timings.RunTime;
+            setAnalytics(analytics);
+        }
 
-            StartedOn = run.Timings.StartedOn;
-
+        public RunHeaderViewModel(RunManuals manual)
+        {
             if (manual == null)
-                return;
+                throw new ArgumentNullException(nameof(manual), "Manual Input data is null.");
 
-            YoutubeLink = manual.YoutubeLink;
-            SpeedrunLink = manual.SpeedrunLink;
-            if (manual.RuntimeInMs.HasValue)
-            {
-                Runtime = TimeSpan.FromMilliseconds(manual.RuntimeInMs.Value);
-                RuntimeOverride = true;
-            }
+            setManualInput(manual);
+        }
+
+        public RunHeaderViewModel(RunAnalytics analytics, RunManuals manual)
+        {
+            if (analytics == null)
+                throw new ArgumentNullException(nameof(analytics), "Analytics data is null.");
+            else
+                setAnalytics(analytics);
+
+            if (manual != null)
+                setManualInput(manual);
         }
 
         public string Worldname { get; set; }
@@ -48,5 +51,29 @@ namespace TheFipster.Minecraft.Speedrun.Web.Models
 
         public string YoutubeLink { get; set; }
         public string SpeedrunLink { get; set; }
+
+        private void setAnalytics(RunAnalytics analytics)
+        {
+            Worldname = analytics.Worldname;
+            Index = analytics.Index;
+            PlayerIds = analytics.Players.Select(x => x.Id);
+            Outcome = analytics.Outcome;
+
+            if (analytics.Outcome == Outcomes.Finished)
+                Runtime = analytics.Timings.RunTime;
+
+            StartedOn = analytics.Timings.StartedOn;
+        }
+
+        private void setManualInput(RunManuals manual)
+        {
+            YoutubeLink = manual.YoutubeLink;
+            SpeedrunLink = manual.SpeedrunLink;
+            if (manual.RuntimeInMs.HasValue)
+            {
+                Runtime = TimeSpan.FromMilliseconds(manual.RuntimeInMs.Value);
+                RuntimeOverride = true;
+            }
+        }
     }
 }

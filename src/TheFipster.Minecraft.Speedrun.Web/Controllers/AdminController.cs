@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Linq;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Modules.Abstractions;
@@ -22,6 +23,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IWorldArchivist _worldArchivist;
         private readonly IWorldLoader _worldLoader;
         private readonly IWorldDeleter _worldDeleter;
+        private readonly IMapRenderModule _mapRenderer;
 
         public AdminController(
             IImportReader importReader,
@@ -32,7 +34,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             IWorldFinder worldFinder,
             IWorldArchivist worldArchivist,
             IWorldLoader worldLoader,
-            IWorldDeleter worldDeleter)
+            IWorldDeleter worldDeleter,
+            IMapRenderModule mapRenderer)
         {
             _importReader = importReader;
             _analyticsReader = analyticsReader;
@@ -43,14 +46,41 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             _worldArchivist = worldArchivist;
             _worldLoader = worldLoader;
             _worldDeleter = worldDeleter;
+            _mapRenderer = mapRenderer;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var analytics = _analyticsReader.Get();
             var viewmodel = new AdminIndexViewModel();
-            viewmodel.Runs = analytics;
+            return View(viewmodel);
+        }
+
+        [HttpGet("runs")]
+        public IActionResult Runs()
+        {
+            var viewmodel = new AdminListViewModel();
+
+            var runs = _analyticsReader
+                .Get()
+                .Select(x => new RunAdminViewModel(x));
+
+            var jobs = _mapRenderer.GetJobs();
+            var results = _mapRenderer.GetResults();
+
+            foreach (var run in runs)
+            {
+                var job = jobs.FirstOrDefault(x => x.Worldname == run.Worldname);
+                if (job != null)
+                    run.HasPendingRenderJob = true;
+
+                var result = results.FirstOrDefault(x => x.Worldname == run.Worldname);
+                if (result != null)
+                    run.HasRenderedMap = true;
+
+                viewmodel.Runs.Add(run);
+            }
+
             return View(viewmodel);
         }
 
@@ -115,6 +145,13 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         {
             _worldDeleter.Delete(worldname);
             return Json(true);
+        }
+
+        [HttpGet("rendermap/{worldname}")]
+        public IActionResult RenderMap(string worldname)
+        {
+            _mapRenderer.CreateJob(worldname);
+            return RedirectToAction("Runs");
         }
     }
 }

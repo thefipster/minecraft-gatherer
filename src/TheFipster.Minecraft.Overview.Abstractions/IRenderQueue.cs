@@ -1,10 +1,13 @@
-﻿using TheFipster.Minecraft.Overview.Domain;
+﻿using System.Collections.Generic;
+using TheFipster.Minecraft.Overview.Domain;
 
 namespace TheFipster.Minecraft.Overview.Abstractions
 {
     public interface IRenderQueue
     {
         void Enqueue(RenderJob job);
-        RenderJob Dequeue();
+        IEnumerable<RenderJob> PeakAll();
+        RenderJob Peak();
+        void Remove(string worldname);
     }
 }

@@ -1,4 +1,4 @@
-﻿worlds["survival"] = "{0}"
+﻿worlds["survival"] = "{{input}}"
 
 end_smooth_lighting = [Base(), EdgeLines(opacity=0.2),
         SmoothLighting(strength=0.5, color=True)]
@@ -27,4 +27,4 @@ renders["the_end"] = {
     "dimension": "end",
 }
 
-outputdir = "{1}"
+outputdir = "{{output}}"

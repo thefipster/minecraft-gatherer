@@ -5,17 +5,17 @@ using TheFipster.Minecraft.Overview.Domain;
 
 namespace TheFipster.Minecraft.Overview.Services
 {
-    public class JobReader : IJobReader
+    public class ResultReader : IResultReader
     {
-        private readonly ILiteCollection<RenderJob> _collection;
+        private readonly ILiteCollection<RenderResult> _collection;
 
-        public JobReader(IOverviewerDatabaseHandler databaseHandler)
-            => _collection = databaseHandler.GetCollection<RenderJob>();
+        public ResultReader(IOverviewerDatabaseHandler databaseHandler)
+            => _collection = databaseHandler.GetCollection<RenderResult>();
 
-        public IEnumerable<RenderJob> Get()
+        public IEnumerable<RenderResult> Get()
             => _collection.FindAll();
 
-        public RenderJob Get(string worldname)
+        public RenderResult Get(string worldname)
             => _collection.FindOne(x => x.Worldname == worldname);
 
         public int Count()

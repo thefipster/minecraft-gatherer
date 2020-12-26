@@ -12,7 +12,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Services
 {
     public class WorldRenderService : IHostedService, IDisposable
     {
-        private const int WaitTimeInMs = 30000;
+        private const int WaitTimeInMs = 5000;
         private readonly ILogger<WorldRenderService> _logger;
         private readonly Container _container;
         private readonly IRenderQueue _queue;
@@ -65,13 +65,15 @@ namespace TheFipster.Minecraft.Speedrun.Web.Services
 
         private void execute()
         {
-            var job = _queue.Dequeue();
+            var job = _queue.Peak();
             if (job == null)
                 return;
 
+            _logger.LogInformation($"Rendering map for world {job.Worldname}");
             var renderer = _container.GetInstance<IMapRenderModule>();
             renderer.Render(job);
-            _logger.LogInformation("Attempting map render.");
+            _queue.Remove(job.Worldname);
+            _logger.LogInformation($"Completed map for world {job.Worldname}");
         }
 
         private bool canExecute()

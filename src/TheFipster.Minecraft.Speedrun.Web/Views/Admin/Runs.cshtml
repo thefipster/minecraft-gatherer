@@ -1,0 +1,23 @@
+﻿@model AdminListViewModel
+@{
+    ViewData["Title"] = "Run Ops";
+}
+
+<div class="jumbotron text-center">
+    <img class="rounded greetings-mob" height="150" width="150" src="/speedrun/img/blocks/crafting_table.png" />
+    <h1 class="display-4">Run Operations</h1>
+    <p class="lead">Perform actions on individual runs.</p>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-hover">
+            <tbody>
+                @foreach (var run in Model.Runs.OrderByDescending(x => x.StartedOn))
+                {
+                    @await Html.PartialAsync("_RunActions", run);
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
