@@ -34,15 +34,15 @@ namespace TheFipster.Minecraft.Import.Services.World
             if (worldFolder.Exists)
                 return worldFolder;
 
-            var archivePath = Path.Combine(_archiveFolder.FullName, $"{worldname}.zip");
-            var archiveFile = new FileInfo(archivePath);
-            if (archiveFile.Exists)
-                return archiveFile;
-
             var tempPath = Path.Combine(_tempFolder.FullName, ArchiveFoldername, worldname);
             var tempWorldFolder = new DirectoryInfo(tempPath);
             if (tempWorldFolder.Exists)
                 return tempWorldFolder;
+
+            var archivePath = Path.Combine(_archiveFolder.FullName, $"{worldname}.zip");
+            var archiveFile = new FileInfo(archivePath);
+            if (archiveFile.Exists)
+                return archiveFile;
 
             throw new WorldNotExistsException(worldname, new string[] { worldPath, archivePath });
         }

@@ -5,13 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="config-template.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.9" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Abstractions\TheFipster.Minecraft.Analytics.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Core.Abstraction\TheFipster.Minecraft.Core.Abstractions.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Core.Services\TheFipster.Minecraft.Core.Services.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Overview.Abstractions\TheFipster.Minecraft.Overview.Abstractions.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Overview.Domain\TheFipster.Minecraft.Overview.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="config-template.txt" />
   </ItemGroup>
 
 </Project>

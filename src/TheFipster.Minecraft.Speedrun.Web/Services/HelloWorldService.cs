@@ -4,17 +4,18 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace TheFipster.Minecraft.HostedServices
+namespace TheFipster.Minecraft.Speedrun.Web.Services
 {
-    public class WorldRenderService : IHostedService, IDisposable
+    public class HelloWorldService : IHostedService, IDisposable
     {
-        private readonly ILogger<WorldRenderService> _logger;
+        private readonly ILogger<HelloWorldService> _logger;
         private readonly Timer _timer;
 
-        public WorldRenderService(ILogger<WorldRenderService> logger)
+        public HelloWorldService(ILogger<HelloWorldService> logger)
         {
             _logger = logger;
             _timer = new Timer(run, null, Timeout.Infinite, -1);
+            _logger.LogInformation($"Hosted Service {GetType().Name} initialized.");
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -30,13 +31,12 @@ namespace TheFipster.Minecraft.HostedServices
         }
 
         public void Dispose()
-        {
-            _timer.Dispose();
-        }
+            => _timer.Dispose();
 
         private void run(object state)
         {
-            throw new NotImplementedException();
+            _logger.LogInformation("Hello world service is saying: Hello world.");
+            _timer.Change(5000, -1);
         }
     }
 }

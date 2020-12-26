@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using TheFipster.Minecraft.Speedrun.Web.Dependencies;
+using TheFipster.Minecraft.Speedrun.Web.Services;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
@@ -35,18 +36,23 @@ namespace TheFipster.Minecraft.Speedrun.Web
             services.AddControllersWithViews();
 
             services.AddSimpleInjector(_container, options =>
-                options.AddAspNetCore()
-                       .AddControllerActivation());
+            {
+                _container.RegisterCommon();
+                _container.RegisterStorage();
+                _container.RegisterImporter();
+                _container.RegisterEnhancer();
+                _container.RegisterExtender();
+                _container.RegisterAnalytics();
+                _container.RegisterManuals();
+                _container.RegisterMeta();
+                _container.RegisterOverviewer();
+                _container.RegisterWeb();
 
-            _container.RegisterCommon();
-            _container.RegisterStorage();
-            _container.RegisterImporter();
-            _container.RegisterEnhancer();
-            _container.RegisterExtender();
-            _container.RegisterAnalytics();
-            _container.RegisterManuals();
-            _container.RegisterMeta();
-            _container.RegisterWeb();
+                options.AddHostedService<HelloWorldService>()
+                       .AddHostedService<WorldRenderService>()
+                       .AddAspNetCore()
+                       .AddControllerActivation();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

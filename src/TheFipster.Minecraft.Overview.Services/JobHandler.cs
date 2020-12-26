@@ -5,12 +5,12 @@ using TheFipster.Minecraft.Overview.Domain;
 
 namespace TheFipster.Minecraft.Overview.Services
 {
-    public class PriorityReader
+    public class JobHandler : IJobHandler
     {
         private readonly ILiteCollection<RenderJob> _jobCollection;
         private readonly ILiteCollection<RenderResult> _resultCollection;
 
-        public PriorityReader(IOverviewerDatabaseHandler databaseHandler)
+        public JobHandler(IOverviewerDatabaseHandler databaseHandler)
         {
             _jobCollection = databaseHandler.GetCollection<RenderJob>();
         }
