@@ -1,7 +1,6 @@
 ﻿using LiteDB;
 using TheFipster.Minecraft.Manual.Abstractions;
 using TheFipster.Minecraft.Manual.Domain;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Manual.Services
 {

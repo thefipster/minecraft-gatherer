@@ -15,5 +15,7 @@
         public bool IsSpawnAnimalsEnabled { get; set; }
         public int SpawnProtection { get; set; }
         public bool IsSpawnNpcEnabled { get; set; }
+        public bool IsWhitelisted { get; set; }
+        public bool IsPvp { get; set; }
     }
 }

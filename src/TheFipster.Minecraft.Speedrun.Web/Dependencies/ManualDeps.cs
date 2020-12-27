@@ -8,6 +8,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
     {
         public static void RegisterManuals(this Container container)
         {
+            container.Register<IManualDatabaseHandler, LiteManualDatabaseHandler>(Lifestyle.Singleton);
+
             container.Register<IManualsWriter, ManualsWriter>(Lifestyle.Scoped);
             container.Register<IManualsReader, ManualsReader>(Lifestyle.Scoped);
         }

@@ -1,0 +1,31 @@
+﻿worlds["survival"] = "{{input}}"
+
+end_smooth_lighting = [Base(), EdgeLines(opacity=0.2),
+        SmoothLighting(strength=0.5, color=True)]
+
+nether_bright_lighting = [Base(), EdgeLines(), Nether(),
+        SmoothLighting(strength=0.7, color=True)]
+
+renders["overworld"] = {
+    "world": "survival",
+    "title": "Overworld",
+    "rendermode": "smooth_lighting",
+    "dimension": "overworld",
+}
+
+renders["nether"] = {
+    "world": "survival",
+    "title": "Nether",
+    "rendermode": nether_bright_lighting,
+    "dimension": "nether",
+}
+
+renders["the_end"] = {
+    "world": "survival",
+    "title": "The End",
+    "rendermode": end_smooth_lighting,
+    "dimension": "end",
+}
+
+processes = 3
+outputdir = "{{output}}"

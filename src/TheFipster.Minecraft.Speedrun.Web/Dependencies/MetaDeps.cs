@@ -9,6 +9,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
     {
         public static void RegisterMeta(this Container container)
         {
+            container.Register<IMetaDatabaseHandler, LiteMetaDatabaseHandler>(Lifestyle.Singleton);
+
             container.Register<IRuntimeWriter, RuntimeWriter>(Lifestyle.Scoped);
             container.Register<ITimingWriter, TimingWriter>(Lifestyle.Scoped);
             container.Register<IOutcomeWriter, OutcomeWriter>(Lifestyle.Scoped);

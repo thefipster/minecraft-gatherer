@@ -8,7 +8,6 @@ using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Core.Domain.Exceptions;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Domain;
-using TheFipster.Minecraft.Storage.Abstractions;
 
 namespace TheFipster.Minecraft.Modules
 {
@@ -16,20 +15,20 @@ namespace TheFipster.Minecraft.Modules
     {
         private readonly IWorldSearcher _worldFinder;
         private readonly IWorldLoader _worldLoader;
-        private readonly IImportStore _runImportStore;
+        private readonly IImportReader _importReader;
         private readonly ServerProperties _serverProperties;
         private readonly ILogger<WorldLoaderModule> _logger;
 
         public WorldLoaderModule(
             IWorldSearcher worldFinder,
             IWorldLoader worldLoader,
-            IImportStore runStore,
+            IImportReader importReader,
             IServerPropertiesReader serverPropReader,
             ILogger<WorldLoaderModule> logger)
         {
             _worldFinder = worldFinder;
             _worldLoader = worldLoader;
-            _runImportStore = runStore;
+            _importReader = importReader;
             _logger = logger;
 
             try
@@ -54,7 +53,7 @@ namespace TheFipster.Minecraft.Modules
 
             foreach (var candiate in candidates)
             {
-                if (!overwrite && _runImportStore.Exists(candiate.Name))
+                if (!overwrite && _importReader.Exists(candiate.Name))
                 {
                     _logger.LogDebug($"Candidate Check: Skipping world {candiate.Name} because it was already imported.");
                     continue;

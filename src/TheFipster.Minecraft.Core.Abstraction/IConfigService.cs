@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace TheFipster.Minecraft.Core.Abstractions
 {
@@ -11,6 +12,7 @@ namespace TheFipster.Minecraft.Core.Abstractions
         FileInfo PythonLocation { get; }
         FileInfo NbtConverterLocation { get; }
         FileInfo OverviewerLocation { get; }
+        Uri OverviewerUrl { get; }
         int InitialRunIndex { get; }
     }
 }

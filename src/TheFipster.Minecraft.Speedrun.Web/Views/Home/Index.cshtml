@@ -7,6 +7,10 @@
 @section Scripts {
     <script type="text/javascript">
         $(document).ready(function () {
+            if (!$( "#Heatmap" ).length) {
+                return;
+            }
+
             $.ajax({
                 url: "@Url.Action("Heatmap", "Stats")"
             }).then(function (data) {
@@ -24,6 +28,10 @@
                     stylize_today: true,
                     always_show_tooltip: true
                 });
+            });
+
+            $(window).resize(function () {
+                $('#Heatmap')
             });
         });
     </script>
@@ -65,7 +73,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row .d-none .d-sm-block">
     <div class="col">
         @await Html.PartialAsync("_SessionsCard")
     </div>

@@ -1,6 +1,6 @@
 ﻿@model AdminIndexViewModel
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Ops";
 }
 
 <div class="jumbotron text-center">
@@ -15,7 +15,7 @@
             <div class="card-body">
                 <h5 class="card-title">Synchronize</h5>
                 <p class="card-text">Imports all world folders on the server that aren't imported yet. Currently loaded world will not be touched!</p>
-                <a asp-controller="Import" asp-action="Index" class="btn btn-primary">Synchronize Worlds</a>
+                <a asp-controller="Import" asp-action="Index" class="btn btn-primary">Synchronize world folders</a>
             </div>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <div class="card-body">
                 <h5 class="card-title">Server</h5>
                 <p class="card-text">Check the contents of the server.properties file to see if everything is properly configured for the next run.</p>
-                <a asp-controller="Server" asp-action="Index" class="btn btn-primary">See Server Properties</a>
+                <a asp-controller="Server" asp-action="Index" class="btn btn-primary">See whats configured</a>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
             <div class="card-body">
                 <h5 class="card-title">Re-Index</h5>
                 <p class="card-text">Iterates through every run in the database and checks if the run index is correct. If not it gets corrected.</p>
-                <a asp-controller="Admin" asp-action="ReIndex" class="btn btn-primary">Calculate Indexes</a>
+                <a asp-controller="Admin" asp-action="ReIndex" class="btn btn-primary">Please count again</a>
             </div>
         </div>
     </div>
@@ -45,7 +45,27 @@
             <div class="card-body">
                 <h5 class="card-title">Re-Analyze</h5>
                 <p class="card-text">Iterates through every run import in the database and analyses it. The results will overwrite the current analysis if one is stored.</p>
-                <a asp-controller="Admin" asp-action="ReAnalyze" class="btn btn-primary">Analyze imports</a>
+                <a asp-controller="Admin" asp-action="ReAnalyze" class="btn btn-primary">Analyze it again</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Run Actions</h5>
+                <p class="card-text">Perform actions on any individual run as pleased. This currently includes manual input and map generation.<p>
+                    <a asp-controller="Admin" asp-action="Runs" class="btn btn-primary">Show the runs</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Render Jobs</h5>
+                <p class="card-text">See whats currently rendering, what will be rendered and everything that was already rendered.<p>
+                    <a asp-controller="Admin" asp-action="RenderJobs" class="btn btn-primary">Whats going on</a>
             </div>
         </div>
     </div>

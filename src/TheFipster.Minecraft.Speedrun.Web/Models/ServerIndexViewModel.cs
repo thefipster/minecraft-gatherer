@@ -1,4 +1,5 @@
-﻿using TheFipster.Minecraft.Core.Domain;
+﻿using System.Collections.Generic;
+using TheFipster.Minecraft.Core.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
@@ -7,5 +8,7 @@ namespace TheFipster.Minecraft.Speedrun.Web
         public ServerIndexViewModel() { }
 
         public ServerProperties ServerProperties { get; internal set; }
+        public IEnumerable<IPlayer> WhitelistedPlayers { get; internal set; }
+        public IEnumerable<IPlayer> Operators { get; internal set; }
     }
 }

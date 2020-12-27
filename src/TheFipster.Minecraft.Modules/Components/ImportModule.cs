@@ -4,7 +4,7 @@ using TheFipster.Minecraft.Import.Domain;
 
 namespace TheFipster.Minecraft.Modules
 {
-    public class ImportModule : IImportRunModule
+    public class ImportModule : IImportModule
     {
         private readonly ILogLoader _logLoader;
         private readonly IDimensionLoader _dimensionLoader;

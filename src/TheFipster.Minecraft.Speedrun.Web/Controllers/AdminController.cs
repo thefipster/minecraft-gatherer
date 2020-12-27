@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using System.Linq;
+using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Modules.Abstractions;
-using TheFipster.Minecraft.Storage.Abstractions;
+using TheFipster.Minecraft.Overview.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
@@ -11,59 +13,99 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        private readonly IImportStore _importStore;
-        private readonly IAnalyticsStore _analyticsStore;
+        private readonly IImportReader _importReader;
+        private readonly IAnalyticsReader _analyticsReader;
+        private readonly IAnalyticsWriter _analyticsWriter;
+
+        public IRunIndexer _runIndexer { get; }
+
         private readonly IAnalyticsModule _analyticsModules;
         private readonly IWorldFinder _worldFinder;
         private readonly IWorldArchivist _worldArchivist;
         private readonly IWorldLoader _worldLoader;
         private readonly IWorldDeleter _worldDeleter;
+        private readonly IMapRenderModule _mapRenderer;
+        private readonly IRenderQueue _renderQueue;
 
         public AdminController(
-            IImportStore importStore,
-            IAnalyticsStore analyticsStore,
+            IImportReader importReader,
+            IAnalyticsWriter analyticsWriter,
+            IAnalyticsReader analyticsReader,
+            IRunIndexer runIndexer,
             IAnalyticsModule analyticsModules,
             IWorldFinder worldFinder,
             IWorldArchivist worldArchivist,
             IWorldLoader worldLoader,
-            IWorldDeleter worldDeleter)
+            IWorldDeleter worldDeleter,
+            IMapRenderModule mapRenderer,
+            IRenderQueue renderQueue)
         {
-            _importStore = importStore;
-            _analyticsStore = analyticsStore;
+            _importReader = importReader;
+            _analyticsReader = analyticsReader;
+            _analyticsWriter = analyticsWriter;
+            _runIndexer = runIndexer;
             _analyticsModules = analyticsModules;
             _worldFinder = worldFinder;
             _worldArchivist = worldArchivist;
             _worldLoader = worldLoader;
             _worldDeleter = worldDeleter;
+            _mapRenderer = mapRenderer;
+            _renderQueue = renderQueue;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var analytics = _analyticsStore.Get();
             var viewmodel = new AdminIndexViewModel();
-            viewmodel.Runs = analytics;
+            return View(viewmodel);
+        }
+
+        [HttpGet("runs")]
+        public IActionResult Runs()
+        {
+            var viewmodel = new AdminListViewModel();
+
+            var runs = _analyticsReader
+                .Get()
+                .Select(x => new RunAdminViewModel(x));
+
+            var jobs = _mapRenderer.GetJobs();
+            var results = _mapRenderer.GetResults();
+
+            foreach (var run in runs)
+            {
+                var job = jobs.FirstOrDefault(x => x.Worldname == run.Worldname);
+                if (job != null)
+                    run.HasPendingRenderJob = true;
+
+                var result = results.FirstOrDefault(x => x.Worldname == run.Worldname);
+                if (result != null)
+                    run.HasRenderedMap = true;
+
+                viewmodel.Runs.Add(run);
+            }
+
             return View(viewmodel);
         }
 
         [HttpGet("reindex")]
         public IActionResult ReIndex()
         {
-            _analyticsStore.Index();
+            _runIndexer.Index();
             return RedirectToAction("Index");
         }
 
         [HttpGet("reanalyze")]
         public IActionResult ReAnalyze()
         {
-            var imports = _importStore.Get();
+            var imports = _importReader.Get();
             foreach (var import in imports)
             {
                 var analytics = _analyticsModules.Analyze(import);
-                _analyticsStore.Upsert(analytics);
+                _analyticsWriter.Upsert(analytics);
             }
 
-            _analyticsStore.Index();
+            _runIndexer.Index();
 
             return RedirectToAction("Index");
         }
@@ -107,6 +149,25 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         {
             _worldDeleter.Delete(worldname);
             return Json(true);
+        }
+
+        [HttpGet("rendermap/{worldname}")]
+        public IActionResult RenderMap(string worldname)
+        {
+            _mapRenderer.CreateJob(worldname);
+            return RedirectToAction("Runs");
+        }
+
+        [HttpGet("jobs")]
+        public IActionResult RenderJobs()
+        {
+            var viewmodel = new AdminRenderJobsViewModel();
+
+            viewmodel.Results = _mapRenderer.GetResults();
+            viewmodel.Jobs = _renderQueue.PeakAll();
+            viewmodel.Active = _renderQueue.Active;
+
+            return View(viewmodel);
         }
     }
 }

@@ -14,4 +14,10 @@
     <div class="col">
         @await Html.PartialAsync("_ServerPropertiesCard", Model.ServerProperties)
     </div>
+
+    <div class="col">
+        @await Html.PartialAsync("_OperatorsCard", Model.Operators)
+        @await Html.PartialAsync("_WhitelistedPlayersCard", Model.WhitelistedPlayers)
+    </div>
 </div>
+

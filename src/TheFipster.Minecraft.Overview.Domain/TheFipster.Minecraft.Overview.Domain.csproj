@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj" />
+    <PackageReference Include="LiteDB" Version="5.0.9" />
   </ItemGroup>
 
 </Project>

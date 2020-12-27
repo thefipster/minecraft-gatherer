@@ -5,6 +5,7 @@ using TheFipster.Minecraft.Import.Abstractions;
 using TheFipster.Minecraft.Import.Services;
 using TheFipster.Minecraft.Import.Services.World;
 using TheFipster.Minecraft.Modules;
+using TheFipster.Minecraft.Modules.Decorators;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 {
@@ -12,6 +13,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
     {
         public static void RegisterImporter(this Container container)
         {
+            container.Register<IImportDatabaseHandler, LiteImportDatabaseHandler>(Lifestyle.Singleton);
+            container.Register<IImportReader, ImportReader>(Lifestyle.Scoped);
+            container.Register<IImportWriter, ImportWriter>(Lifestyle.Scoped);
 
             container.Register<IWorldSearcher, WorldSearcher>();
             container.Register<IWorldLoader, WorldLoader>();
@@ -36,9 +40,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.RegisterDecorator<INbtLoader, NbtLevelDecorator>();
             container.RegisterDecorator<INbtLoader, NbtPlayerDecorator>();
 
-
             container.Register<IWorldLoaderModule, WorldLoaderModule>();
-            container.Register<IImportRunModule, ImportModule>();
+            container.Register<IImportModule, ImportModule>();
+            container.RegisterDecorator<IImportModule, ImportArchiveDecorator>();
             container.Register<ISyncModule, SyncModule>();
         }
     }

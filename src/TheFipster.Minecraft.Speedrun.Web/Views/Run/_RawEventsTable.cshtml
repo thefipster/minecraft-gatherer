@@ -1,0 +1,16 @@
+﻿@using TheFipster.Minecraft.Enhancer.Domain
+@model ICollection<RunEvent>
+
+<div class="card border-secondary">
+    <div class="card-header"><h2>Raw Events</h2></div>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tbody>
+                @foreach (var gameEvent in Model.OrderBy(x => x.Timestamp))
+                {
+                    @await Html.PartialAsync("_EventLine", gameEvent)
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

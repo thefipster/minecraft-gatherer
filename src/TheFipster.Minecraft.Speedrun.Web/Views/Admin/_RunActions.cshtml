@@ -1,0 +1,48 @@
+﻿@model RunAdminViewModel
+
+<tr>
+    <td>
+        @if (Model.Index != 0)
+        {
+            <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
+                <strong>@($"#{Model.Index}")</strong>
+            </a>
+        }
+    </td>
+    <td>
+        <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
+            @Model.StartedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+        </a>
+    </td>
+    <td class="text-right">
+        @await Html.PartialAsync("_OutcomeBadge", Model.Outcome)
+    </td>
+    <td class="text-right">
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            @if (Model.HasPendingRenderJob)
+            {
+                <button type="button" class="btn btn-outline-info" disabled>
+                    <i class="fas fa-map"></i>
+                </button>
+            }
+            else
+            {
+                @if (Model.HasRenderedMap)
+                {
+                    <a class="btn btn-outline-success" asp-controller="Admin" asp-action="RenderMap" asp-route-worldname="@Model.Worldname">
+                        <i class="fas fa-map"></i>
+                    </a>
+                }
+                else
+                {
+                    <a class="btn btn-outline-danger" asp-controller="Admin" asp-action="RenderMap" asp-route-worldname="@Model.Worldname">
+                        <i class="fas fa-map"></i>
+                    </a>
+                }
+            }
+            <a class="btn btn-outline-primary" asp-controller="Run" asp-action="Edit" asp-route-worldname="@Model.Worldname">
+                <i class="fas fa-pen"></i>
+            </a>
+        </div>
+    </td>
+</tr>
