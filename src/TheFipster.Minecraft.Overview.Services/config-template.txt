@@ -27,5 +27,5 @@ renders["the_end"] = {
     "dimension": "end",
 }
 
-processes = 6
+processes = 3
 outputdir = "{{output}}"
