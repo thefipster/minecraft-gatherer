@@ -31,6 +31,18 @@ namespace TheFipster.Minecraft.Modules.Components
             _config = config;
             _finder = finder;
             _archivist = archivist;
+
+            ensureOverviewerOutput();
+        }
+
+        private void ensureOverviewerOutput()
+        {
+            var overviewerOutput = Path.Combine(
+                _config.DataLocation.FullName,
+                OverviewerFolder);
+
+            if (!Directory.Exists(overviewerOutput))
+                Directory.CreateDirectory(overviewerOutput);
         }
 
         public void CreateJob(string worldname)

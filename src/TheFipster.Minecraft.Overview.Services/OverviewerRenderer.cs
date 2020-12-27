@@ -17,13 +17,14 @@ namespace TheFipster.Minecraft.Overview.Services
         private readonly string _pythonExecutable;
         private readonly string _overviewerFile;
         private readonly string _tempPath;
+        private readonly IHostEnv _hostEnv;
 
-
-        public OverviewerRenderer(IConfigService config)
+        public OverviewerRenderer(IConfigService config, IHostEnv hostEnv)
         {
             _pythonExecutable = config.PythonLocation.FullName;
             _overviewerFile = config.OverviewerLocation.FullName;
             _tempPath = Path.Combine(config.TempLocation.FullName, OverviewerFolder);
+            _hostEnv = hostEnv;
         }
 
         public RenderResult Render(string worldname, string worldFolder, string outputFolder)
@@ -68,7 +69,7 @@ namespace TheFipster.Minecraft.Overview.Services
             var converter = new Process();
             converter.StartInfo.RedirectStandardOutput = true;
 
-            if (IsLinux)
+            if (_hostEnv.IsLinux)
             {
                 converter.StartInfo.FileName = _pythonExecutable;
                 converter.StartInfo.Arguments = $"{_overviewerFile} --config={configFilepath}";
@@ -103,15 +104,6 @@ namespace TheFipster.Minecraft.Overview.Services
             }
 
             return template;
-        }
-
-        private bool IsLinux
-        {
-            get
-            {
-                int p = (int)Environment.OSVersion.Platform;
-                return (p == 4) || (p == 6) || (p == 128);
-            }
         }
     }
 }

@@ -16,10 +16,12 @@ namespace TheFipster.Minecraft.Import.Services.World
         private readonly DirectoryInfo _archiveFolder;
 
         private readonly IWorldDeleter _deleter;
+        private readonly IHostEnv _hostEnv;
 
-        public WorldArchivist(IConfigService config, IWorldDeleter deleter)
+        public WorldArchivist(IConfigService config, IWorldDeleter deleter, IHostEnv hostEnv)
         {
             _deleter = deleter;
+            _hostEnv = hostEnv;
 
             _serverFolder = config.ServerLocation;
             _tempFolder = config.TempLocation;
