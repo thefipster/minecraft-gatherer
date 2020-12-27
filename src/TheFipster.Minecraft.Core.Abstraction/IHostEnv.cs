@@ -2,6 +2,6 @@
 {
     public interface IHostEnv
     {
-        bool IsLinux { get };
+        bool IsLinux { get; }
     }
 }
