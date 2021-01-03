@@ -14,6 +14,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IAuthService, AuthService>();
             container.Register<IWhitelistReader, WhitelistReader>();
             container.Register<IOpsReader, OpsReader>();
+            container.Register<IHostEnv, HostEnv>();
         }
     }
 }
