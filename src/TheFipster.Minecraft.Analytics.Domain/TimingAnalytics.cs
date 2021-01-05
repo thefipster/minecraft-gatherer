@@ -28,5 +28,6 @@ namespace TheFipster.Minecraft.Analytics.Domain
 
         public TimeSpan RunTime { get; set; }
         public TimeSpan PlayTime { get; set; }
+        public bool ManualOverride { get; set; }
     }
 }
