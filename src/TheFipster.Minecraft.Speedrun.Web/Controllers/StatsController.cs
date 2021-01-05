@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Extender.Abstractions;
 
@@ -9,13 +10,16 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     {
         private readonly IAttemptHeatmapExtender _attemptHeatmapExtender;
         private readonly IOutcomeStatsExtender _outcomeStats;
+        private readonly ITimingStatsExtender _timingStats;
 
         public StatsController(
             IAttemptHeatmapExtender attemptHeatmapExtender,
-            IOutcomeStatsExtender outcomeStats)
+            IOutcomeStatsExtender outcomeStats,
+            ITimingStatsExtender timingStats)
         {
             _attemptHeatmapExtender = attemptHeatmapExtender;
             _outcomeStats = outcomeStats;
+            _timingStats = timingStats;
         }
 
         [HttpGet("heatmap/attempts")]
@@ -43,6 +47,31 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         {
             var outcomeHistogram = _outcomeStats.Extend(period);
             return Json(outcomeHistogram);
+        }
+
+        [HttpGet("timings")]
+        public IActionResult Timings()
+        {
+            var now = DateTime.UtcNow;
+
+            var alltimeStats = _timingStats.Extend();
+            var lastYear = _timingStats.Extend(now.AddDays(-360), now);
+            var lastSemester = _timingStats.Extend(now.AddDays(-180), now);
+            var lastQuarter = _timingStats.Extend(now.AddDays(-90), now);
+            var lastMonth = _timingStats.Extend(now.AddDays(-30), now);
+            var lastWeek = _timingStats.Extend(now.AddDays(-7), now);
+            var lastDay = _timingStats.Extend(now.AddDays(-1), now);
+
+            var viewmodel = new StatsTimingsViewModel();
+            viewmodel.Stats.Add("all-time", alltimeStats);
+            viewmodel.Stats.Add("last year", lastYear);
+            viewmodel.Stats.Add("last semester", lastSemester);
+            viewmodel.Stats.Add("last quarter", lastQuarter);
+            viewmodel.Stats.Add("last month", lastMonth);
+            viewmodel.Stats.Add("last week", lastWeek);
+            viewmodel.Stats.Add("last 24 hours", lastDay);
+
+            return View(viewmodel);
         }
     }
 }

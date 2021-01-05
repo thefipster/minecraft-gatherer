@@ -1,0 +1,43 @@
+﻿@model StatsTimingsViewModel
+@{
+    ViewData["Title"] = "Timings";
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Timings</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-hover">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>Spawn</th>
+                    <th>The End</th>
+                    <th>Fortress</th>
+                    <th>Search</th>
+                    <th>Stronghold</th>
+                </tr>
+                @foreach (var period in Model.Stats)
+                {
+                    <tr>
+                        <td>@period.Key</td>
+                        @foreach (var timing in period.Value)
+                        {
+                            <td>
+                                @timing.Minimum.ToString(@"mm\:ss")
+                                -
+                                @timing.Maximum.ToString(@"mm\:ss")<br />
+                                @timing.Average.ToString(@"mm\:ss")
+                                (+/- @timing.StandardDeviation.ToString(@"mm\:ss"))
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

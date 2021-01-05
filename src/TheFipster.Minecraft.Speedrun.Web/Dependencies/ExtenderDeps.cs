@@ -13,6 +13,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IRunCounterExtender, RunCounterExtender>();
             container.Register<IAttemptHeatmapExtender, AttemptHeatmapExtender>();
             container.Register<IOutcomeStatsExtender, OutcomeStatsExtender>();
+            container.Register<ITimingStatsExtender, TimingStatsExtender>();
         }
     }
 }
