@@ -2,6 +2,7 @@
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;
 using TheFipster.Minecraft.Meta.Abstractions;
@@ -30,18 +31,18 @@ namespace TheFipster.Minecraft.Meta.Services
             if (timings.Events == null)
                 return timings;
 
-            writeSection(timings, run, RunSections.Spawn, MetaFeatures.Spawn);
-            writeSection(timings, run, RunSections.Nether, MetaFeatures.Nether);
-            writeSection(timings, run, RunSections.Fortress, MetaFeatures.Fortress);
-            writeSection(timings, run, RunSections.BlazeRod, MetaFeatures.BlazeRod);
-            writeSection(timings, run, RunSections.Search, MetaFeatures.Search);
-            writeSection(timings, run, RunSections.Stronghold, MetaFeatures.Stronghold);
-            writeSection(timings, run, RunSections.TheEnd, MetaFeatures.TheEnd);
+            writeSection(timings, run, Sections.Spawn, MetaFeatures.Spawn);
+            writeSection(timings, run, Sections.Nether, MetaFeatures.Nether);
+            writeSection(timings, run, Sections.Fortress, MetaFeatures.Fortress);
+            writeSection(timings, run, Sections.BlazeRod, MetaFeatures.BlazeRod);
+            writeSection(timings, run, Sections.Search, MetaFeatures.Search);
+            writeSection(timings, run, Sections.Stronghold, MetaFeatures.Stronghold);
+            writeSection(timings, run, Sections.TheEnd, MetaFeatures.TheEnd);
 
             return timings;
         }
 
-        private void writeSection(TimingAnalytics timings, RunImport run, RunSections section, MetaFeatures feature)
+        private void writeSection(TimingAnalytics timings, RunImport run, Sections section, MetaFeatures feature)
         {
             var timing = timings.Events.FirstOrDefault(x => x.Section == section);
             if (timing != null)

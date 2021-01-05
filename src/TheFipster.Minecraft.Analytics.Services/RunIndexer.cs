@@ -2,6 +2,7 @@
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
 using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
 
 namespace TheFipster.Minecraft.Analytics.Services
 {

@@ -2,6 +2,7 @@
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;
 

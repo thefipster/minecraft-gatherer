@@ -1,4 +1,5 @@
 ﻿using System;
+using TheFipster.Minecraft.Core.Domain;
 
 namespace TheFipster.Minecraft.Analytics.Domain
 {
@@ -9,7 +10,7 @@ namespace TheFipster.Minecraft.Analytics.Domain
 
         }
 
-        public TimingEvent(RunSections section)
+        public TimingEvent(Sections section)
         {
             Section = section;
         }
@@ -18,7 +19,7 @@ namespace TheFipster.Minecraft.Analytics.Domain
         public TimeSpan Time { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        public RunSections Section { get; set; }
+        public Sections Section { get; set; }
         public bool IsSubSplit { get; set; }
     }
 }

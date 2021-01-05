@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Core.Domain;
 
 namespace TheFipster.Minecraft.Speedrun.Web
 {
