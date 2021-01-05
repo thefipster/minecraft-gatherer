@@ -6,37 +6,15 @@
 }
 
 <tr>
-    <td class="text-right">
-        @if (!string.IsNullOrWhiteSpace(Model.SpeedrunLink))
-        {
-            <a href="@Model.SpeedrunLink">
-                <span class="text-success"><i class="fas fa-award fa-lg"></i></span>
-            </a>
-        }
-    </td>
     <td>
         <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
             <strong>@($"{ViewData["Count"]}.")</strong>
         </a>
     </td>
-    <td>
+    <td class="d-none d-md-table-cell">
         <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
             <strong>@($"#{Model.Index}")</strong>
         </a>
-    </td>
-    <td>
-        <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
-            @Model.StartedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
-        </a>
-    </td>
-    <td>
-        <time class="timeago" datetime="@Model.StartedOn.ToLocalTime().ToString("s")"></time>
-    </td>
-    <td>
-        @foreach (var playerId in Model.PlayerIds.OrderBy(x => x))
-        {
-            @await Html.PartialAsync("_PlayerAvatarSmall", playerId)
-        }
     </td>
     <td class="text-right">
         @if (Model.RuntimeOverride)
@@ -50,11 +28,31 @@
             </span>
         }
     </td>
-    <td class="text-right">
+    <td class="d-none d-md-table-cell">
+        <a asp-controller="Run" asp-action="Name" asp-route-worldname="@Model.Worldname">
+            @Model.StartedOn.ToLocalTime().ToString("dd. MMM yyyy - HH:mm:ss")
+        </a>
+    </td>
+    <td>
+        <time class="timeago" datetime="@Model.StartedOn.ToLocalTime().ToString("s")"></time>
+    </td>
+    <td class="d-none d-md-table-cell">
+        @foreach (var playerId in Model.PlayerIds.OrderBy(x => x))
+        {
+            @await Html.PartialAsync("_PlayerAvatarSmall", playerId)
+        }
+    </td>
+    <td class="text-right d-flex justify-content-between">
         @if (!string.IsNullOrWhiteSpace(Model.YoutubeLink))
         {
             <a href="@Model.YoutubeLink">
                 <span class="text-danger"><i class="fab fa-youtube fa-lg"></i></span>
+            </a>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.SpeedrunLink))
+        {
+            <a href="@Model.SpeedrunLink">
+                <span class="text-success"><i class="fas fa-award fa-lg"></i></span>
             </a>
         }
     </td>
