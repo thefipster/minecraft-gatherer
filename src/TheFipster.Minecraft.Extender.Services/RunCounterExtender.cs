@@ -2,6 +2,7 @@
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Extender.Abstractions;
 using TheFipster.Minecraft.Extender.Domain;
 
@@ -31,22 +32,22 @@ namespace TheFipster.Minecraft.Extender.Services
                 if (analytic.Players.Count() > 1)
                     runCount.Started++;
 
-                if (analytic.Timings.Events.Any(x => x.Section == RunSections.Spawn))
+                if (analytic.Timings.Events.Any(x => x.Section == Sections.Spawn))
                     runCount.Nether++;
 
-                if (analytic.Timings.Events.Any(x => x.Section == RunSections.Nether))
+                if (analytic.Timings.Events.Any(x => x.Section == Sections.Nether))
                     runCount.Search++;
 
-                if (analytic.Timings.Events.Any(x => x.Section == RunSections.Fortress))
+                if (analytic.Timings.Events.Any(x => x.Section == Sections.Fortress))
                     runCount.Fortresses++;
 
-                if (analytic.Timings.Events.Any(x => x.Section == RunSections.Search))
+                if (analytic.Timings.Events.Any(x => x.Section == Sections.Search))
                     runCount.Stronghold++;
 
-                if (analytic.Timings.Events.Any(x => x.Section == RunSections.Stronghold))
+                if (analytic.Timings.Events.Any(x => x.Section == Sections.Stronghold))
                     runCount.End++;
 
-                if (analytic.Timings.Events.Any(x => x.Section == RunSections.TheEnd))
+                if (analytic.Timings.Events.Any(x => x.Section == Sections.TheEnd))
                     runCount.Finished++;
             }
 

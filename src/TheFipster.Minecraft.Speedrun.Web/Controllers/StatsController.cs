@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Extender.Abstractions;
-using TheFipster.Minecraft.Meta.Abstractions;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Controllers
 {
@@ -9,14 +8,14 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
     public class StatsController : Controller
     {
         private readonly IAttemptHeatmapExtender _attemptHeatmapExtender;
-        private readonly IOutcomeFinder _outcomeFinder;
+        private readonly IOutcomeStatsExtender _outcomeStats;
 
         public StatsController(
             IAttemptHeatmapExtender attemptHeatmapExtender,
-            IOutcomeFinder outcomeFinder)
+            IOutcomeStatsExtender outcomeStats)
         {
             _attemptHeatmapExtender = attemptHeatmapExtender;
-            _outcomeFinder = outcomeFinder;
+            _outcomeStats = outcomeStats;
         }
 
         [HttpGet("heatmap/attempts")]
@@ -26,10 +25,24 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             return Json(heatmap);
         }
 
+        [HttpGet("outcomes")]
+        public IActionResult Outcomes()
+        {
+            return View();
+        }
+
+        [HttpGet("outcome/relative")]
+        public JsonResult OutcomeRelative()
+        {
+            var outcomeHistogram = _outcomeStats.Extend();
+            return Json(outcomeHistogram);
+        }
+
         [HttpGet("outcome/{period}")]
         public JsonResult OutcomePeriods(Period period)
         {
-            return Json(period);
+            var outcomeHistogram = _outcomeStats.Extend(period);
+            return Json(outcomeHistogram);
         }
     }
 }

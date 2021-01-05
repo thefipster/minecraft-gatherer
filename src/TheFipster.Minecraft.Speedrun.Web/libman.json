@@ -1,10 +1,14 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-    "libraries": [
-        {
-            "library": "jquery-timeago@1.6.7",
-            "destination": "wwwroot/lib/jquery-timeago/"
-        }
-    ]
+  "libraries": [
+    {
+      "library": "jquery-timeago@1.6.7",
+      "destination": "wwwroot/lib/jquery-timeago/"
+    },
+    {
+      "library": "Chart.js@2.9.4",
+      "destination": "wwwroot/lib/Chart.js/"
+    }
+  ]
 }
