@@ -10,6 +10,7 @@
     <ProjectReference Include="..\TheFipster.Minecraft.Analytics.Domain\TheFipster.Minecraft.Analytics.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Import.Domain\TheFipster.Minecraft.Import.Domain.csproj" />
     <ProjectReference Include="..\TheFipster.Minecraft.Enhancer.Domain\TheFipster.Minecraft.Enhancer.Domain.csproj" />
+    <ProjectReference Include="..\TheFipster.Minecraft.Manual.Abstractions\TheFipster.Minecraft.Manual.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

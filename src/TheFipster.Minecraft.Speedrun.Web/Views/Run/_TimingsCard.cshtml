@@ -56,7 +56,7 @@
                         }
                     </span>
                     <span class="w-25 text-center">@timing.Time.ToString(@"mm\:ss")</span>
-                    <span class="w-25 text-right">@(timing.IsSubSplit ? string.Empty : total.ToString())</span>
+                    <span class="w-25 text-right">@(timing.IsSubSplit ? string.Empty : total.ToString(@"hh\:mm\:ss"))</span>
                 </li>
             }
             @if (Model.FinishedOn.HasValue)
@@ -64,29 +64,37 @@
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <span>Finish Accuracy</span>
                     <span>
-                        @switch (Model.FinishTimeStrategy)
+                        @if (Model.ManualOverride)
                         {
-                            case FinishTimeStrategy.DragonKilledStrategy:
-                                {
-                                    <span class="badge badge-success">couple seconds</span>
-                                    break;
-                                }
-                            case FinishTimeStrategy.EnteredEndStrategy:
-                                {
-                                    <span class="badge badge-warning">couple minutes</span>
-                                    break;
-                                }
-                            case FinishTimeStrategy.NotFinished:
-                                {
-                                    <span class="badge badge-dark">not finished</span>
-                                    break;
-                                }
-                            case FinishTimeStrategy.WildGuess:
-                                {
-                                    <span class="badge badge-danger">wild guess</span>
-                                    break;
-                                }
+                            <span class="badge badge-success">+/- a second</span>
                         }
+                        else
+                        {
+                            switch (Model.FinishTimeStrategy)
+                            {
+                                case FinishTimeStrategy.DragonKilledStrategy:
+                                    {
+                                        <span class="badge badge-primary">couple seconds</span>
+                                        break;
+                                    }
+                                case FinishTimeStrategy.EnteredEndStrategy:
+                                    {
+                                        <span class="badge badge-warning">couple minutes</span>
+                                        break;
+                                    }
+                                case FinishTimeStrategy.NotFinished:
+                                    {
+                                        <span class="badge badge-dark">not finished</span>
+                                        break;
+                                    }
+                                case FinishTimeStrategy.WildGuess:
+                                    {
+                                        <span class="badge badge-danger">wild guess</span>
+                                        break;
+                                    }
+                            }
+                        }
+
                     </span>
                 </li>
             }

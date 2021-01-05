@@ -11,11 +11,13 @@ namespace TheFipster.Minecraft.Analytics.Services
     {
         private readonly IManualsWriter _component;
         private readonly IAnalyticsReader _reader;
+        private readonly IAnalyticsWriter _writer;
 
-        public ManualTimingAdjustmentDecorator(IManualsWriter writer, IAnalyticsReader reader)
+        public ManualTimingAdjustmentDecorator(IManualsWriter component, IAnalyticsReader reader, IAnalyticsWriter writer)
         {
-            _component = writer;
+            _component = component;
             _reader = reader;
+            _writer = writer;
         }
 
         public bool Exists(string name)
@@ -38,7 +40,7 @@ namespace TheFipster.Minecraft.Analytics.Services
 
             analytics.Timings.RunTime = TimeSpan.FromMilliseconds(manuals.RuntimeInMs.Value);
 
-            var timeWithoutEnd = analytics.Timings.Events.Where(x => x.Section != Sections.TheEnd).Sum(x => x.Time.Milliseconds);
+            var timeWithoutEnd = analytics.Timings.Events.Where(x => x.IsSubSplit == false).Where(x => x.Section != Sections.TheEnd).Sum(x => x.Time.TotalMilliseconds);
             var timeInEnd = manuals.RuntimeInMs.Value - timeWithoutEnd;
 
             if (timeInEnd <= 0)
@@ -46,7 +48,11 @@ namespace TheFipster.Minecraft.Analytics.Services
 
             var newTimeInEnd = TimeSpan.FromMilliseconds(timeInEnd);
 
-            throw new NotImplementedException();
+            analytics.Timings.Events.First(x => x.Section == Sections.TheEnd).Time = newTimeInEnd;
+            analytics.Timings.Events.First(x => x.Section == Sections.TheEnd).End = analytics.Timings.Events.First(x => x.Section == Sections.TheEnd).Start + newTimeInEnd;
+            analytics.Timings.ManualOverride = true;
+
+            _writer.Upsert(analytics);
         }
     }
 }

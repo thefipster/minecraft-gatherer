@@ -2,6 +2,7 @@
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Services;
 using TheFipster.Minecraft.Analytics.Services.Players;
+using TheFipster.Minecraft.Manual.Abstractions;
 using TheFipster.Minecraft.Modules.Abstractions;
 using TheFipster.Minecraft.Modules.Components;
 
@@ -35,6 +36,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.RegisterDecorator<IPlayerAnalyzer, PlayerStatisticsCounterDecorator>();
 
             container.Register<IAnalyticsModule, AnalyticsModule>();
+
+            container.RegisterDecorator<IManualsWriter, ManualTimingAdjustmentDecorator>();
         }
     }
 }
