@@ -1,4 +1,4 @@
-﻿namespace TheFipster.Minecraft.Analytics.Domain
+﻿namespace TheFipster.Minecraft.Core.Domain
 {
     public enum Outcomes
     {

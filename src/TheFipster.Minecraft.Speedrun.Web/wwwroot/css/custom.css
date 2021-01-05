@@ -119,3 +119,7 @@ a, a:visited {
         transform: scale(1.5);
     }
 }
+
+.pad-top {
+    padding-top: 20px;
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Overview.Abstractions;
 
 namespace TheFipster.Minecraft.Overview.Services

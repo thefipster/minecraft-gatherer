@@ -1,6 +1,6 @@
-﻿namespace TheFipster.Minecraft.Analytics.Domain
+﻿namespace TheFipster.Minecraft.Core.Domain
 {
-    public enum RunSections
+    public enum Sections
     {
         Spawn,
         Nether,

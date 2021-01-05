@@ -1,0 +1,371 @@
+﻿@using TheFipster.Minecraft.Core.Domain
+@{
+    ViewData["Title"] = "Outcomes";
+}
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+
+            var discardedColor = "rgba(1, 81, 126, 0.7)";
+            var startedColor = "rgba(233, 156, 23, 0.7)";
+            var netherColor = "rgba(184, 43, 11, 0.7)";
+            var fortressColor = "rgba(100, 30, 20, 0.7)";
+            var searchColor = "rgba(48, 127, 23, 0.7)";
+            var strongholdColor = "rgba(138, 138, 138, 0.7)";
+            var endColor = "rgba(219, 219, 53, 0.7)";
+            var finishColor = "rgba(255, 255, 255, 0.7)";
+
+            var options = {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        ticks : {
+                            max : 100,
+                            min : 0
+                        }
+                    }]
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel + " %";
+                        }
+                    }
+                }
+            }
+
+            if (!$("#OutcomeDailyHistogram").length) {
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Period.Daily })"
+            }).then(function (data) {
+                new Chart(document.getElementById('OutcomeDailyHistogram').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                        {
+                            label: 'Unknown',
+                            data: data.unknown,
+                        },
+                        {
+                            label: 'Untouched',
+                            data: data.untouched,
+                        },
+                        {
+                            label: 'Discarded',
+                            data: data.discarded,
+                            backgroundColor: discardedColor,
+                        },
+                        {
+                            label: 'Started',
+                            data: data.started,
+                            backgroundColor: startedColor,
+                        },
+                        {
+                            label: 'Nether',
+                            data: data.nether,
+                            backgroundColor: netherColor,
+                        },
+                        {
+                            label: 'Fortress',
+                            data: data.fortress,
+                            backgroundColor: fortressColor,
+                        },
+                        {
+                            label: 'Search',
+                            data: data.search,
+                            backgroundColor: searchColor,
+                        },
+                        {
+                            label: 'Stronghold',
+                            data: data.stronghold,
+                            backgroundColor: strongholdColor,
+                        },
+                        {
+                            label: 'End',
+                            data: data.end,
+                            backgroundColor: endColor,
+                        },
+                        {
+                            label: 'Finish',
+                            data: data.finished,
+                            backgroundColor: finishColor,
+                        }]
+                    },
+                    options: options,
+                });
+                $("#daily-loading").hide();
+            });
+
+            if (!$("#OutcomeWeeklyHistogram").length) {
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Period.Weekly })"
+            }).then(function (data) {
+                new Chart(document.getElementById('OutcomeWeeklyHistogram').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                        {
+                            label: 'Unknown',
+                            data: data.unknown,
+                        },
+                        {
+                            label: 'Untouched',
+                            data: data.untouched,
+                        },
+                        {
+                            label: 'Discarded',
+                            data: data.discarded,
+                            backgroundColor: discardedColor,
+                        },
+                        {
+                            label: 'Started',
+                            data: data.started,
+                            backgroundColor: startedColor,
+                        },
+                        {
+                            label: 'Nether',
+                            data: data.nether,
+                            backgroundColor: netherColor,
+                        },
+                        {
+                            label: 'Fortress',
+                            data: data.fortress,
+                            backgroundColor: fortressColor,
+                        },
+                        {
+                            label: 'Search',
+                            data: data.search,
+                            backgroundColor: searchColor,
+                        },
+                        {
+                            label: 'Stronghold',
+                            data: data.stronghold,
+                            backgroundColor: strongholdColor,
+                        },
+                        {
+                            label: 'End',
+                            data: data.end,
+                            backgroundColor: endColor,
+                        },
+                        {
+                            label: 'Finish',
+                            data: data.finished,
+                            backgroundColor: finishColor,
+                        }]
+                    },
+                    options: options,
+                });
+                $("#weekly-loading").hide();
+            });
+
+            if (!$("#OutcomeMonthlyHistogram").length) {
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Period.Monthly })"
+            }).then(function (data) {
+                new Chart(document.getElementById('OutcomeMonthlyHistogram').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                        {
+                            label: 'Unknown',
+                            data: data.unknown,
+                        },
+                        {
+                            label: 'Untouched',
+                            data: data.untouched,
+                        },
+                        {
+                            label: 'Discarded',
+                            data: data.discarded,
+                            backgroundColor: discardedColor,
+                        },
+                        {
+                            label: 'Started',
+                            data: data.started,
+                            backgroundColor: startedColor,
+                        },
+                        {
+                            label: 'Nether',
+                            data: data.nether,
+                            backgroundColor: netherColor,
+                        },
+                        {
+                            label: 'Fortress',
+                            data: data.fortress,
+                            backgroundColor: fortressColor,
+                        },
+                        {
+                            label: 'Search',
+                            data: data.search,
+                            backgroundColor: searchColor,
+                        },
+                        {
+                            label: 'Stronghold',
+                            data: data.stronghold,
+                            backgroundColor: strongholdColor,
+                        },
+                        {
+                            label: 'End',
+                            data: data.end,
+                            backgroundColor: endColor,
+                        },
+                        {
+                            label: 'Finish',
+                            data: data.finished,
+                            backgroundColor: finishColor,
+                        }]
+                    },
+                    options: options,
+                });
+                $("#monthly-loading").hide();
+            });
+
+            if (!$("#OutcomeRelativeHistogram").length) {
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Action("OutcomeRelative", "Stats")"
+            }).then(function (data) {
+                new Chart(document.getElementById('OutcomeRelativeHistogram').getContext('2d'), {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [
+                        {
+                            label: 'Unknown',
+                            data: data.unknown,
+                        },
+                        {
+                            label: 'Untouched',
+                            data: data.untouched,
+                        },
+                        {
+                            label: 'Discarded',
+                            data: data.discarded,
+                            backgroundColor: discardedColor,
+                        },
+                        {
+                            label: 'Started',
+                            data: data.started,
+                            backgroundColor: startedColor,
+                        },
+                        {
+                            label: 'Nether',
+                            data: data.nether,
+                            backgroundColor: netherColor,
+                        },
+                        {
+                            label: 'Fortress',
+                            data: data.fortress,
+                            backgroundColor: fortressColor,
+                        },
+                        {
+                            label: 'Search',
+                            data: data.search,
+                            backgroundColor: searchColor,
+                        },
+                        {
+                            label: 'Stronghold',
+                            data: data.stronghold,
+                            backgroundColor: strongholdColor,
+                        },
+                        {
+                            label: 'End',
+                            data: data.end,
+                            backgroundColor: endColor,
+                        },
+                        {
+                            label: 'Finish',
+                            data: data.finished,
+                            backgroundColor: finishColor,
+                        }]
+                    },
+                    options: options,
+                });
+                $("#relative-loading").hide();
+            });
+        });
+    </script>
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Outcomes</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header">
+                <h2>Relative from today</h2>
+            </div>
+
+            <div class="card-body">
+                <img id="relative-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                <canvas id="OutcomeRelativeHistogram" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header">
+                <h2>By period</h2>
+            </div>
+
+            <div class="card-body">
+                <ul class="nav nav-tabs" id="PeriodTabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="daily-tab" data-toggle="tab" href="#daily" role="tab" aria-controls="daily" aria-selected="true">Daily</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="weekly-tab" data-toggle="tab" href="#weekly" role="tab" aria-controls="weekly" aria-selected="false">Weekly</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="monthly-tab" data-toggle="tab" href="#monthly" role="tab" aria-controls="monthly" aria-selected="false">Monthly</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="PeriodContent">
+                    <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
+                        <img id="daily-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                        <canvas id="OutcomeDailyHistogram" class="pad-top" width="400" height="200"></canvas>
+                    </div>
+                    <div class="tab-pane fade" id="weekly" role="tabpanel" aria-labelledby="weekly-tab">
+                        <img id="weekly-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                        <canvas id="OutcomeWeeklyHistogram" class="pad-top" width="400" height="200"></canvas>
+                    </div>
+                    <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
+                        <img id="monthly-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                        <canvas id="OutcomeMonthlyHistogram" class="pad-top" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

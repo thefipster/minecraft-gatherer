@@ -2,6 +2,7 @@
 using System.Linq;
 using TheFipster.Minecraft.Analytics.Abstractions;
 using TheFipster.Minecraft.Analytics.Domain;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Enhancer.Domain;
 using TheFipster.Minecraft.Import.Domain;
 
@@ -20,7 +21,7 @@ namespace TheFipster.Minecraft.Analytics.Services
         public TimingAnalytics Analyze(RunImport run)
         {
             var timings = _component.Analyze(run);
-            var timingEvent = new TimingEvent(RunSections.BlazeRod);
+            var timingEvent = new TimingEvent(Sections.BlazeRod);
             timingEvent.IsSubSplit = true;
 
             if (!appendStartIfPossible(timingEvent))
