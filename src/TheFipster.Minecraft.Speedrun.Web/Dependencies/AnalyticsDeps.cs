@@ -29,6 +29,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.RegisterDecorator<ITimingAnalyzer, TimingStrongholdSectionDecorator>();
             container.RegisterDecorator<ITimingAnalyzer, TimingTheEndSectionDecorator>();
             container.RegisterDecorator<ITimingAnalyzer, TimingPlaytimeDecorator>();
+            container.RegisterDecorator<ITimingAnalyzer, TimingTheEndManualAdjustmentDecorator>();
 
             container.Register<IOutcomeAnalyzer, OutcomeAnalyzer>();
 
@@ -38,6 +39,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IAnalyticsModule, AnalyticsModule>();
 
             container.RegisterDecorator<IManualsWriter, ManualTimingAdjustmentDecorator>();
+            container.Register<IManualEndTimeAdjuster, ManualEndTimeAdjuster>();
         }
     }
 }
