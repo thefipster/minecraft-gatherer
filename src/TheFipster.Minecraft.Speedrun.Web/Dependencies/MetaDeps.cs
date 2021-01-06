@@ -16,6 +16,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
 
             container.Register<ITimingWriter, TimingWriter>(Lifestyle.Scoped);
             container.Register<ITimingFinder, TimingFinder>(Lifestyle.Scoped);
+            container.RegisterDecorator<ITimingFinder, TimingBlacklistDecorator>(Lifestyle.Scoped);
+            container.Register<ITimingBlacklister, TimingBlacklister>(Lifestyle.Scoped);
 
             container.Register<IOutcomeWriter, OutcomeWriter>(Lifestyle.Scoped);
             container.Register<IOutcomeFinder, OutcomeFinder>(Lifestyle.Scoped);

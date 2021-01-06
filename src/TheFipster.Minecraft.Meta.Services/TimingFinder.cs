@@ -16,6 +16,8 @@ namespace TheFipster.Minecraft.Meta.Services
         private readonly ILiteCollection<RunMeta<int>> _strongholdCollection;
         private readonly ILiteCollection<RunMeta<int>> _endCollection;
 
+        private readonly ITimingBlacklister _timingBlacklister;
+
         private readonly MetaFeatures[] validFeatures = new[]
         {
             MetaFeatures.BlazeRod,
@@ -27,7 +29,7 @@ namespace TheFipster.Minecraft.Meta.Services
             MetaFeatures.TheEnd
         };
 
-        public TimingFinder(IMetaDatabaseHandler databaseHandler)
+        public TimingFinder(IMetaDatabaseHandler databaseHandler, ITimingBlacklister timingBlacklister)
         {
             _spawnCollection = databaseHandler.GetCollection<RunMeta<int>>("MetaSpawnTiming");
             _netherCollection = databaseHandler.GetCollection<RunMeta<int>>("MetaNetherTiming");
@@ -36,6 +38,8 @@ namespace TheFipster.Minecraft.Meta.Services
             _searchCollection = databaseHandler.GetCollection<RunMeta<int>>("MetaSearchTiming");
             _strongholdCollection = databaseHandler.GetCollection<RunMeta<int>>("MetaStrongholdTiming");
             _endCollection = databaseHandler.GetCollection<RunMeta<int>>("MetaEndTiming");
+
+            _timingBlacklister = timingBlacklister;
         }
 
         public IEnumerable<RunMeta<int>> Get(MetaFeatures feature)
@@ -145,9 +149,10 @@ namespace TheFipster.Minecraft.Meta.Services
                     }
                 case MetaFeatures.TheEnd:
                     {
-                        return _endCollection.Find(x =>
-                            x.Timestamp >= inclusiveStart
-                            && x.Timestamp < exclusiveEnd);
+                        return _endCollection
+                            .Find(x => x.Timestamp >= inclusiveStart
+                                       && x.Timestamp < exclusiveEnd);
+
                     }
                 default:
                     {
@@ -155,5 +160,9 @@ namespace TheFipster.Minecraft.Meta.Services
                     }
             }
         }
+
+
+
+
     }
 }
