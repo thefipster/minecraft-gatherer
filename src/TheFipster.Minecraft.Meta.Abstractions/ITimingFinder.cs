@@ -6,7 +6,10 @@ namespace TheFipster.Minecraft.Meta.Abstractions
 {
     public interface ITimingFinder
     {
-        IEnumerable<RunMeta<int>> Get();
-        IEnumerable<RunMeta<int>> Get(DateTime inclusiveStart, DateTime exclusiveEnd);
+        Dictionary<MetaFeatures, IEnumerable<RunMeta<int>>> Get();
+        Dictionary<MetaFeatures, IEnumerable<RunMeta<int>>> Get(DateTime inclusiveStart, DateTime exclusiveEnd);
+
+        IEnumerable<RunMeta<int>> Get(MetaFeatures feature);
+        IEnumerable<RunMeta<int>> Get(MetaFeatures feature, DateTime inclusiveStart, DateTime exclusiveEnd);
     }
 }

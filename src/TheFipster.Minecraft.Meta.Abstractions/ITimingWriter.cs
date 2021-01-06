@@ -4,12 +4,10 @@ namespace TheFipster.Minecraft.Meta.Abstractions
 {
     public interface ITimingWriter
     {
-        void Insert(RunMeta<int> meta);
-
-        void Update(RunMeta<int> meta);
-
         void Upsert(RunMeta<int> meta);
 
-        bool Exists(string worldname);
+        bool Exists(RunMeta<int> meta);
+
+        bool Exists(string worldname, MetaFeatures feature);
     }
 }

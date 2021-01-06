@@ -10,6 +10,31 @@
 </div>
 
 <div class="row">
+    <h2>Fastest Sections</h2>
+    @foreach (var timing in Model.FastestSections)
+    {
+        <div class="col-2">
+            <div class="card border-secondary">
+                <div class="card-header">
+                    <h2>@timing.Value.Section</h2>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item text-center">
+                            <strong>@TimeSpan.FromMilliseconds(timing.Value.Timing.Value).ToString(@"mm\:ss") min</strong>
+                        </li>
+                        <li class="list-group-item text-center">
+                            achieved in Run <a asp-controller="Run" asp-action="Name" asp-route-worldname="@timing.Value.Run.Worldname">#@timing.Value.Run.Index</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<div class="row">
     <div class="col">
         <table class="table table-hover">
             <tbody>
@@ -28,6 +53,7 @@
                         @foreach (var timing in period.Value)
                         {
                             <td>
+                                @timing.Section<br />
                                 @timing.Minimum.ToString(@"mm\:ss")
                                 -
                                 @timing.Maximum.ToString(@"mm\:ss")<br />

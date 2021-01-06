@@ -11,15 +11,18 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         private readonly IAttemptHeatmapExtender _attemptHeatmapExtender;
         private readonly IOutcomeStatsExtender _outcomeStats;
         private readonly ITimingStatsExtender _timingStats;
+        private readonly IBestTimingsExtender _bestTimings;
 
         public StatsController(
             IAttemptHeatmapExtender attemptHeatmapExtender,
             IOutcomeStatsExtender outcomeStats,
-            ITimingStatsExtender timingStats)
+            ITimingStatsExtender timingStats,
+            IBestTimingsExtender bestTimings)
         {
             _attemptHeatmapExtender = attemptHeatmapExtender;
             _outcomeStats = outcomeStats;
             _timingStats = timingStats;
+            _bestTimings = bestTimings;
         }
 
         [HttpGet("heatmap/attempts")]
@@ -52,6 +55,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         [HttpGet("timings")]
         public IActionResult Timings()
         {
+            var viewmodel = new StatsTimingsViewModel();
+
             var now = DateTime.UtcNow;
 
             var alltimeStats = _timingStats.Extend();
@@ -62,7 +67,6 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             var lastWeek = _timingStats.Extend(now.AddDays(-7), now);
             var lastDay = _timingStats.Extend(now.AddDays(-1), now);
 
-            var viewmodel = new StatsTimingsViewModel();
             viewmodel.Stats.Add("all-time", alltimeStats);
             viewmodel.Stats.Add("last year", lastYear);
             viewmodel.Stats.Add("last semester", lastSemester);
@@ -70,6 +74,9 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
             viewmodel.Stats.Add("last month", lastMonth);
             viewmodel.Stats.Add("last week", lastWeek);
             viewmodel.Stats.Add("last 24 hours", lastDay);
+
+            var bestTimes = _bestTimings.Extend();
+            viewmodel.FastestSections = bestTimes;
 
             return View(viewmodel);
         }

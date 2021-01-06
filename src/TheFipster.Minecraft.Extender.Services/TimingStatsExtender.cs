@@ -31,26 +31,29 @@ namespace TheFipster.Minecraft.Extender.Services
             return result;
         }
 
-        private IEnumerable<TimingStats> groupSections(IEnumerable<RunMeta<int>> timings)
+        private IEnumerable<TimingStats> groupSections(Dictionary<MetaFeatures, IEnumerable<RunMeta<int>>> timings)
         {
             var sections = new List<TimingStats>();
-            var grouped = timings.GroupBy(x => x.Feature);
 
-            foreach (var feature in grouped)
+            foreach (var feature in timings)
             {
-                var min = feature.Min(x => x.Value);
-                var max = feature.Max(x => x.Value);
-                var avg = feature.Average(x => x.Value);
-                var sd = calculateStandardDeviation(feature.AsEnumerable());
+                var stats = new TimingStats(feature.Key);
 
-
-                var stats = new TimingStats(feature.Key)
+                if (feature.Value.Count() == 0)
                 {
-                    Minimum = TimeSpan.FromMilliseconds(min),
-                    Maximum = TimeSpan.FromMilliseconds(max),
-                    Average = TimeSpan.FromMilliseconds(avg),
-                    StandardDeviation = TimeSpan.FromMilliseconds(sd)
-                };
+                    sections.Add(stats);
+                    continue;
+                }
+
+                var min = feature.Value.Min(x => x.Value);
+                var max = feature.Value.Max(x => x.Value);
+                var avg = feature.Value.Average(x => x.Value);
+                var sd = calculateStandardDeviation(feature.Value);
+
+                stats.Minimum = TimeSpan.FromMilliseconds(min);
+                stats.Maximum = TimeSpan.FromMilliseconds(max);
+                stats.Average = TimeSpan.FromMilliseconds(avg);
+                stats.StandardDeviation = TimeSpan.FromMilliseconds(sd);
 
                 sections.Add(stats);
             }
@@ -58,11 +61,10 @@ namespace TheFipster.Minecraft.Extender.Services
             return sections;
         }
 
-
         private double calculateStandardDeviation(IEnumerable<RunMeta<int>> feature)
         {
             var average = (int)feature.Average(x => x.Value);
-            var sumOfSquaresOfDifferences = feature.Select(x => ((long)x.Value - (long)average) * ((long)x.Value - (long)average)).Sum();
+            var sumOfSquaresOfDifferences = feature.Select(x => ((long)x.Value - average) * ((long)x.Value - average)).Sum();
             var standardDeviation = Math.Sqrt(sumOfSquaresOfDifferences / feature.Count());
             return standardDeviation;
         }
