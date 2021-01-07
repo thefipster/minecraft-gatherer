@@ -1,0 +1,44 @@
+﻿@using TheFipster.Minecraft.Core.Domain
+@model HomeIndexViewModel
+@{
+    var pb = Model.PersonalBests.OrderBy(x => x.Runtime).FirstOrDefault();
+
+    var popups = new Dictionary<Sections, string>
+{
+        { Sections.BlazeRod, "Time from entering the Fortress until the first Blaze rod is collected." },
+        { Sections.Fortress, "Time from entering the Nether until entering the Fortress." },
+        { Sections.Nether, "Time from entering the Nether until the first Eye of Ender is crafted." },
+        { Sections.Search, "Time from crafting the first Eye of Ender until entering the Stronghold." },
+        { Sections.Spawn, "Time from the 'time set' Command until entering the Nether." },
+        { Sections.Stronghold, "Time from entering the Stronghold until jumping into the End Portal." },
+        { Sections.TheEnd, "Time from entering the End Portal until the first Players exits through the Exit Portal." },
+    };
+}
+
+<div class="card border-secondary">
+    <div class="card-header d-flex justify-content-between">
+        <h2>Splits</h2>
+        <a class="btn btn-outline-primary btn-sm" asp-controller="Stats" asp-action="Timings">tell me more</a>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            @foreach (var timing in Model.FastestSections)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span data-toggle="tooltip" data-placement="right" title="@popups[timing.Value.Section]">
+                        @timing.Value.Section
+                        <i class="fas fa-question-circle help-bubble"></i>
+                    </span>
+                    <span>@TimeSpan.FromMilliseconds(timing.Value.Timing.Value).ToString(@"mm\:ss")</span>
+                </li>
+            }
+            @if (pb != null)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Personal Best</span>
+                    <span>@pb.Runtime.Value.ToString(@"mm\:ss")</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

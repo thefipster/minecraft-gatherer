@@ -1,6 +1,6 @@
 ﻿namespace TheFipster.Minecraft.Core.Domain
 {
-    public enum Period
+    public enum Periods
     {
         Daily,
         Weekly,

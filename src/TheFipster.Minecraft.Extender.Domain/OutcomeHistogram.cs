@@ -24,7 +24,7 @@ namespace TheFipster.Minecraft.Extender.Domain
             Finished = new List<double>();
         }
 
-        public OutcomeHistogram(Period period)
+        public OutcomeHistogram(Periods period)
             : this()
             => Period = period.ToString();
 

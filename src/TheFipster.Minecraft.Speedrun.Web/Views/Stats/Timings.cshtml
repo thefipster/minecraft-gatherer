@@ -1,0 +1,140 @@
+﻿@using TheFipster.Minecraft.Core.Domain
+@model StatsTimingsViewModel
+@{
+    ViewData["Title"] = "Timings";
+}
+
+@section Scripts
+{
+    <script>
+        var startedColor = "rgb(233, 156, 23)";
+        var netherColor = "rgb(184, 43, 11)";
+        var searchColor = "rgb(48, 127, 23)";
+        var strongholdColor = "rgb(138, 138, 138)";
+        var endColor = "rgb(219, 219, 53)";
+
+        $(document).ready(function () {
+            $.when(
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Spawn })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Nether })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Search })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Stronghold })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.TheEnd })")
+            ).then(function (resp1, resp2, resp3, resp4, resp5) {
+                var spawn = createTrace(resp1[0], startedColor, 'Spawn');
+                var nether = createTrace(resp2[0], netherColor, 'Nether');
+                var search = createTrace(resp3[0], searchColor, 'Search');
+                var stronghold = createTrace(resp4[0], strongholdColor, 'Stronghold');
+                var theend = createTrace(resp5[0], endColor, 'TheEnd');
+
+                var data = [spawn, nether, search, stronghold, theend];
+
+                var layout = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: {
+                        color: '#fff',
+                        tickcolor: '#fff'
+                    },
+                    yaxis: {
+                        color: '#fff',
+                        tickcolor: '#fff'
+                    },
+                    margin: {
+                        l: 30,
+                        r: 0,
+                        b: 60,
+                        t: 0,
+                        pad: 0
+                    },
+                    showlegend: false
+                };
+
+                var config = {
+                    displayModeBar: false
+                };
+
+                Plotly.newPlot('boxplot-overall-sections', data, layout, config);
+            });
+        });
+
+        function createTrace(data, color, name) {
+            return {
+                y: data,
+                type: 'box',
+                name: name,
+                hoverinfo: 'none',
+                marker: {
+                    color: color,
+                    size: 2
+                },
+                textfont: {
+                    color: '#fff'
+                },
+                boxmean: true,
+                boxpoints: false
+            };
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col">
+        <h1>Timings</h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header">
+                <h2>Fastest Sections</h2>
+            </div>
+            <div class="card-body d-flex justify-content-center">
+                <ul class="list-group list-group-horizontal-md">
+
+                    @foreach (var timing in Model.FastestSections)
+                    {
+                        <li class="list-group-item">
+                            <p class="lead">@timing.Value.Section</p>
+                            <blockquote class="blockquote">
+                                <p class="h3">@TimeSpan.FromMilliseconds(timing.Value.Timing.Value).ToString(@"mm\:ss") min</p>
+                                <footer class="blockquote-footer">
+                                    achieved in Run <a asp-controller="Run" asp-action="Name" asp-route-worldname="@timing.Value.Run.Worldname">#@timing.Value.Run.Index</a>
+                                </footer>
+                            </blockquote>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card border-secondary">
+            <div class="card-header">
+                <h2>Section Times</h2>
+            </div>
+            <div class="card-body">
+                <div id="boxplot-overall-sections"></div>
+                <p class="card-text">
+                    <strong>But what does it mean?</strong>
+                </p>
+                <p class="card-text">
+                    The <strong>Whiskers</strong> above and below the central box show the distribution of the best and worst 25% of our runs while the termination line at the ends is the best and worst time.
+                </p>
+                <p class="card-text">
+                    The <strong>Box</strong> therefore shows the distribution of the 'central' 50% of the runs.
+                </p>
+                <p class="card-text">
+                    The <strong>solid Line</strong> in the Box shows the median time. This means 50% of runs where slower and 50% of runs where faster.
+                </p>
+                <p class="card-text">
+                    The <strong>dashed Line</strong> shows the average time. This is the arithmetic mean value which can be shifted from the median value when the outlieres are distributed unevenly in the extrem cases.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

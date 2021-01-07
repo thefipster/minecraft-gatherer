@@ -67,25 +67,25 @@
     </div>
 }
 
-@*
-    @if (Model.Import.Events != null && Model.Import.Events.Any())
-    {
 
-        <div class="row">
-            <div class="col">
-                @await Html.PartialAsync("_RawEventsTable", Model.Import.Events)
-            </div>
+@if (Model.Import.Events != null && Model.Import.Events.Any())
+{
+
+    <div class="row">
+        <div class="col">
+            @await Html.PartialAsync("_RawEventsTable", Model.Import.Events)
         </div>
-    }
+    </div>
+}
 
-    @if (Model.Locations != null && Model.Locations.Any())
-    {
+@if (Model.Locations != null && Model.Locations.Any())
+{
 
-        <div class="row">
-            <div class="col">
-                @await Html.PartialAsync("_LocationsCard", Model.Locations)
-            </div>
+    <div class="row">
+        <div class="col">
+            @await Html.PartialAsync("_LocationsCard", Model.Locations)
         </div>
-    }
-*@
+    </div>
+}
+
 

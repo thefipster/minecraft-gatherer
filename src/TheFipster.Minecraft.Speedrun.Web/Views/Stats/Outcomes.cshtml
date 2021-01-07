@@ -16,6 +16,37 @@
             var endColor = "rgba(219, 219, 53, 0.7)";
             var finishColor = "rgba(255, 255, 255, 0.7)";
 
+            var periodOptions = {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        ticks : {
+                            max : 100,
+                            min : 0
+                        }
+                    }, {
+                        id: 'line',
+                        position: 'right',
+                        ticks: {
+                          min: 0
+                        }
+                    }]
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel + " %";
+                        }
+                    }
+                }
+            }
+
             var options = {
                 scales: {
                     xAxes: [{
@@ -41,12 +72,14 @@
                 }
             }
 
+
+
             if (!$("#OutcomeDailyHistogram").length) {
                 return;
             }
 
             $.ajax({
-                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Period.Daily })"
+                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Periods.Daily })"
             }).then(function (data) {
                 new Chart(document.getElementById('OutcomeDailyHistogram').getContext('2d'), {
                     type: 'bar',
@@ -54,8 +87,16 @@
                         labels: data.labels,
                         datasets: [
                         {
+                            label: 'Attempts',
+                            data: data.attempts,
+                            yAxisID: 'line',
+                            borderColor: "#ccc",
+                            borderWidth: 1,
+                            type: 'line'
+                        },
+                        {
                             label: 'Unknown',
-                            data: data.unknown,
+                            data: data.unknown
                         },
                         {
                             label: 'Untouched',
@@ -102,7 +143,7 @@
                             backgroundColor: finishColor,
                         }]
                     },
-                    options: options,
+                    options: periodOptions,
                 });
                 $("#daily-loading").hide();
             });
@@ -112,13 +153,21 @@
             }
 
             $.ajax({
-                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Period.Weekly })"
+                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Periods.Weekly })"
             }).then(function (data) {
                 new Chart(document.getElementById('OutcomeWeeklyHistogram').getContext('2d'), {
                     type: 'bar',
                     data: {
                         labels: data.labels,
                         datasets: [
+                        {
+                            label: 'Attempts',
+                            data: data.attempts,
+                            yAxisID: 'line',
+                            borderColor: "#ccc",
+                            borderWidth: 1,
+                            type: 'line'
+                        },
                         {
                             label: 'Unknown',
                             data: data.unknown,
@@ -168,7 +217,7 @@
                             backgroundColor: finishColor,
                         }]
                     },
-                    options: options,
+                    options: periodOptions,
                 });
                 $("#weekly-loading").hide();
             });
@@ -178,13 +227,21 @@
             }
 
             $.ajax({
-                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Period.Monthly })"
+                url: "@Url.Action("OutcomePeriods", "Stats", new { period = Periods.Monthly })"
             }).then(function (data) {
                 new Chart(document.getElementById('OutcomeMonthlyHistogram').getContext('2d'), {
                     type: 'bar',
                     data: {
                         labels: data.labels,
                         datasets: [
+                        {
+                            label: 'Attempts',
+                            data: data.attempts,
+                            yAxisID: 'line',
+                            borderColor: "#ccc",
+                            borderWidth: 1,
+                            type: 'line'
+                        },
                         {
                             label: 'Unknown',
                             data: data.unknown,
@@ -234,7 +291,7 @@
                             backgroundColor: finishColor,
                         }]
                     },
-                    options: options,
+                    options: periodOptions,
                 });
                 $("#monthly-loading").hide();
             });
@@ -321,9 +378,9 @@
                 <h2>Relative from today</h2>
             </div>
 
-            <div class="card-body">
-                <img id="relative-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
-                <canvas id="OutcomeRelativeHistogram" width="400" height="200"></canvas>
+            <div class="card-body text-center">
+                <img id="relative-loading" class="rounded float-left" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                <canvas id="OutcomeRelativeHistogram" width="2" height="1"></canvas>
             </div>
         </div>
     </div>
@@ -351,16 +408,16 @@
 
                 <div class="tab-content" id="PeriodContent">
                     <div class="tab-pane fade show active" id="daily" role="tabpanel" aria-labelledby="daily-tab">
-                        <img id="daily-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
-                        <canvas id="OutcomeDailyHistogram" class="pad-top" width="400" height="200"></canvas>
+                        <img id="daily-loading" class="rounded float-left" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                        <canvas id="OutcomeDailyHistogram" class="pad-top" width="2" height="1"></canvas>
                     </div>
                     <div class="tab-pane fade" id="weekly" role="tabpanel" aria-labelledby="weekly-tab">
-                        <img id="weekly-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
-                        <canvas id="OutcomeWeeklyHistogram" class="pad-top" width="400" height="200"></canvas>
+                        <img id="weekly-loading" class="rounded float-left" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                        <canvas id="OutcomeWeeklyHistogram" class="pad-top" width="2" height="1"></canvas>
                     </div>
                     <div class="tab-pane fade" id="monthly" role="tabpanel" aria-labelledby="monthly-tab">
-                        <img id="monthly-loading" class="loading-img" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
-                        <canvas id="OutcomeMonthlyHistogram" class="pad-top" width="400" height="200"></canvas>
+                        <img id="monthly-loading" class="rounded float-left" src="~/img/gifs/zombie_riding_pig.gif" alt="loading" />
+                        <canvas id="OutcomeMonthlyHistogram" class="pad-top" width="2" height="1"></canvas>
                     </div>
                 </div>
             </div>
