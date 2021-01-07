@@ -6,6 +6,6 @@ namespace TheFipster.Minecraft.Extender.Abstractions
     public interface IOutcomeStatsExtender
     {
         OutcomeHistogram Extend();
-        OutcomeHistogram Extend(Period period);
+        OutcomeHistogram Extend(Periods period);
     }
 }

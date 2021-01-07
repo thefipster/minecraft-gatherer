@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Extender.Abstractions;
 
@@ -46,7 +47,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         }
 
         [HttpGet("outcome/{period}")]
-        public JsonResult OutcomePeriods(Period period)
+        public JsonResult OutcomePeriods(Periods period)
         {
             var outcomeHistogram = _outcomeStats.Extend(period);
             return Json(outcomeHistogram);
@@ -57,28 +58,33 @@ namespace TheFipster.Minecraft.Speedrun.Web.Controllers
         {
             var viewmodel = new StatsTimingsViewModel();
 
-            var now = DateTime.UtcNow;
-
-            var alltimeStats = _timingStats.Extend();
-            var lastYear = _timingStats.Extend(now.AddDays(-360), now);
-            var lastSemester = _timingStats.Extend(now.AddDays(-180), now);
-            var lastQuarter = _timingStats.Extend(now.AddDays(-90), now);
-            var lastMonth = _timingStats.Extend(now.AddDays(-30), now);
-            var lastWeek = _timingStats.Extend(now.AddDays(-7), now);
-            var lastDay = _timingStats.Extend(now.AddDays(-1), now);
-
-            viewmodel.Stats.Add("all-time", alltimeStats);
-            viewmodel.Stats.Add("last year", lastYear);
-            viewmodel.Stats.Add("last semester", lastSemester);
-            viewmodel.Stats.Add("last quarter", lastQuarter);
-            viewmodel.Stats.Add("last month", lastMonth);
-            viewmodel.Stats.Add("last week", lastWeek);
-            viewmodel.Stats.Add("last 24 hours", lastDay);
-
             var bestTimes = _bestTimings.Extend();
+
+            if (bestTimes.ContainsKey(Sections.BlazeRod))
+                bestTimes.Remove(Sections.BlazeRod);
+
+            if (bestTimes.ContainsKey(Sections.Fortress))
+                bestTimes.Remove(Sections.Fortress);
+
             viewmodel.FastestSections = bestTimes;
 
             return View(viewmodel);
+        }
+
+        [HttpGet("timings/{section}/{period}")]
+        public JsonResult TimingsPeriods(Sections section, Periods period)
+        {
+            var timingsByPeriod = _timingStats.Extend(section, period);
+            var sectionTimes = timingsByPeriod.ToDictionary(x => x.Key.Label, y => y.Value.Select(z => TimeSpan.FromMilliseconds(z.Value).TotalMinutes));
+            return Json(sectionTimes);
+        }
+
+        [HttpGet("timings/{section}")]
+        public JsonResult TimingsAll(Sections section)
+        {
+            var timings = _timingStats.Extend(section);
+            var sectionTimes = timings.Select(x => x.Value);
+            return Json(sectionTimes.Select(x => TimeSpan.FromMilliseconds(x).TotalMinutes));
         }
     }
 }

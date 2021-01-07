@@ -1,6 +1,81 @@
-﻿@model StatsTimingsViewModel
+﻿@using TheFipster.Minecraft.Core.Domain
+@model StatsTimingsViewModel
 @{
     ViewData["Title"] = "Timings";
+}
+
+@section Scripts
+{
+    <script>
+        var startedColor = "rgba(233, 156, 23, 0.7)";
+        var netherColor = "rgba(184, 43, 11, 0.7)";
+        var searchColor = "rgba(48, 127, 23, 0.7)";
+        var strongholdColor = "rgba(138, 138, 138, 0.7)";
+        var endColor = "rgba(219, 219, 53, 0.7)";
+
+        $(document).ready(function () {
+            $.when(
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Spawn })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Nether })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Search })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.Stronghold })"),
+                $.get("@Url.Action("TimingsAll", "Stats", new { section = Sections.TheEnd })")
+            ).then(function (resp1, resp2, resp3, resp4, resp5) {
+                var spawn = createTrace(resp1[0], startedColor, 'Spawn');
+                var nether = createTrace(resp2[0], netherColor, 'Nether');
+                var search = createTrace(resp3[0], searchColor, 'Search');
+                var stronghold = createTrace(resp4[0], strongholdColor, 'Stronghold');
+                var theend = createTrace(resp5[0], endColor, 'TheEnd');
+
+                var data = [spawn, nether, search, stronghold, theend];
+
+                var layout = {
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: {
+                        color: '#fff',
+                        tickcolor: '#fff'
+                    },
+                    yaxis: {
+                        color: '#fff',
+                        tickcolor: '#fff'
+                    },
+                    margin: {
+                        l: 30,
+                        r: 0,
+                        b: 30,
+                        t: 0,
+                        pad: 0
+                    },
+                    showlegend: false
+                };
+
+                var config = {
+                    displayModeBar: false
+                };
+
+                Plotly.newPlot('boxplot-overall-sections', data, layout, config);
+            });
+        });
+
+        function createTrace(data, color, name) {
+            return {
+                y: data,
+                type: 'box',
+                name: name,
+                hoverinfo: 'none',
+                marker: {
+                    color: color,
+                    size: 2
+                },
+                textfont: {
+                    color: '#fff'
+                },
+                boxmean: true,
+                boxpoints: 'suspectedoutliers'
+            };
+        }
+    </script>
 }
 
 <div class="row">
@@ -18,55 +93,32 @@
 <div class="row">
     @foreach (var timing in Model.FastestSections)
     {
-    <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="card border-secondary">
-            <div class="card-header">
-                <h2>@timing.Value.Section</h2>
-            </div>
-            <div class="card-body">
-                <blockquote class="blockquote">
-                    <p class="h3">@TimeSpan.FromMilliseconds(timing.Value.Timing.Value).ToString(@"mm\:ss") min</p>
-                    <footer class="blockquote-footer">
-                        achieved in Run <a asp-controller="Run" asp-action="Name" asp-route-worldname="@timing.Value.Run.Worldname">#@timing.Value.Run.Index</a>
-                    </footer>
-                </blockquote>
+        <div class="col-sm-6 col-md-4 col-lg-3">
+            <div class="card border-secondary">
+                <div class="card-header">
+                    <h2>@timing.Value.Section</h2>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote">
+                        <p class="h3">@TimeSpan.FromMilliseconds(timing.Value.Timing.Value).ToString(@"mm\:ss") min</p>
+                        <footer class="blockquote-footer">
+                            achieved in Run <a asp-controller="Run" asp-action="Name" asp-route-worldname="@timing.Value.Run.Worldname">#@timing.Value.Run.Index</a>
+                        </footer>
+                    </blockquote>
+                </div>
             </div>
         </div>
-    </div>
     }
 </div>
 
+<div class="row">
+    <div class="col">
+        <h2>Overall Section Times</h2>
+    </div>
+</div>
 
 <div class="row">
     <div class="col">
-        <table class="table table-hover">
-            <tbody>
-                <tr>
-                    <th></th>
-                    <th>Spawn</th>
-                    <th>The End</th>
-                    <th>Fortress</th>
-                    <th>Search</th>
-                    <th>Stronghold</th>
-                </tr>
-                @foreach (var period in Model.Stats)
-                {
-                <tr>
-                    <td>@period.Key</td>
-                    @foreach (var timing in period.Value)
-                        {
-                    <td>
-                        @timing.Section<br />
-                        @timing.Minimum.ToString(@"mm\:ss")
-                        -
-                        @timing.Maximum.ToString(@"mm\:ss")<br />
-                        @timing.Average.ToString(@"mm\:ss")
-                        (+/- @timing.StandardDeviation.ToString(@"mm\:ss"))
-                    </td>
-                        }
-                </tr>
-                }
-            </tbody>
-        </table>
+        <div id="boxplot-overall-sections"></div>
     </div>
 </div>

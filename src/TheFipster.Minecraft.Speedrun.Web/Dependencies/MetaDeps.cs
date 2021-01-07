@@ -1,6 +1,9 @@
 ﻿using SimpleInjector;
 using TheFipster.Minecraft.Analytics.Abstractions;
+using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Meta.Abstractions;
+using TheFipster.Minecraft.Meta.Domain;
 using TheFipster.Minecraft.Meta.Services;
 
 namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
@@ -10,6 +13,8 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
         public static void RegisterMeta(this Container container)
         {
             container.Register<IMetaDatabaseHandler, LiteMetaDatabaseHandler>(Lifestyle.Singleton);
+
+            container.Register<IMapper<Sections, MetaFeatures>, FeatureSectionMapper>(Lifestyle.Singleton);
 
             container.Register<IRuntimeWriter, RuntimeWriter>(Lifestyle.Scoped);
             container.Register<IRuntimeFinder, RuntimeFinder>(Lifestyle.Scoped);

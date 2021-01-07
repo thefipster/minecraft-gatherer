@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TheFipster.Minecraft.Core.Abstractions;
+using TheFipster.Minecraft.Core.Domain;
 using TheFipster.Minecraft.Extender.Abstractions;
 using TheFipster.Minecraft.Extender.Domain;
 using TheFipster.Minecraft.Meta.Abstractions;
@@ -11,16 +13,44 @@ namespace TheFipster.Minecraft.Extender.Services
     public class TimingStatsExtender : ITimingStatsExtender
     {
         private readonly ITimingFinder _finder;
+        private readonly IMapper<Sections, MetaFeatures> _mapper;
+        private readonly IPeriodSlicer _slicer;
 
-        public TimingStatsExtender(ITimingFinder finder)
+        public TimingStatsExtender(ITimingFinder finder, IMapper<Sections, MetaFeatures> mapper, IPeriodSlicer slicer)
         {
             _finder = finder;
+            _mapper = mapper;
+            _slicer = slicer;
         }
 
         public IEnumerable<TimingStats> Extend()
         {
             var timings = _finder.Get();
             var result = groupSections(timings);
+            return result;
+        }
+
+        public IEnumerable<RunMeta<int>> Extend(Sections section)
+        {
+            var feature = _mapper.Map(section);
+            var timings = _finder.Get(feature);
+            return timings;
+        }
+
+        public Dictionary<TimePeriod, IEnumerable<RunMeta<int>>> Extend(Sections section, Periods period)
+        {
+            var result = new Dictionary<TimePeriod, IEnumerable<RunMeta<int>>>();
+
+            var feature = _mapper.Map(section);
+            var periods = _slicer.Slice(period);
+
+            foreach (var slice in periods)
+            {
+                var timings = _finder.Get(feature, slice.Start, slice.End);
+                result.Add(slice, timings);
+
+            }
+
             return result;
         }
 
