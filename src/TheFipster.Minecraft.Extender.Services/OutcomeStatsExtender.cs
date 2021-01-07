@@ -23,12 +23,11 @@ namespace TheFipster.Minecraft.Extender.Services
             var periods = new List<(DateTime, DateTime, string)>();
             var now = DateTime.UtcNow;
 
-            periods.Add((now.AddDays(-1), now, "last 24 hours"));
-            periods.Add((now.AddDays(-7), now, "last 7 days"));
-            periods.Add((now.AddDays(-30), now, "last 30 days"));
-            periods.Add((now.AddDays(-90), now, "last 90 days"));
-            periods.Add((now.AddDays(-180), now, "last 180 days"));
-            periods.Add((now.AddDays(-360), now, "last 360 days"));
+            periods.Add((now.AddDays(-7), now, "last week"));
+            periods.Add((now.AddDays(-30), now, "last month"));
+            periods.Add((now.AddDays(-90), now, "last quarter"));
+            periods.Add((now.AddDays(-180), now, "last semester"));
+            periods.Add((now.AddDays(-360), now, "last year"));
 
             var result = getPeriods(periods);
             result.Period = "relative";

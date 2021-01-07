@@ -1,0 +1,29 @@
+﻿@model HomeIndexViewModel
+@{
+    var pb = Model.PersonalBests.OrderBy(x => x.Runtime).FirstOrDefault();
+}
+
+<div class="card border-secondary">
+    <div class="card-header d-flex justify-content-between">
+        <h2>Splits</h2>
+        <a class="btn btn-outline-primary btn-sm" asp-controller="Stats" asp-action="Timings">tell me more</a>
+    </div>
+    <div class="card-body">
+        <ul class="list-group">
+            @foreach (var timing in Model.FastestSections)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>@timing.Value.Section</span>
+                    <span>@TimeSpan.FromMilliseconds(timing.Value.Timing.Value).ToString(@"mm\:ss")</span>
+                </li>
+            }
+            @if (pb != null)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>Personal Best</span>
+                    <span>@pb.Runtime.Value.ToString(@"mm\:ss")</span>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

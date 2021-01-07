@@ -15,6 +15,7 @@ namespace TheFipster.Minecraft.Speedrun.Web.Dependencies
             container.Register<IOutcomeStatsExtender, OutcomeStatsExtender>();
             container.Register<ITimingStatsExtender, TimingStatsExtender>();
             container.Register<IBestTimingsExtender, BestTimingsExtender>();
+            container.Register<IPersonalBestExtender, PersonalBestExtender>();
         }
     }
 }

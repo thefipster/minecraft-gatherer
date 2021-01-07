@@ -16,6 +16,37 @@
             var endColor = "rgba(219, 219, 53, 0.7)";
             var finishColor = "rgba(255, 255, 255, 0.7)";
 
+            var periodOptions = {
+                scales: {
+                    xAxes: [{
+                        stacked: true
+                    }],
+                    yAxes: [{
+                        stacked: true,
+                        ticks : {
+                            max : 100,
+                            min : 0
+                        }
+                    }, {
+                        id: 'line',
+                        position: 'right',
+                        ticks: {
+                          min: 0
+                        }
+                    }]
+                },
+                legend: {
+                    position: 'bottom'
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            return tooltipItem.yLabel + " %";
+                        }
+                    }
+                }
+            }
+
             var options = {
                 scales: {
                     xAxes: [{
@@ -41,6 +72,8 @@
                 }
             }
 
+
+
             if (!$("#OutcomeDailyHistogram").length) {
                 return;
             }
@@ -54,8 +87,16 @@
                         labels: data.labels,
                         datasets: [
                         {
+                            label: 'Attempts',
+                            data: data.attempts,
+                            yAxisID: 'line',
+                            borderColor: "#ccc",
+                            borderWidth: 1,
+                            type: 'line'
+                        },
+                        {
                             label: 'Unknown',
-                            data: data.unknown,
+                            data: data.unknown
                         },
                         {
                             label: 'Untouched',
@@ -102,7 +143,7 @@
                             backgroundColor: finishColor,
                         }]
                     },
-                    options: options,
+                    options: periodOptions,
                 });
                 $("#daily-loading").hide();
             });
@@ -120,6 +161,14 @@
                         labels: data.labels,
                         datasets: [
                         {
+                            label: 'Attempts',
+                            data: data.attempts,
+                            yAxisID: 'line',
+                            borderColor: "#ccc",
+                            borderWidth: 1,
+                            type: 'line'
+                        },
+                        {
                             label: 'Unknown',
                             data: data.unknown,
                         },
@@ -168,7 +217,7 @@
                             backgroundColor: finishColor,
                         }]
                     },
-                    options: options,
+                    options: periodOptions,
                 });
                 $("#weekly-loading").hide();
             });
@@ -186,6 +235,14 @@
                         labels: data.labels,
                         datasets: [
                         {
+                            label: 'Attempts',
+                            data: data.attempts,
+                            yAxisID: 'line',
+                            borderColor: "#ccc",
+                            borderWidth: 1,
+                            type: 'line'
+                        },
+                        {
                             label: 'Unknown',
                             data: data.unknown,
                         },
@@ -234,7 +291,7 @@
                             backgroundColor: finishColor,
                         }]
                     },
-                    options: options,
+                    options: periodOptions,
                 });
                 $("#monthly-loading").hide();
             });
